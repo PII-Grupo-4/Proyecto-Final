@@ -1,6 +1,6 @@
 namespace BatallaNaval
 {
-    public class Logica
+    public class Usuario
     {
 
     }

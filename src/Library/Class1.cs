@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Library
+namespace BatallaNaval
 {
     public class Class1
     {

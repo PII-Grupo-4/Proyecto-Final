@@ -10,7 +10,7 @@ namespace BatallaNaval
         {
 
         }
-        public void BarcoUndido()
+        public void BarcoHundido()
         {
 
         }

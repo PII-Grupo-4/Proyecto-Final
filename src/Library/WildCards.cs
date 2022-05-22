@@ -1,7 +1,8 @@
 namespace BatallaNaval
 {
-    public class Usuario
+    public interface WildCards
     {
 
+
     }
-}
+}   

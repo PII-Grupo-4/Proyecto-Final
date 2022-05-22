@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 namespace BatallaNaval
 {
-    public class Acorazado : Barcos_Abstract
+    public class Acorazado : Ships
     {
         public static string nombre = "Acorazado";
 

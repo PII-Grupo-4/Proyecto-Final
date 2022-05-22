@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+
 namespace BatallaNaval
 {
-    public class Commands
+    public abstract class Commands
     {
+        protected List<Commands> commands = new List<Commands>();
 
     }
 }

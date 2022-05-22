@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 namespace BatallaNaval
 {
-    public class Fragata : Barcos_Abstract
+    public class Fragata : Ships
     {
         public static string nombre = "Fragata";
 

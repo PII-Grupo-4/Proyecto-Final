@@ -2,19 +2,19 @@
 
 namespace BatallaNaval
 {
-    public class Jugador
+    public class Player
     {
         private int Idjugador;
         public string Nombre;
 
-        public Jugador(string nombre)
+        public Player(string nombre)
         {
             Random randomId = new Random();
             this.Nombre = nombre;
             this.Idjugador = randomId.Next(0,100000);
 
         }
-        public int ObtenerIdJugador()
+        public int GetPlayerId()
         {
             return this.Idjugador;
         }

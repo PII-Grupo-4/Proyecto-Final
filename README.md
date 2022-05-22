@@ -71,7 +71,7 @@ Cómo ya te habrás dado cuenta, nuestro chatbot necesitará guardar la informac
 -	Elegir modo de juego según el tamaño del tablero
 -	Poder colocar un limite de tiempo para ingresar una coordenada a disparar, si se pasa el tiempo pierde el turno
 -	Al comienzo de cada partida, cada jugador tiene 3 comodines:
-    a.	Tener dos turnos consecutivos
-    b.	Tener una bomba para disparar a 4 casilleros en 1 turno (los casilleros deben formar un cuadrado, o sea estar unidos)
-    c.	El tablero se divide en 4 sectores (izquierdo arriba, izquierdo abajo, derecho arriba, derecho abajo). Con esta habilidad el jugador puede obtener información sobre en cual de los sectores existen más puntos de impactos
+    -	Tener dos turnos consecutivos
+    -	Tener una bomba para disparar a 4 casilleros en 1 turno (los casilleros deben formar un cuadrado, o sea estar unidos)
+    -	El tablero se divide en 4 sectores (izquierdo arriba, izquierdo abajo, derecho arriba, derecho abajo). Con esta habilidad el jugador puede obtener información sobre en cual de los sectores existen más puntos de impactos
 -	Poder seleccionar un límite de turnos por partidas

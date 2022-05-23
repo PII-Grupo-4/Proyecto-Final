@@ -1,9 +1,10 @@
 namespace BatallaNaval
 {
-    public interface PrintBoardInConsole : IPrintBoard
+    public class PrintBoardInConsole : IPrintBoard
     {
         public void PrintBoard(){
-
+        
         }
+
     }   
 }

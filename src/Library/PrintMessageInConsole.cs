@@ -1,6 +1,6 @@
 namespace BatallaNaval
 {
-    public interface PrintMessageInConsole : IPrintMessage
+    public class PrintMessageInConsole : IPrintMessage
     {
         public void PrintMessage(){
 

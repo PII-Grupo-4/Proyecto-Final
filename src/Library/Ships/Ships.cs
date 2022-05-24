@@ -5,7 +5,7 @@ namespace BatallaNaval
 {
     public abstract class Ships
     {
-        public ArrayList poss = new ArrayList();
+        public ArrayList cord = new ArrayList();
         private int Size;
         private string Name;
 
@@ -18,8 +18,8 @@ namespace BatallaNaval
             {
                 this.Name = name;
                 this.Size = size;
-                this.poss.Add($"{pos1x},{pos1y}");
-                this.poss.Add($"{pos2x},{pos2y}");
+                this.cord.Add($"{pos1x},{pos1y}");
+                this.cord.Add($"{pos2x},{pos2y}");
             }
             else{
                 Console.WriteLine("No es posible la creacion del barco puesto que las coordenadas no concuerdan con el tamaño del barco");

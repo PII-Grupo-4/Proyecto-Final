@@ -1,6 +1,7 @@
+
 namespace BatallaNaval
 {
-    public interface IModosDeJuego
+    public class TimeLimitedGame
     {
         
     }

@@ -6,7 +6,7 @@ namespace BatallaNaval
     {
         public static string name = "Submarine";
 
-        public Submarine(int p1x, int p1y, int p2x, int p2y) :base(name, 3, p1x, p1y, p2x, p2y)
+        public Submarine(int x, int y, int size, Orientation o) :base( x, y, size, o)
         {    
         }
     }

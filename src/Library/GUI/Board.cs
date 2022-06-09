@@ -6,5 +6,6 @@ namespace BatallaNaval
         private int Size;
         public string[] GameBoard;
 
+
     }
 }

@@ -1,31 +1,72 @@
 using System;
 using System.Collections;
 
+
 namespace BatallaNaval
 {
     public abstract class Ships
     {
         public ArrayList cord = new ArrayList();
+
+        private int x;
+        private int y;
         private int Size;
         private string Name;
 
-        public Ships(string name, int size, int pos1x, int pos1y, int pos2x, int pos2y){
-            
-            if ((Math.Max(pos1x,pos2x) - Math.Min(pos1x,pos2x)) < 1 && (Math.Max(pos1y,pos2y) - Math.Min(pos1y,pos2y)) < 1){
-                Console.WriteLine("No es posible la creacion del barco puesto que las coordenadas no concuerdan con el tamaño del barco");
-            }
-            else if ((Math.Max(pos1x,pos2x) - Math.Min(pos1x,pos2x)) == (size - 1) || (Math.Max(pos1y,pos2y) - Math.Min(pos1y,pos2y)) == (size-1) )
-            {
-                this.Name = name;
-                this.Size = size;
-                this.cord.Add($"{pos1x},{pos1y}");
-                this.cord.Add($"{pos2x},{pos2y}");
-            }
-            else{
-                Console.WriteLine("No es posible la creacion del barco puesto que las coordenadas no concuerdan con el tamaño del barco");
+        private Orientation o;
+         private int[] plage;
 
+
+         public Ships(int x, int y, int size, Orientation o)
+        {
+            this.x = x;
+            this.y = y;
+            this.Size = size;
+            this.o = o;
+            this.plage = new int[this.Size];
+            for (int i = 0; i < this.Size; i++)
+            {
+                if (o == Orientation.Horizontal)
+                    plage[i] = this.x + i;
+                else
+                    plage[i] = this.y + i;
             }
         }
+
+        
+        public bool IsAtCoordinates(int x, int y)
+        {
+            if (o == Orientation.Horizontal)
+            {
+                return (y == this.y && this.plage.Contains(x));
+            }
+            else
+            {
+                return (x == this.x && this.plage.Contains(y));
+            }
+        }
+
+        public int GetCoordinateX()
+        {
+            return x;
+        }
+        public int GetCoordinateY()
+        {
+            return y;
+        }
+        public int[] GetPlage()
+        {
+            return plage;
+        }
+        public int GetSize()
+        {
+            return Size;
+        }
+        public Orientation GetOrientation()
+        {
+            return o;
+        }
+
 
     }
 }

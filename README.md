@@ -64,3 +64,14 @@ Cómo ya te habrás dado cuenta, nuestro chatbot necesitará guardar la informac
 <sup>1</sup> Cada equipo designará qué integrante del equipo desarrollará cada clase. La distribución debe contemplar número de clases y responsabilidades. Se evaluará que cada integrante trabaje en una rama independiente y que se integren los cambios mediante pull requests.
 
 <sup>2</sup> Las entregas serán hasta las 23:59 del día indicado.
+
+## Nuevas Funcionalidades:
+-	Seleccionar la id del usuario y poder acceder a el registro de partidas y resumen de partidas
+-	Que los barcos posean habilidades, por ejemplo, el acorazado tenga que recibir dos ataques, etc
+-	Elegir modo de juego según el tamaño del tablero
+-	Poder colocar un limite de tiempo para ingresar una coordenada a disparar, si se pasa el tiempo pierde el turno
+-	Al comienzo de cada partida, cada jugador tiene 3 comodines:
+    -	Tener dos turnos consecutivos
+    -	Tener una bomba para disparar a 4 casilleros en 1 turno (los casilleros deben formar un cuadrado, o sea estar unidos)
+    -	El tablero se divide en 4 sectores (izquierdo arriba, izquierdo abajo, derecho arriba, derecho abajo). Con esta habilidad el jugador puede obtener información sobre en cual de los sectores existen más puntos de impactos
+-	Poder seleccionar un límite de turnos por partidas

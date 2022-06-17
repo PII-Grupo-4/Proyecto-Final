@@ -28,16 +28,16 @@ namespace Battleship
                 if (!(this.Users.Contains(user)))
                 {
                     this.Users.Add(user);
-                    Printer.AddText($"El usuario {user.GetName()} se ha unido a la partida {this.ID}.");
+                    // Printer.AddText($"El usuario {user.GetName()} se ha unido a la partida {this.ID}.");
                 }
                 else
                 {
-                    Printer.AddText($"El usuario {user.GetName()} ya está en la partida {this.ID}.");
+                    // Printer.AddText($"El usuario {user.GetName()} ya está en la partida {this.ID}.");
                 }
             }
             else
             {
-                Printer.AddText($"el usuario no se agrega porque la partida está llena.");
+                // Printer.AddText($"el usuario no se agrega porque la partida está llena.");
             }
             
         }
@@ -65,7 +65,7 @@ namespace Battleship
             }
             else
             {
-                Printer.AddText("No se puede iniciar la partida porque no contiene dos jugadores.");
+                // Printer.AddText("No se puede iniciar la partida porque no contiene dos jugadores.");
             }
         }
 

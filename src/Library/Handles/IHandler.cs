@@ -1,6 +1,5 @@
-using Telegram.Bot.Types;
 
-namespace Ucu.Poo.TelegramBot
+namespace Battleship
 {
     /// <summary>
     /// Interfaz para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una

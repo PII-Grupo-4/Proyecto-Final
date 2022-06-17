@@ -4,14 +4,16 @@ namespace Battleship
     public class User
     {
 
+        static int UserID_counter = 0;
         private string Name {get; set; } 
-        private int id {get; set; } 
+        private int Id {get; set; } 
 
 
-        public User(string name, int idNumber)
+        public User(string name)
         {
             this.Name = name;
-            this.id = idNumber;
+            this.Id = UserID_counter;
+            UserID_counter ++;
         }
 
 
@@ -22,7 +24,7 @@ namespace Battleship
 
         public int GetID()
         {
-            return this.id;
+            return this.Id;
         } 
 
     }

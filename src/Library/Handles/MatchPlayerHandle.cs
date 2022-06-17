@@ -1,6 +1,5 @@
-using Telegram.Bot.Types;
 
-namespace Ucu.Poo.TelegramBot
+namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "chau".

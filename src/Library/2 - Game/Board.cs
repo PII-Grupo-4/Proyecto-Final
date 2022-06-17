@@ -47,20 +47,20 @@ namespace Battleship
             {
                 if (this.ShipsList.Count >= 5)
                 {
-                    Printer.AddText("No se puede agregar más barcos (El tablero ya esta lleno).");
+                    // Printer.AddText("No se puede agregar más barcos (El tablero ya esta lleno).");
                     throw new Exception();
                 }
                 
                 if ((size < 2) || (size > 5))
                 {
-                    Printer.AddText("Tamaño de barco incorrecto.");
+                    // Printer.AddText("Tamaño de barco incorrecto.");
                     throw new Exception();
                 }
 
                 direction = direction.ToUpper();
                 if (!Orientations.Contains(direction))
                 {
-                    Printer.AddText("Dirección incorrecta, ingrese una de las siguientes: \nUp\nDown\nLeft\nRight");
+                    // Printer.AddText("Dirección incorrecta, ingrese una de las siguientes: \nUp\nDown\nLeft\nRight");
                     throw new Exception();
                 }
 
@@ -68,7 +68,7 @@ namespace Battleship
 
                 if (coordinateList == (new List<int>{}))
                 {
-                    Printer.AddText("La coordenada indicada no es correcta. Por favor ingrese una coordenda del tipo 'LetraNumero' (ej: A1).");
+                    // Printer.AddText("La coordenada indicada no es correcta. Por favor ingrese una coordenda del tipo 'LetraNumero' (ej: A1).");
                     throw new Exception();
                 }
 
@@ -80,14 +80,14 @@ namespace Battleship
                 }
                 else
                 {
-                    Printer.AddText("El barco se creó correctamente");
+                    // Printer.AddText("El barco se creó correctamente");
                     return;
                 }
 
             }
             catch
             {
-                Printer.AddText("Datos incorrectos, el barco no se creó.");
+                // Printer.AddText("Datos incorrectos, el barco no se creó.");
             }
             
         }
@@ -166,7 +166,7 @@ namespace Battleship
                         string boardCoordinate = this.board[c1, i];
                         if (boardCoordinate != "o")
                         {
-                            Printer.AddText("Ya existe un barco en las coordenadas indicadas.");
+                            // Printer.AddText("Ya existe un barco en las coordenadas indicadas.");
                             throw new Exception();
                         }
                     }
@@ -190,7 +190,7 @@ namespace Battleship
                         string boardCoordinate = this.board[i, c2];
                         if (boardCoordinate != "o")
                         {
-                            Printer.AddText("Ya existe un barco en las coordenadas indicadas.");
+                            // Printer.AddText("Ya existe un barco en las coordenadas indicadas.");
                             throw new Exception();
                         }
                     }

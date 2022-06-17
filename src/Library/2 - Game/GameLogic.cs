@@ -31,7 +31,7 @@ namespace Battleship
             }
             else
             {
-                Printer.AddText("El número de player es incorrecto, el barco no se ha colocado");
+                // Printer.AddText("El número de player es incorrecto, el barco no se ha colocado");
             }
         }
 

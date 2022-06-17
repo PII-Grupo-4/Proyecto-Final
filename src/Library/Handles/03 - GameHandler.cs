@@ -24,6 +24,9 @@ namespace Battleship
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override void InternalHandle(Message message, out string response)
         {
+            IPrinter printer = new ConsolePrinter();
+            IInputText inputText = new ConsoleInputText(); 
+
             response = "";
         }
     }

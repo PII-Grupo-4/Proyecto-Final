@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace Battleship
 {
     // Board es un array de strings de dos dimensiones, cada elemento contiene una de las 4 string posibles.
-    // o = lugar sin disparar
-    // - = agua
+    // - = lugar sin disparar
+    // o = agua
     // x = tocado
     // # = hundido
     // BARCOS:
@@ -19,9 +19,6 @@ namespace Battleship
 
         private List<Ship> ShipsList = new List<Ship>{};
 
-        static List<string> Row = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
-        static List<string> Column = new List<string>{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-
         static List<string> Orientations = new List<string>{"UP", "DOWN", "LEFT", "RIGHT"};
 
         public Board()
@@ -31,7 +28,7 @@ namespace Battleship
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    board[i,j] = "o";
+                    board[i,j] = "-";
                 }
             }
         }
@@ -41,36 +38,38 @@ namespace Battleship
             return this.ShipsList.Count;
         }
 
-        public void AddShip(int size, string coordinate, string direction)
+        public string AddShip(int size, string coordinate, string direction)
         {
+            string response = "";
+
             try
             {
                 if (this.ShipsList.Count >= 5)
                 {
-                    // Printer.AddText("No se puede agregar más barcos (El tablero ya esta lleno).");
+                    return "No se puede agregar más barcos (El tablero ya esta lleno).";
                     throw new Exception();
                 }
                 
                 if ((size < 2) || (size > 5))
                 {
-                    // Printer.AddText("Tamaño de barco incorrecto.");
+                    return "Tamaño de barco incorrecto.";
+                    throw new Exception();
+                }
+
+                List<int> coordinateList = Logic.FixCoordinate(coordinate);
+
+                if (coordinateList == (new List<int>{}))
+                {
+                    return "La coordenada indicada no es correcta. Por favor ingrese una coordenda del tipo 'LetraNumero' (ej: A1).";
                     throw new Exception();
                 }
 
                 direction = direction.ToUpper();
                 if (!Orientations.Contains(direction))
                 {
-                    // Printer.AddText("Dirección incorrecta, ingrese una de las siguientes: \nUp\nDown\nLeft\nRight");
+                    return "Dirección incorrecta, ingrese una de las siguientes: \nUp\nDown\nLeft\nRight";
                     throw new Exception();
-                }
-
-                List<int> coordinateList = FixCoordinate(coordinate);
-
-                if (coordinateList == (new List<int>{}))
-                {
-                    // Printer.AddText("La coordenada indicada no es correcta. Por favor ingrese una coordenda del tipo 'LetraNumero' (ej: A1).");
-                    throw new Exception();
-                }
+                }                
 
                 bool ShipBool = Position_Ship(size, coordinateList, direction);
 
@@ -80,70 +79,15 @@ namespace Battleship
                 }
                 else
                 {
-                    // Printer.AddText("El barco se creó correctamente");
-                    return;
+                    return "El barco se creó correctamente";
                 }
 
             }
             catch
             {
-                // Printer.AddText("Datos incorrectos, el barco no se creó.");
+                return response + "Datos incorrectos, el barco no se creó.";
             }
             
-        }
-
-
-        // FixCoordinate recibe una coordenada en forma de string (ej "A3") y la transforma en una lista de dos int.
-        public List<int> FixCoordinate(string coordinate)
-        {
-            List<int> coordinateList = new List<int>();
-            string coordinateString;
-            int coordinate1;
-            int coordinate2;
-
-            try
-            {
-                coordinateString = coordinate.Substring(0, 1);
-                coordinate1 = Row.IndexOf(coordinateString.ToUpper()) + 1;
-
-                if (coordinate1 == 0) //Si la letra no se encuentra entre la A y la J, IndexOf devuelve -1 (-1+1=0)
-                {
-                    return coordinateList;
-                }
-                
-                try
-                {
-                    if (coordinate.Substring(1, 2) == "10")
-                    {
-                        coordinate2 = 10;
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }  
-                }
-                catch
-                {
-                    coordinateString = coordinate.Substring(1, 1);
-                    coordinate2 = Column.IndexOf(coordinateString) + 1;
-
-                    if (coordinate2 < 1)
-                    {
-                        return coordinateList;
-                    }
-                }
-
-                coordinateList.Add(coordinate1);
-                coordinateList.Add(coordinate2);
-
-                return coordinateList;
-
-                
-            }
-            catch
-            {
-                    return coordinateList;
-            }
         }
 
 
@@ -158,15 +102,14 @@ namespace Battleship
             try
             {
                 // Para la orientación vertical
-                if (direction == "UP" || direction == "DOWN")
+                if (direction == "RIGHT")
                 {
                     // Verifico que las coordenadas esten dentro del tablero y no haya otro barco
-                    for (int i = c2; i < (c2+size); i += directionInt)
+                    for (int i = c2; i < (c2+size); i += 1)
                     {
-                        string boardCoordinate = this.board[c1, i];
-                        if (boardCoordinate != "o")
+                        if (this.board[c1-1, i-1] != "-")
                         {
-                            // Printer.AddText("Ya existe un barco en las coordenadas indicadas.");
+                            return false;
                             throw new Exception();
                         }
                     }
@@ -176,8 +119,7 @@ namespace Battleship
                     Ship ship = new Ship(size);
                     for (int i = c2; i < (c2+size); i += directionInt)
                     {
-                        string boardCoordinate = this.board[c1, i];
-                        boardCoordinate = $"{ship.GetCharacter()}";
+                        this.board[c1-1, i-1] = $"{ship.GetCharacter()}";
                         ship.AddCoordinate(c1, i);
                     }
                 }
@@ -185,12 +127,11 @@ namespace Battleship
                 else
                 {
                     // Verifico que las coordenadas esten dentro del tablero y no haya otro barco
-                    for (int i = c1; i < (c1+size); i += directionInt)
+                    for (int i = c1; i > (c1-size); i += directionInt)
                     {
-                        string boardCoordinate = this.board[i, c2];
-                        if (boardCoordinate != "o")
+                        if (this.board[i-1, c2-1] != "-")
                         {
-                            // Printer.AddText("Ya existe un barco en las coordenadas indicadas.");
+                            return false;
                             throw new Exception();
                         }
                     }
@@ -198,10 +139,9 @@ namespace Battleship
                     // Una vez verificado, coloco el barco
 
                     Ship ship = new Ship(size);
-                    for (int i = c1; i < (c1+size); i += directionInt)
+                    for (int i = c1; i > (c1-size); i += directionInt)
                     {
-                        string boardCoordinate = this.board[i, c2];
-                        boardCoordinate = $"{ship.GetCharacter()}";
+                        this.board[i-1, c2-1] = $"{ship.GetCharacter()}";
                         ship.AddCoordinate(i, c2);
                     }
                 }
@@ -214,5 +154,22 @@ namespace Battleship
             }
         }
 
+
+        // Devuelve el Board como una string, para que pueda imprimirse más tarde
+        public string BoardToString()
+        {
+            string stringBoard = "";
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    stringBoard += $" {this.board[i,j]}";
+                }
+                stringBoard += "\n";
+            }
+
+            return stringBoard;
+        }
     }
 }

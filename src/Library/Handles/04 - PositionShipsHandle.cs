@@ -4,14 +4,14 @@ namespace Battleship
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "chau".
     /// </summary>
-    public class GameHandler : BaseHandler
+    public class PositionShipHandler : BaseHandler
     {
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="GoodByeHandler"/>. Esta clase procesa el mensaje "chau"
         /// y el mensaje "adiós" -un ejemplo de cómo un "handler" puede procesar comandos con sinónimos.
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public GameHandler(BaseHandler next) : base(next)
+        public PositionShipHandler(BaseHandler next) : base(next)
         {
             this.Keywords = new string[] { "chau", "adiós" };
         }
@@ -24,7 +24,7 @@ namespace Battleship
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override void InternalHandle(Message message, out string response)
         {
-            response = "¡Chau! ¡Qué andes bien!";
+            response = "";
         }
     }
 }

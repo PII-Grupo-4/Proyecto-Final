@@ -4,71 +4,52 @@ namespace Battleship
 {
     public class Game
     {
-        private int ID {get; set;}
+        private static int CounterId = 0;
+        private int Id {get; set;}
 
-        private List<User> Users = new List<User>();
 
-        private GameLogic gameLogic;
+        // private string GameSummary; // Cuando finalize la partida, aquí se guarda el resumen de la misma.
+        
 
-        public Game(int id)
+        private User User1;
+        private User User2;
+
+        private Player Player1 {get; set;}
+        private Player Player2 {get; set;}
+
+        public Game(User user1, User user2)
         {
-            this.ID = id;
+            this.Id = CounterId;
+            CounterId ++;
+
+            this.User1 = user1;
+
+            this.User2 = user2;
+
+            this.Player1 = new Player(user1);
+
+            this.Player2 = new Player(user2);
         }
+        
 
-        public int GetID()
+        // Se posicionan los barcos, se ingresa como parametro numero del player que posicionará las naves.
+        public void PositionShip (int playerNumber, int shipSize, string coordinates, string orientation)
         {
-            return this.ID;
-        }
-
-
-        public string AddUser(User user)
-        {
-            if (Users.Count < 2)
+            if (playerNumber == 1)
             {
-                if (!(this.Users.Contains(user)))
-                {
-                    this.Users.Add(user);
-                    return $"El usuario {user.GetName()} se ha unido a la partida {this.ID}.";
-                }
-                else
-                {
-                    return $"El usuario {user.GetName()} ya está en la partida {this.ID}.";
-                }
+                Board boardPlayer = Player1.GetShipsBoard();
+                
+                boardPlayer.AddShip(shipSize, coordinates, orientation);
+                
+            }
+            else if (playerNumber == 2)
+            {
+
             }
             else
             {
-                return "el usuario no se agrega porque la partida está llena.";
-            }
-            
-        }
-
-        public int GetUsersQuantity()
-        {
-            return Users.Count; 
-        }
-
-        public GameLogic GetGameLogic()
-        {
-            if (gameLogic != null)
-            {
-                return this.gameLogic;
-            }
-
-            return null;
-        }
-
-        public string StartGame()
-        {
-            if (Users.Count == 2)
-            {
-                gameLogic = new GameLogic(this.Users[0], this.Users[1]);
-                return "Partida iniciada";
-            }
-            else
-            {
-                return "No se puede iniciar la partida porque no contiene dos jugadores.";
+                // Printer.AddText("El número de player es incorrecto, el barco no se ha colocado");
             }
         }
-
     }
 }

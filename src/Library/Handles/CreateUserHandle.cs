@@ -24,18 +24,20 @@ namespace Battleship
         protected override void InternalHandle(Message message, out string response)
         {
             IPrinter printer = new ConsolePrinter();
+            IInputText inputText = new ConsoleInputText(); 
 
-            string nameUser = "";
+            string userName = "";
 
-            while (nameUser == "")
+            while (userName == "")
             {
                 printer.Print("Ingrese el nombre del usuario (no puede ser vacio):");
-                
+                userName = inputText.Input();
             }
             
-            
+            User user = new User(userName);
+            UserRegister.AddUser(user);
 
-            response = "";
+            response = $"El usuario {userName} se ha creado correctamente con la id {user.GetID()}.";
         }
     }
 }

@@ -4,9 +4,9 @@ namespace Battleship
 {
     public class ConsoleInputText: IInputText
     {
-        public void Print(string textToPrint)
+        public string Input()
         {
-            Console.WriteLine(textToPrint);
+            return Console.ReadLine();
         }
     }
 }

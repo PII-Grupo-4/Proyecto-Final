@@ -10,25 +10,24 @@ namespace Battleship
     {
         static List<User> ListOfUsers = new List<User> ();
 
-        public static string AddUser(User user)
+        public static void AddUser(User user)
         {
             ListOfUsers.Add(user);
-            return $"El usuario {user.GetName()} se ha creado correctamente";
         }
 
         
-        public static string RemoveUser(User user)
+        public static string RemoveUser(int userId)
         {
             foreach (User user1 in ListOfUsers)
             {
-                if (user1.GetID() == user.GetID())
+                if (user1.GetID() == userId)
                 {
-                    ListOfUsers.Remove(user);
-                    return $"El usuario {user.GetName()} se ha eliminado del registro correctamente";
+                    ListOfUsers.Remove(user1);
+                    return $"El usuario {user1.GetName()} se ha eliminado del registro correctamente";
                 }
             }
 
-            return $"El usuario {user.GetName()} no está registrado.";
+            return $"No existe ningun usuario con la Id ingresada.";
         }
 
     }

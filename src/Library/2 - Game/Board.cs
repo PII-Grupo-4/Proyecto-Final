@@ -93,16 +93,56 @@ namespace Battleship
 
         private bool Position_Ship(int size, List<int> coordinateList, string direction)
         {
-            int directionInt = 1;
-            if (direction == "UP" || direction == "LEFT") {directionInt = -1; }
-            
             int c1 = coordinateList[0];
             int c2 = coordinateList[1];
 
             try
             {
+                // Para la orientación horizontal
+                if(direction == "UP")
+                {
+                    // Verifico que las coordenadas esten dentro del tablero y no haya otro barco
+                    for (int i = c1; i > (c1-size); i -= 1)
+                    {
+                        if (this.board[i-1, c2-1] != "-")
+                        {
+                            return false;
+                            throw new Exception();
+                        }
+                    }
+
+                    // Una vez verificado, coloco el barco
+
+                    Ship ship = new Ship(size);
+                    for (int i = c1; i > (c1-size); i -= 1)
+                    {
+                        this.board[i-1, c2-1] = $"{ship.GetCharacter()}";
+                        ship.AddCoordinate(i, c2);
+                    }
+                }
+                else if(direction == "DOWN")
+                {
+                    // Verifico que las coordenadas esten dentro del tablero y no haya otro barco
+                    for (int i = c1; i < (c1+size); i += 1)
+                    {
+                        if (this.board[i-1, c2-1] != "-")
+                        {
+                            return false;
+                            throw new Exception();
+                        }
+                    }
+
+                    // Una vez verificado, coloco el barco
+
+                    Ship ship = new Ship(size);
+                    for (int i = c1; i < (c1+size); i += 1)
+                    {
+                        this.board[i-1, c2-1] = $"{ship.GetCharacter()}";
+                        ship.AddCoordinate(i, c2);
+                    }
+                }
                 // Para la orientación vertical
-                if (direction == "RIGHT")
+                else if (direction == "RIGHT")
                 {
                     // Verifico que las coordenadas esten dentro del tablero y no haya otro barco
                     for (int i = c2; i < (c2+size); i += 1)
@@ -117,19 +157,18 @@ namespace Battleship
                     // Una vez verificado, coloco el barco
 
                     Ship ship = new Ship(size);
-                    for (int i = c2; i < (c2+size); i += directionInt)
+                    for (int i = c2; i < (c2+size); i += 1)
                     {
                         this.board[c1-1, i-1] = $"{ship.GetCharacter()}";
                         ship.AddCoordinate(c1, i);
                     }
                 }
-                // Para la orientación horizontal
                 else
                 {
                     // Verifico que las coordenadas esten dentro del tablero y no haya otro barco
-                    for (int i = c1; i > (c1-size); i += directionInt)
+                    for (int i = c2; i > (c2-size); i -= 1)
                     {
-                        if (this.board[i-1, c2-1] != "-")
+                        if (this.board[c1-1, i-1] != "-")
                         {
                             return false;
                             throw new Exception();
@@ -139,10 +178,10 @@ namespace Battleship
                     // Una vez verificado, coloco el barco
 
                     Ship ship = new Ship(size);
-                    for (int i = c1; i > (c1-size); i += directionInt)
+                    for (int i = c2; i > (c2-size); i -= 1)
                     {
-                        this.board[i-1, c2-1] = $"{ship.GetCharacter()}";
-                        ship.AddCoordinate(i, c2);
+                        this.board[c1-1, i-1] = $"{ship.GetCharacter()}";
+                        ship.AddCoordinate(c1, i);
                     }
                 }
 
@@ -158,14 +197,22 @@ namespace Battleship
         // Devuelve el Board como una string, para que pueda imprimirse más tarde
         public string BoardToString()
         {
+            List<string> Lyrics = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+            
             string stringBoard = "";
 
+            stringBoard += "   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |\n";
+            stringBoard += "--------------------------------------------\n";
+
             for (int i = 0; i < 10; i++)
-            {
+            {   
+                stringBoard += $"{Lyrics[i]}  |";
                 for (int j = 0; j < 10; j++)
                 {
-                    stringBoard += $" {this.board[i,j]}";
+                    stringBoard += $" {this.board[i,j]} |";
                 }
+                stringBoard += "\n";
+                stringBoard += "--------------------------------------------";
                 stringBoard += "\n";
             }
 

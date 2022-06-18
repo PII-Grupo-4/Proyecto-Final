@@ -60,12 +60,12 @@ namespace Battleship
                         response = "Error - No se encontró al otro usuario.";
                         return;
                     }
+                    Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
 
                     Printer.Print(("\nIngrese las coordenadas de ataque con formato LetraNumero (ejemplo: A1)."));
                     string stringCoordinate = InputText.Input();
 
                     response = Logic.Attack(stringCoordinate, user, userAttacked);
-                    Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
 
                     if (userAttacked.GetPlayer().GetShipsAlive() == 0)
                     {

@@ -42,7 +42,11 @@ namespace Battleship
         }
 
         /// <summary>
-        /// 1=start | 2=lobby | 3=position ships | 4=in game
+        /// User Status: 1=start | 2=lobby | 3=position ships | 4=in game
+        /// start: Antes de empezar
+        /// Lobby: A la espera del rival
+        /// Position ships: Juego creado, posicionando barcos
+        /// In game: Jugando
         /// </summary>
         /// <param name="StatusNumber">int numero correspondiente al nuevo estado</param>
         public void ChangeStatus(int StatusNumber)

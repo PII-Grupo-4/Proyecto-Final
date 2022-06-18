@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Battleship
 {
-    // La clase Games es una clase que contiene, brinda acceso y crea a los Games.
+    // Cuando el user crea una partida y esta a la espera de otro user para jugar la batalla, queda en el estado lobby.
     public static class Lobby
     {
         static List<User> ListOfUser = new List<User>();

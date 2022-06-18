@@ -11,7 +11,7 @@ namespace Battleship
     // BARCOS:
     // C = Carrier (Size: 5)
     // B = Battleship (Size: 4)
-    // S = Submarine (Size: 3) (Hay dos submarinos)
+    // S = Submarine (Size: 3)
     // D = Destroyer (Size: 2)
     public class Board
     {

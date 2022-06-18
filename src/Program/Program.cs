@@ -47,7 +47,7 @@ namespace Program
                     nextUser = user2;
                 }
 
-                printer.Print($"Usuario {nextUser.GetName()}. Escriba un comando o 'salir':");
+                printer.Print($"Usuario {nextUser.GetName()}. Escriba un comando, 'comandos' (para ver comandos y estado) o 'salir':");
                 printer.Print("> ");
 
                 message.id = nextUser.GetID();
@@ -73,7 +73,7 @@ namespace Program
 
         static void Pruebas()
         {
-            
+
         }
 
     }

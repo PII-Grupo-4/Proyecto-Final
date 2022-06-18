@@ -30,19 +30,19 @@ namespace Battleship
 
                 if (user.getStatus() == "start")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- buscar partida\n- cambiar turno\n- salir";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- buscar partida\n- cambiar turno\n- salir";
                 }
                 else if(user.getStatus() == "lobby")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- salir lobby\n- cambiar turno\n- salir";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- salir lobby\n- cambiar turno\n- salir";
                 } 
                 else if(user.getStatus() == "position ships")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- posicionar barcos\n- ver tableros\n- cambiar turno\n- salir";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- posicionar barcos\n- ver tableros\n- cambiar turno\n- salir";
                 } 
                 else if(user.getStatus() == "in game")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- atacar\n- ver tableros\n- cambiar turno\n- salir";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- atacar\n- ver tableros\n- cambiar turno\n- salir";
                 } 
                 else
                 {

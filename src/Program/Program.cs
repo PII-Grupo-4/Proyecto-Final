@@ -10,56 +10,89 @@ namespace Program
             IPrinter printer = new ConsolePrinter();
             IInputText inputText = new ConsoleInputText();
 
-            User user1 = new User("user1");
-            User user2 = new User("user1");
-            
-            Lobby.AddUser(user1);
-            Lobby.AddUser(user2);
+            printer.Print("Ingrese el nombre del primer usuario");
+            string userName1 = inputText.Input();
+            printer.Print("Ingrese el nombre del segundo usuario");
+            string userName2 = inputText.Input();
 
-            Player player1 = new Player(user1);
-            Player player2 = new Player(user2);
-            
-            Game game = new Game(player1, player2);
-            player1.PositionShips(printer, inputText);
+            User user1 = new User(userName1);
+            User user2 = new User(userName2);
 
-            Board board = player1.GetShipsBoard();
-            string boardString = board.BoardToString();
+            UserRegister.AddUser(user1);
+            UserRegister.AddUser(user2);
 
-            printer.Print(boardString);
-        }
-
-
-        static void CreateUserHandlesTest()
-        {
-                IHandler UsersHandler = 
-                new CreateUserHandle(new RemoveUserHandle(null));
-            
+            IHandler handler = new CommandsHandle(
+                new SearchGameHandler(
+                new PositionShipHandle(
+                new SeeBoardsHandle(null)
+                )));
+                
             Message message = new Message();
             string response;
 
             while (true)
             {
-                Console.WriteLine("\nIngrese uno de los siguientes comandos:\n -crear usuario\n -eliminar usuario\n -jugar\n -salir");
-                Console.Write("> ");
+                printer.Print($"Usuario {user1.GetName()}. Escribí un comando o 'salir':");
+                printer.Print("> ");
 
-                message.Text = Console.ReadLine();
+                message.id = user1.GetID();
+                message.Text = inputText.Input();
                 if (message.Text.Equals("salir", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    Console.WriteLine("Salimos");
+                    printer.Print("Salimos");
                     return;
                 }
 
-                IHandler result = UsersHandler.Handle(message, out response);
+                IHandler result = handler.Handle(message, out response);
 
                 if (result == null)
                 {
-                    Console.WriteLine("No entiendo");
+                    printer.Print("No entiendo\n");
                 }
                 else
                 {
-                    Console.WriteLine(response);
+                    printer.Print(response+"\n");
+                }
+
+                printer.Print($"Usuario {user2.GetName()}. Escribí un comando o 'salir':");
+                printer.Print("> ");
+
+                message.id = user2.GetID();
+                message.Text = inputText.Input();
+                if (message.Text.Equals("salir", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    printer.Print("Salimos");
+                    return;
+                }
+
+                IHandler result2 = handler.Handle(message, out response);
+
+                if (result == null)
+                {
+                    printer.Print("No entiendo\n");
+                }
+                else
+                {
+                    printer.Print(response+"\n");
                 }
             }
         }
+
+        static void Pruebas()
+        {
+            IPrinter printer = new ConsolePrinter();
+            IInputText inputText = new ConsoleInputText();
+
+            User user1 = new User("user1");
+            User user2 = new User("user1");
+
+            UserRegister.AddUser(user1);
+            UserRegister.AddUser(user2);
+            
+            Lobby.AddUser(user1);
+            Lobby.AddUser(user2);
+
+        }
+
     }
 }

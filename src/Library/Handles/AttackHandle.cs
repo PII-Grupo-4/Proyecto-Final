@@ -4,13 +4,13 @@ namespace Battleship
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "crear usuario".
     /// </summary>
-    public class CreateUserHandle : BaseHandler
+    public class AttackHandle : BaseHandler
     {
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="CreateUserHandler"/>. Esta clase procesa el mensaje "crear usuario".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public CreateUserHandle(BaseHandler next) : base(next)
+        public AttackHandle(BaseHandler next) : base(next)
         {
             this.Keywords = new string[] {"crear usuario"};
         }

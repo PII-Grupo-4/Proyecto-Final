@@ -4,17 +4,9 @@ namespace Battleship
 {
     public class Player
     {
-        private User user {get; set;}
-
         private Board RegisterBoard = new Board();
 
         private Board ShipsBoard = new Board();
-
-        public Player(User user)
-        {
-            this.user = user;
-
-        }
 
         public void PositionShips(IPrinter printer, IInputText inputText)
         {
@@ -43,11 +35,6 @@ namespace Battleship
             }    
         }
 
-        public User GetUser()
-        {
-            return this.user;
-        }
-
         public Board GetShipsBoard()
         {
             return this.ShipsBoard;
@@ -56,6 +43,16 @@ namespace Battleship
         public Board GetRegisterBoard()
         {
             return this.RegisterBoard;
+        }
+
+        public string GetBoardsToPrint()
+        {
+            string stringBoard = "Tablero con tus naves:\n";
+            stringBoard += $"{this.ShipsBoard.BoardToString()}\n\n";
+            stringBoard += "Tablero de registro de disparos:\n";
+            stringBoard += $"{this.RegisterBoard.BoardToString()}\n";
+
+            return stringBoard;
         }
     }
 }

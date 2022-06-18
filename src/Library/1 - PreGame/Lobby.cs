@@ -12,9 +12,17 @@ namespace Battleship
             ListOfUser.Add(user);
         }
 
-        static public void RemoveUser(User user)
+        static public User GetAndRemoveUser()
         {
+            User user = ListOfUser[0];
             ListOfUser.Remove(user);
+            return user;
         }  
+
+        static public int NumberUsersLobby()
+        {
+            return ListOfUser.Count;
+        }
+
     }
 }

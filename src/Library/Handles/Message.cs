@@ -5,7 +5,6 @@ namespace Battleship
     {
         public string Text;
 
-        public string id;
-
+        public int id;
     }
 }

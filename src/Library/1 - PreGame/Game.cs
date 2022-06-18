@@ -10,23 +10,22 @@ namespace Battleship
 
         // private string GameSummary; // Cuando finalize la partida, aquí se guarda el resumen de la misma.
 
-        private Player Player1 {get; set;}
-        private Player Player2 {get; set;}
+        private User User1 {get; set;}
+        private User User2 {get; set;}
 
-        public Game(Player player1, Player player2)
+        public Game(User user1, User user2)
         {
             this.Id = CounterId;
             CounterId ++;
 
-            this.Player1 = player1;
+            this.User1 = user1;
 
-            this.Player2 = player2;
+            this.User2 = user2;
         }
 
-        public void StartGame()
+        public int GetId()
         {
-            
+            return this.Id;
         }
-
     }
 }

@@ -21,6 +21,8 @@ namespace Battleship
 
         static List<string> Orientations = new List<string>{"UP", "DOWN", "LEFT", "RIGHT"};
 
+        private List<int> ShipsSize = new List<int>{5,4,3,3,2};
+
         public Board()
         {
             // lleno el tablero de "o"
@@ -38,9 +40,10 @@ namespace Battleship
             return this.ShipsList.Count;
         }
 
-        public string AddShip(int size, string coordinate, string direction)
+        public string ControlCoordinates(string coordinate, string direction)
         {
             string response = "";
+            
 
             try
             {
@@ -50,14 +53,7 @@ namespace Battleship
                     throw new Exception();
                 }
                 
-                if ((size < 2) || (size > 5))
-                {
-                    return "Tamaño de barco incorrecto.";
-                    throw new Exception();
-                }
-
                 List<int> coordinateList = Logic.FixCoordinate(coordinate);
-
                 if (coordinateList == (new List<int>{}))
                 {
                     return "La coordenada indicada no es correcta. Por favor ingrese una coordenda del tipo 'LetraNumero' (ej: A1).";
@@ -71,6 +67,7 @@ namespace Battleship
                     throw new Exception();
                 }                
 
+                int size = ShipsSize[0];
                 bool ShipBool = Position_Ship(size, coordinateList, direction);
 
                 if (ShipBool == false)
@@ -79,6 +76,7 @@ namespace Battleship
                 }
                 else
                 {
+                    ShipsSize.RemoveAt(0);
                     return "El barco se creó correctamente";
                 }
 
@@ -119,6 +117,7 @@ namespace Battleship
                         this.board[i-1, c2-1] = $"{ship.GetCharacter()}";
                         ship.AddCoordinate(i, c2);
                     }
+                    ShipsList.Add(ship);
                 }
                 else if(direction == "DOWN")
                 {
@@ -140,6 +139,7 @@ namespace Battleship
                         this.board[i-1, c2-1] = $"{ship.GetCharacter()}";
                         ship.AddCoordinate(i, c2);
                     }
+                    ShipsList.Add(ship);
                 }
                 // Para la orientación vertical
                 else if (direction == "RIGHT")
@@ -162,6 +162,7 @@ namespace Battleship
                         this.board[c1-1, i-1] = $"{ship.GetCharacter()}";
                         ship.AddCoordinate(c1, i);
                     }
+                    ShipsList.Add(ship);
                 }
                 else
                 {
@@ -183,6 +184,7 @@ namespace Battleship
                         this.board[c1-1, i-1] = $"{ship.GetCharacter()}";
                         ship.AddCoordinate(c1, i);
                     }
+                    ShipsList.Add(ship);
                 }
 
                 return true;

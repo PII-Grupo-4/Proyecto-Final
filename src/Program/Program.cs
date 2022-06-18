@@ -23,16 +23,17 @@ namespace Program
 
             IHandler handler = new CommandsHandle(
                 new SearchGameHandler(
-                new PositionShipHandle(
-                new SeeBoardsHandle(null)
-                )));
+                new ExitLobbyHandle(
+                new SeeBoardsHandle(
+                new PositionShipsHandle(null, printer, inputText )
+                ))));
                 
             Message message = new Message();
             string response;
 
             while (true)
             {
-                printer.Print($"Usuario {user1.GetName()}. Escribí un comando o 'salir':");
+                printer.Print($"Usuario {user1.GetName()}. Escriba un comando o 'salir':");
                 printer.Print("> ");
 
                 message.id = user1.GetID();
@@ -54,7 +55,7 @@ namespace Program
                     printer.Print(response+"\n");
                 }
 
-                printer.Print($"Usuario {user2.GetName()}. Escribí un comando o 'salir':");
+                printer.Print($"Usuario {user2.GetName()}. Escriba un comando o 'salir':");
                 printer.Print("> ");
 
                 message.id = user2.GetID();

@@ -4,13 +4,13 @@ namespace Battleship
 {
     public class Ship
     {
-        private int Size;
+        private int Size{get; set;}
 
-        private int Health;
+        private int Health{get; set;}
 
-        private List<List<int>> Coordinates;
+        private List<List<int>> Coordinates{get; set;}
 
-        private string Character;
+        private string Character{get; set;}
 
         public Ship(int size)
         {
@@ -47,6 +47,16 @@ namespace Battleship
         {
             List<int> coordinate = new List<int>{column, row};
             this.Coordinates.Add(coordinate);
+        }
+
+        public int GetHealth()
+        {
+            return this.Health;
+        }
+
+        public void DecreaseHealth()
+        {
+            this.Health --;
         }
 
     }

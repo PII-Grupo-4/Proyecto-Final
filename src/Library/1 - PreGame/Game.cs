@@ -14,6 +14,8 @@ namespace Battleship
         private User User1 {get; set;}
         private User User2 {get; set;}
 
+        private User UserWinner;
+
         public Game(User user1, User user2)
         {
             this.Id = CounterId;
@@ -27,6 +29,27 @@ namespace Battleship
         public int GetId()
         {
             return this.Id;
+        }
+
+        public User GetOtherUserById(int id)
+        {
+            if (User1.GetID() == id)
+            {
+                return User2;
+            }
+            else if (User2.GetID() == id)
+            {
+                return User1;
+            }
+            else
+            {
+                return null;    
+            }
+        }
+
+        public void AddUserWinner(User user)
+        {
+            this.UserWinner = user;
         }
     }
 }

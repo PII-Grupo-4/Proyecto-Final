@@ -60,6 +60,7 @@ namespace Battleship
                         response = "Error - No se encontró al otro usuario.";
                         return;
                     }
+                    
                     Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
 
                     Printer.Print(("\nIngrese las coordenadas de ataque con formato LetraNumero (ejemplo: A1)."));

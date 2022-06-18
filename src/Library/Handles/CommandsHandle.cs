@@ -34,11 +34,11 @@ namespace Battleship
                 }
                 else if(user.getStatus() == "lobby")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- salir";
+                    response = $"Comandos en estado '{user.getStatus()}'\n- salir lobby\n- salir";
                 } 
                 else if(user.getStatus() == "position ships")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- posicionar barco\n- ver tableros";
+                    response = $"Comandos en estado '{user.getStatus()}'\n- posicionar barcos\n- ver tableros\n- salir";
                 } 
                 else if(user.getStatus() == "in game")
                 {

@@ -8,33 +8,6 @@ namespace Battleship
 
         private Board ShipsBoard = new Board();
 
-        public void PositionShips(IPrinter printer, IInputText inputText)
-        {
-            List<int> shipsSize = new List<int>{5,4,3,3,2};
-            string coordinate = "";
-            string direction = "";
-            string response;
-
-            foreach (int size in shipsSize)
-            {   
-                response = "";
-
-                while (response != "El barco se creó correctamente")
-                {
-                    printer.Print(this.ShipsBoard.BoardToString());
-                    printer.Print($"Ingrese la coordenada del extremo del barco con tamaño {size} (ej: 'A1'):");
-                    coordinate = inputText.Input();
-                    //coordinate = "E5";
-                    printer.Print("Ingrese la orientación del barco ('up', 'down', 'left' or 'right'):");
-                    direction = inputText.Input();
-                    //direction = "up";
-
-                    response = this.ShipsBoard.AddShip(size, coordinate, direction);
-                    printer.Print(response);
-                }
-            }    
-        }
-
         public Board GetShipsBoard()
         {
             return this.ShipsBoard;

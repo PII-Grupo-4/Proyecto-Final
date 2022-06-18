@@ -19,6 +19,11 @@ namespace Battleship
             return user;
         }  
 
+        static public void RemoveUser(User user)
+        {
+            ListOfUser.Remove(user);
+        }
+
         static public int NumberUsersLobby()
         {
             return ListOfUser.Count;

@@ -21,7 +21,7 @@ namespace Battleship
                 return "Las coordenadas ingresadas son incorrectas";
             }
 
-            string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0], coordinateList[1]];
+            string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1];
             if (coordinateInBoard == "x" || coordinateInBoard == "#" || coordinateInBoard == "o")
             {
                 return "Ya se atacó en dicha coordenada";
@@ -29,8 +29,8 @@ namespace Battleship
             else if(coordinateInBoard == "-")
             {
                 response = "Agua";
-                boardWithShips.GetBoard()[coordinateList[0], coordinateList[1]] = "o";
-                registerBoard.GetBoard()[coordinateList[0], coordinateList[1]] = "o";
+                boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "o";
+                registerBoard.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "o";
                 return response;
             }
             else
@@ -43,17 +43,25 @@ namespace Battleship
                         {
                             boardWithShips.RemoveShip(ship);
                             response = "Hundido";
+                            List<List<int>> shipCoordinates = ship.GetCoordinates();
+                            for (int i = 0; i < ship.GetSize(); i++)
+                            {
+                                boardWithShips.GetBoard()[shipCoordinates[i][0]-1, shipCoordinates[i][1]-1] = "#";
+                                registerBoard.GetBoard()[shipCoordinates[i][0]-1, shipCoordinates[i][1]-1] = "#";
+                            }
+                            break;
                         }
                         else
                         {
                             ship.DecreaseHealth();
                             response = "Tocado";
+                            boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "x";
+                            registerBoard.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "x";
+                            break;
                         }
                     }
                 }
-
-                boardWithShips.GetBoard()[coordinateList[0], coordinateList[1]] = "x";
-                registerBoard.GetBoard()[coordinateList[0], coordinateList[1]] = "x";
+                
 
                 return response;
             }
@@ -110,6 +118,18 @@ namespace Battleship
             catch
             {
                     return coordinateList;
+            }
+        }
+
+        public static void ChangeTurn(Message message)
+        {
+            if (message.Turn == 1)
+            {
+                message.Turn = 2;
+            }
+            else
+            {
+                message.Turn = 1;
             }
         }
     }

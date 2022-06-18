@@ -59,7 +59,6 @@ namespace Battleship
                         {
                             Printer.Print("Coordenadas ingresadas incorrectas.");
                         }
-                        Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
                     }
                     if (intructions == "salir")
                     {
@@ -67,6 +66,7 @@ namespace Battleship
                         return;
                     }
 
+                    Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
                     user.ChangeStatus(4);
                     response = "Los barcos estan listos";
                 } 

@@ -7,6 +7,6 @@ namespace Battleship
 
         public int id;
 
-        public int turn;
+        public int Turn;
     }
 }

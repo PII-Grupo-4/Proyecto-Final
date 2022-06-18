@@ -61,7 +61,7 @@ namespace Battleship
                         return;
                     }
                     
-                    Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
+                    Printer.Print(user.GetPlayer().GetBoardsToPrint());
 
                     Printer.Print(("\nIngrese las coordenadas de ataque con formato LetraNumero (ejemplo: A1)."));
                     string stringCoordinate = InputText.Input();
@@ -74,7 +74,15 @@ namespace Battleship
                         game.AddUserWinner(user);
 
                         user.ChangeStatus(1);
-                        userAttacked.ChangeStatus(1);   
+                        userAttacked.ChangeStatus(1); 
+                        response += "\n\n------Turno cambiado------\n\n";   
+                        Logic.ChangeTurn(message);
+                    }
+
+                    if(response == "Agua" || response == "Hundido" || response == "Tocado")
+                    {
+                        response += "\n\n\n\n------Turno cambiado------\n\n"; 
+                        Logic.ChangeTurn(message);
                     }
                 }
                 

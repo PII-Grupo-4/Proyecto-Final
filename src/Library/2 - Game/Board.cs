@@ -11,7 +11,7 @@ namespace Battleship
     // BARCOS:
     // C = Carrier (5)
     // B = Battleship (4)
-    // S = Submarine (3) (Hay dos submarinos)
+    // S = Submarine (3)
     // D = Destroyer (2)
     public class Board
     {
@@ -21,7 +21,7 @@ namespace Battleship
 
         static List<string> Orientations = new List<string>{"UP", "DOWN", "LEFT", "RIGHT"};
 
-        private List<int> ShipsSize = new List<int>{5,4,3,3,2};
+        private List<int> ShipsSize = new List<int>{5,4,3,2};
 
         public Board()
         {
@@ -40,6 +40,22 @@ namespace Battleship
             return this.ShipsList.Count;
         }
 
+        public string[,] GetBoard()
+        {
+            return this.board;
+        }
+
+        public List<Ship> GetShipsList()
+        {
+            return this.ShipsList;
+        }
+
+        public void RemoveShip(Ship ship)
+        {
+            ship.DecreaseHealth();
+            this.ShipsList.Remove(ship);
+        }
+
         public string ControlCoordinates(string coordinate, string direction)
         {
             string response = "";
@@ -47,7 +63,7 @@ namespace Battleship
 
             try
             {
-                if (this.ShipsList.Count >= 5)
+                if (this.ShipsList.Count >= 4)
                 {
                     return "No se puede agregar más barcos (El tablero ya esta lleno).";
                     throw new Exception();

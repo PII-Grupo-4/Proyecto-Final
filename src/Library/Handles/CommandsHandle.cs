@@ -13,7 +13,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public CommandsHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"comandos", "Comandos"};
+            this.Keywords = new string[] {"comandos", "Comandos", "COMANDOS"};
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Battleship
                 } 
                 else if(user.getStatus() == "in game")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n";
+                    response = $"Comandos en estado '{user.getStatus()}'\n- atacar\n- ver tableros\n- salir";
                 } 
                 else
                 {

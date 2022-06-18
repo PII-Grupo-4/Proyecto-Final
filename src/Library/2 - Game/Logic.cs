@@ -8,11 +8,57 @@ namespace Battleship
         static List<string> Row = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
         static List<string> Column = new List<string>{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
-        public static string Ataque(string coordinate, Board RegisterBoard, Board BoardWithShips)
-        {
 
-            return "";
+        public static string Attack(string coordinate, User user, User userAttacked)
+        {
+            Board boardWithShips = userAttacked.GetPlayer().GetShipsBoard();
+            Board registerBoard = user.GetPlayer().GetRegisterBoard();
+            string response = "";
+
+            List<int> coordinateList = FixCoordinate(coordinate);
+            if (coordinateList == new List<int>{})
+            {
+                return "Las coordenadas ingresadas son incorrectas";
+            }
+
+            string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0], coordinateList[1]];
+            if (coordinateInBoard == "x" || coordinateInBoard == "#" || coordinateInBoard == "o")
+            {
+                return "Ya se atacó en dicha coordenada";
+            }
+            else if(coordinateInBoard == "-")
+            {
+                response = "Agua";
+                boardWithShips.GetBoard()[coordinateList[0], coordinateList[1]] = "o";
+                registerBoard.GetBoard()[coordinateList[0], coordinateList[1]] = "o";
+                return response;
+            }
+            else
+            {
+                foreach (Ship ship in boardWithShips.GetShipsList())
+                {
+                    if (ship.GetCharacter() == coordinateInBoard)
+                    {
+                        if (ship.GetHealth() == 1)
+                        {
+                            boardWithShips.RemoveShip(ship);
+                            response = "Hundido";
+                        }
+                        else
+                        {
+                            ship.DecreaseHealth();
+                            response = "Tocado";
+                        }
+                    }
+                }
+
+                boardWithShips.GetBoard()[coordinateList[0], coordinateList[1]] = "x";
+                registerBoard.GetBoard()[coordinateList[0], coordinateList[1]] = "x";
+
+                return response;
+            }
         }
+
 
         // FixCoordinate recibe una coordenada en forma de string (ej "A3") y la transforma en una lista de dos int.
         public static List<int> FixCoordinate(string coordinate)

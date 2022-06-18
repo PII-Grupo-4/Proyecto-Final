@@ -25,7 +25,9 @@ namespace Program
                 new SearchGameHandler(
                 new ExitLobbyHandle(
                 new SeeBoardsHandle(
-                new PositionShipsHandle(null, printer, inputText )
+                new PositionShipsHandle(
+                new AttackHandle(null,  printer, inputText), 
+                printer, inputText)
                 ))));
                 
             Message message = new Message();

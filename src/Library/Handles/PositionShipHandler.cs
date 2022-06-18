@@ -15,7 +15,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public PositionShipsHandle(BaseHandler next, IPrinter printer, IInputText inputText) : base(next)
         {
-            this.Keywords = new string[] {"posicionar barcos", "Posicionar barcos"};
+            this.Keywords = new string[] {"posicionar barcos", "Posicionar barcos", "POSICIONAR BARCOS"};
             this.Printer = printer;
             this.InputText = inputText;
         }
@@ -40,14 +40,16 @@ namespace Battleship
                 else
                 {
                     string intructions = "";
+                    int sizeShip;
 
-                    while (user.GetPlayer().GetShipsBoard().GetShipsAlive() < 5)
+                    while (user.GetPlayer().GetShipsBoard().GetShipsAlive() < 4 && intructions != "salir")
                     {
+                        sizeShip = 5 - user.GetPlayer().GetShipsBoard().GetShipsAlive();
                         try
                         {
                             Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
 
-                            Printer.Print("\nIngrese las coordenadas y la orientacion separadas por un espacio.\n    coordenadas: LetraNumero (ejemplo: A1)\n    orientacion: 'UP', 'DOWN', 'LEFT' o 'RIGHT'.");
+                            Printer.Print($"\nIngrese las coordenadas y la orientacion separadas por un espacio. Tamaño del barco = {sizeShip}.\n    coordenadas: LetraNumero (ejemplo: A1)\n    orientacion: 'UP', 'DOWN', 'LEFT' o 'RIGHT'.\n Ingrese 'salir' para volver.");
                             intructions = InputText.Input();
                             string[] coordinates = intructions.Split(' ');
 
@@ -57,8 +59,14 @@ namespace Battleship
                         {
                             Printer.Print("Coordenadas ingresadas incorrectas.");
                         }
-
+                        Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
                     }
+                    if (intructions == "salir")
+                    {
+                        response = "Saliendo de posicionar barcos";
+                        return;
+                    }
+
                     user.ChangeStatus(4);
                     response = "Los barcos estan listos";
                 } 

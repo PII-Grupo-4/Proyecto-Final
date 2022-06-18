@@ -13,7 +13,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public CommandsHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"comandos", "Comandos", "COMANDOS"};
+            this.Keywords = new string[] {"comandos", "Comandos", "COMANDOS", "comando", "Comando", "COMANDO"};
         }
 
         /// <summary>
@@ -30,19 +30,19 @@ namespace Battleship
 
                 if (user.getStatus() == "start")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- buscar partida\n- salir";
+                    response = $"Comandos en estado '{user.getStatus()}'\n- buscar partida\n- cambiar turno\n- salir";
                 }
                 else if(user.getStatus() == "lobby")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- salir lobby\n- salir";
+                    response = $"Comandos en estado '{user.getStatus()}'\n- salir lobby\n- cambiar turno\n- salir";
                 } 
                 else if(user.getStatus() == "position ships")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- posicionar barcos\n- ver tableros\n- salir";
+                    response = $"Comandos en estado '{user.getStatus()}'\n- posicionar barcos\n- ver tableros\n- cambiar turno\n- salir";
                 } 
                 else if(user.getStatus() == "in game")
                 {
-                    response = $"Comandos en estado '{user.getStatus()}'\n- atacar\n- ver tableros\n- salir";
+                    response = $"Comandos en estado '{user.getStatus()}'\n- atacar\n- ver tableros\n- cambiar turno\n- salir";
                 } 
                 else
                 {

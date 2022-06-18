@@ -22,23 +22,35 @@ namespace Program
             UserRegister.AddUser(user2);
 
             IHandler handler = new CommandsHandle(
+                new ChangeTurnHandle(
                 new SearchGameHandler(
                 new ExitLobbyHandle(
                 new SeeBoardsHandle(
                 new PositionShipsHandle(
                 new AttackHandle(null,  printer, inputText), 
                 printer, inputText)
-                ))));
+                )))));
                 
             Message message = new Message();
             string response;
+            message.Turn = 1;
+            User nextUser;
 
             while (true)
             {
-                printer.Print($"Usuario {user1.GetName()}. Escriba un comando o 'salir':");
+                if (message.Turn == 1)
+                {
+                    nextUser = user1;
+                }
+                else
+                {
+                    nextUser = user2;
+                }
+
+                printer.Print($"Usuario {nextUser.GetName()}. Escriba un comando o 'salir':");
                 printer.Print("> ");
 
-                message.id = user1.GetID();
+                message.id = nextUser.GetID();
                 message.Text = inputText.Input();
                 if (message.Text.Equals("salir", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -47,28 +59,6 @@ namespace Program
                 }
 
                 IHandler result = handler.Handle(message, out response);
-
-                if (result == null)
-                {
-                    printer.Print("No entiendo\n");
-                }
-                else
-                {
-                    printer.Print(response+"\n");
-                }
-
-                printer.Print($"Usuario {user2.GetName()}. Escriba un comando o 'salir':");
-                printer.Print("> ");
-
-                message.id = user2.GetID();
-                message.Text = inputText.Input();
-                if (message.Text.Equals("salir", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    printer.Print("Salimos");
-                    return;
-                }
-
-                IHandler result2 = handler.Handle(message, out response);
 
                 if (result == null)
                 {

@@ -49,6 +49,11 @@ namespace Battleship
             this.Coordinates.Add(coordinate);
         }
 
+        public List<List<int>> GetCoordinates()
+        {
+            return this.Coordinates;
+        }
+
         public int GetHealth()
         {
             return this.Health;
@@ -57,6 +62,11 @@ namespace Battleship
         public void DecreaseHealth()
         {
             this.Health --;
+        }
+
+        public int GetSize()
+        {
+            return this.Size;
         }
 
     }

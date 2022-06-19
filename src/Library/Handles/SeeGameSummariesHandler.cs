@@ -1,23 +1,23 @@
-
+using System.IO;
 
 namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "ver partida jugada".
     /// </summary>
-    public class SeeGameSummaryHandler : BaseHandler
+    public class SeeGameSummariesHandler : BaseHandler
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="SeeGameSummaryHandler"/>. Esta clase procesa el mensaje "ver partida jugada".
+        /// Inicializa una nueva instancia de la clase <see cref="SeeGameSummariesHandler"/>. Esta clase procesa el mensaje "ver partida jugada".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public SeeGameSummaryHandler(BaseHandler next) : base(next)
+        public SeeGameSummariesHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"Ver partida jugada", "ver partida jugada", "VER PARTIDA JUGADA", "ver partida"};
+            this.Keywords = new string[] {"Ver partidas jugadas", "ver partidas jugadas", "VER PARTIDAS JUGADAS", "ver partidas"};
         }
 
         /// <summary>
-        /// Procesa el mensaje "ver partida jugada" y retorna true; retorna false en caso contrario.
+        /// Procesa el mensaje "ver partidas jugadas" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="message">El mensaje a procesar.</param>
         /// <param name="response">La respuesta al mensaje procesado.</param>
@@ -36,7 +36,8 @@ namespace Battleship
                 }
                 else
                 {
-                    
+                    // Se leen los juegos jugados
+                    response = File.ReadAllText("../GameSummaries.txt");
                 }
 
                 response = "";

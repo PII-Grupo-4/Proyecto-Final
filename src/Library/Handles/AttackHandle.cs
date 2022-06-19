@@ -87,7 +87,7 @@ namespace Battleship
                         Logic.ChangeTurn(message);
 
                         // Guardando juego
-                        
+                        //GamesRegister.SaveGame(game);
                     }
 
                     // Cambio de turno

@@ -70,7 +70,7 @@ namespace Battleship
 
                     if (userAttacked.GetPlayer().GetShipsAlive() == 0)
                     {
-                        response = "Has hundido todos los barcos, juego terminado.";
+                        response = "Felicitaciones. Has hundido todos los barcos, juego terminado.";
                         game.AddUserWinner(user);
 
                         user.ChangeStatus(1);

@@ -8,9 +8,6 @@ namespace Battleship
         private static int CounterId = 0;
         private int Id {get; set;}
 
-
-        // private string GameSummary; // Cuando finalize la partida, aquí se guarda el resumen de la misma.
-
         private User User1 {get; set;}
         private User User2 {get; set;}
 
@@ -31,6 +28,7 @@ namespace Battleship
             return this.Id;
         }
 
+        // Se ingresa la id de un usuario, y se retorna el otro usuario
         public User GetOtherUserById(int id)
         {
             if (User1.GetID() == id)
@@ -50,6 +48,11 @@ namespace Battleship
         public void AddUserWinner(User user)
         {
             this.UserWinner = user;
+        }
+
+        public void GameInString()
+        {
+            
         }
     }
 }

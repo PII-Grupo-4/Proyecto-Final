@@ -15,13 +15,13 @@ namespace Battleship
     // D = Destroyer (Size: 2)
     public class Board
     {
-        private string[,] board = new string[10,10];
+        private string[,] board = new string[10,10]; //Tablero
 
-        private List<Ship> ShipsList = new List<Ship>{};
+        private List<Ship> ShipsList = new List<Ship>{}; // Lista con los barcos
 
-        static List<string> Orientations = new List<string>{"UP", "DOWN", "LEFT", "RIGHT"};
+        static List<string> Orientations = new List<string>{"UP", "DOWN", "LEFT", "RIGHT"}; //Orientaciones de colocación posibles
 
-        private List<int> ShipsSize = new List<int>{5,4,3,2};
+        private List<int> ShipsSize = new List<int>{5,4,3,2}; // Los tamaños de los barcos
 
         public Board()
         {
@@ -35,6 +35,7 @@ namespace Battleship
             }
         }
 
+        // Retorna el número de barcos que hay en el tablero
         public int GetShipsAlive()
         {
             return this.ShipsList.Count;
@@ -56,6 +57,8 @@ namespace Battleship
             this.ShipsList.Remove(ship);
         }
 
+        // Controla si los datos de coordenada y orientación ingresados son correctos
+        //  De ser así los envía a PositionShip.
         public string ControlCoordinates(string coordinate, string direction)
         {
             string response = "";
@@ -104,7 +107,7 @@ namespace Battleship
             
         }
 
-
+        // Posiciona los barcos en la coordenada y orientación indicada
         private bool Position_Ship(int size, List<int> coordinateList, string direction)
         {
             int c1 = coordinateList[0];
@@ -157,6 +160,7 @@ namespace Battleship
                     }
                     ShipsList.Add(ship);
                 }
+                
                 // Para la orientación vertical
                 else if (direction == "RIGHT")
                 {

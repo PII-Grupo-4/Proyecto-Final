@@ -29,6 +29,7 @@ namespace Battleship
 
                 if (user.getStatus() != "start")
                 {
+                    // Estado de user incorrecto
                     response = $"Comando incorrecto. Estado del usuario = {user.getStatus()}";
                     return;
                 }
@@ -36,6 +37,7 @@ namespace Battleship
                 {
                     if (Lobby.NumberUsersLobby() >= 1)
                     {
+                        // Si ya hay otro usuario en el Lobby, se crea la partida
                         User user2 = Lobby.GetAndRemoveUser();
                         user.RestartPlayer();
                         user2.RestartPlayer();
@@ -49,10 +51,11 @@ namespace Battleship
                         user.ChangeStatus(3);
                         user2.ChangeStatus(3);
 
-                        response = "Se ha unido a una partida";
+                        response = $"Se ha unido a una partida con id {game.GetId()}";
                     }
                     else
                     {
+                        // Agregando el usuario al Lobby
                         Lobby.AddUser(user);
                         user.ChangeStatus(2);
                         response = "Entraste a la sala de espera.";

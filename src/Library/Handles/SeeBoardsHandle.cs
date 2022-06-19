@@ -29,11 +29,13 @@ namespace Battleship
 
                 if (user.getStatus() != "position ships" && user.getStatus() != "in game")
                 {
+                    // Estado de user incorrecto
                     response = $"Comando incorrecto. Estado del usuario = {user.getStatus()}";
                     return;
                 }
                 else
                 {
+                    // Devolviendo los tableros como string
                     response = user.GetPlayer().GetBoardsToPrint();
                 }
                 

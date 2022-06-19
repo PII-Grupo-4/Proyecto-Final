@@ -6,8 +6,6 @@ namespace Battleship
     {
         private static List<Game> GamesInPlay = new List<Game>{};
 
-        private static List<Game> GamesPlayed = new List<Game>{};
-
         public static void AddGame(Game game)
         {
             GamesInPlay.Add(game);
@@ -24,6 +22,13 @@ namespace Battleship
             }
 
             return null;
+        }
+
+        public static void SaveGame(Game game)
+        {
+            
+
+            GamesInPlay.Remove(game);
         }
     }
 }

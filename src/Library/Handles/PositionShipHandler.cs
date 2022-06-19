@@ -34,6 +34,7 @@ namespace Battleship
 
                 if (user.getStatus() != "position ships")
                 {
+                    // Estado de user incorrecto
                     response = $"Comando incorrecto. Estado del usuario = {user.getStatus()}";
                     return;
                 }
@@ -42,6 +43,7 @@ namespace Battleship
                     string intructions = "";
                     int sizeShip;
 
+                    // Posicionando naves
                     while (user.GetPlayer().GetShipsBoard().GetShipsAlive() < 4 && intructions != "salir")
                     {
                         sizeShip = 5 - user.GetPlayer().GetShipsBoard().GetShipsAlive();
@@ -62,10 +64,12 @@ namespace Battleship
                     }
                     if (intructions == "salir")
                     {
+                        // Saliendo de posicionar naves
                         response = "Saliendo de posicionar barcos";
                         return;
                     }
 
+                    // Cambiando el estado del user
                     Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
                     user.ChangeStatus(4);
                     response = "Los barcos estan listos";

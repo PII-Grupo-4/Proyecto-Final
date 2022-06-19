@@ -35,6 +35,7 @@ namespace Battleship
 
                 if (user.getStatus() != "in game")
                 {
+                    // Estado de user incorrecto
                     response = $"Comando incorrecto. Estado del usuario = {user.getStatus()}";
                     return;
                 }
@@ -44,6 +45,7 @@ namespace Battleship
                     User userAttacked = null;
                     try
                     {
+                        // Accediendo al otro usuario(player)
                         int gameId = user.GetPlayer().GetGameId();
                         game = GamesRegister.GetGameInPlay(gameId);
 
@@ -61,6 +63,7 @@ namespace Battleship
                         return;
                     }
                     
+                    // Ataque
                     Printer.Print(user.GetPlayer().GetBoardsToPrint());
 
                     Printer.Print(("\nIngrese las coordenadas de ataque con formato LetraNumero (ejemplo: A1)."));
@@ -68,17 +71,26 @@ namespace Battleship
 
                     response = Logic.Attack(stringCoordinate, user, userAttacked);
 
+                    // Juego terminado
                     if (userAttacked.GetPlayer().GetShipsAlive() == 0)
                     {
-                        response = "Has hundido todos los barcos, juego terminado.";
+                        // Mensajes para los jugadores
+                        response = "¡Felicitaciones!. Has hundido todos los barcos ¡Ganaste!.";
+                        User loserUser = game.GetOtherUserById(user.GetID());
+                        loserUser.ChangeTextToPrint("El enemigo ha hundido todos tus barcos. Has perdido.");
                         game.AddUserWinner(user);
 
+                        // Cambio de estado y turno
                         user.ChangeStatus(1);
                         userAttacked.ChangeStatus(1); 
                         response += "\n\n------Turno cambiado------\n\n";   
                         Logic.ChangeTurn(message);
+
+                        // Guardando juego
+                        
                     }
 
+                    // Cambio de turno
                     if(response == "Agua" || response == "Hundido" || response == "Tocado")
                     {
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 

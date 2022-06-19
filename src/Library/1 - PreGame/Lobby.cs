@@ -2,7 +2,9 @@ using System.Collections.Generic;
 
 namespace Battleship
 {
+
     // Sala de espera para encontrar juego
+    
     public static class Lobby
     {
         static List<User> ListOfUser = new List<User>();

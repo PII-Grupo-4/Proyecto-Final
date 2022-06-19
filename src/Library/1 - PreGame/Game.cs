@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 namespace Battleship
 {
+    // La clase Games es una clase que contiene, brinda acceso y crea a los Games.
     public class Game
     {
         private static int CounterId = 0;

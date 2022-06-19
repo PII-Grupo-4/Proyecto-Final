@@ -9,10 +9,10 @@ namespace Battleship
     // x = tocado
     // # = hundido
     // BARCOS:
-    // C = Carrier (5)
-    // B = Battleship (4)
-    // S = Submarine (3)
-    // D = Destroyer (2)
+    // C = Carrier (Size: 5)
+    // B = Battleship (Size: 4)
+    // S = Submarine (Size: 3)
+    // D = Destroyer (Size: 2)
     public class Board
     {
         private string[,] board = new string[10,10]; //Tablero

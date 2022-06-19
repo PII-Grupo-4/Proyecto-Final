@@ -29,6 +29,7 @@ namespace Battleship
 
                 if (user.getStatus() != "lobby")
                 {
+                    // Estado de user incorrecto
                     response = $"Comando incorrecto. Estado del usuario = {user.getStatus()}";
                     return;
                 }

@@ -47,6 +47,12 @@ namespace Program
                     nextUser = user2;
                 }
 
+                if (nextUser.GetTextToPrint() != "")
+                {
+                    printer.Print(nextUser.GetTextToPrint());
+                    nextUser.ChangeTextToPrint("");
+                }
+
                 printer.Print($"Usuario {nextUser.GetName()}. Escriba un comando, 'comandos' (para ver comandos y estado) o 'salir':");
                 printer.Print("> ");
 

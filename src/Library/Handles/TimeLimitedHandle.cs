@@ -1,23 +1,22 @@
 
-
 namespace Battleship
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "ver partida jugada".
+    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "buscar partida".
     /// </summary>
-    public class SeeGameSummaryHandler : BaseHandler
+    public class TimeLimitedHandler : BaseHandler
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="SeeGameSummaryHandler"/>. Esta clase procesa el mensaje "ver partida jugada".
+        /// Inicializa una nueva instancia de la clase <see cref="TimeLimitedHandler"/>. Esta clase procesa el mensaje "buscar partida".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public SeeGameSummaryHandler(BaseHandler next) : base(next)
+        public TimeLimitedHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"Ver partida jugada", "ver partida jugada", "VER PARTIDA JUGADA", "ver partida"};
+            this.Keywords = new string[] {"buscar partida tiempo limitado", "Buscar partida tiempo limitado", "BUSCAR PARTIDA TIEMPO LIMITADO"};
         }
 
         /// <summary>
-        /// Procesa el mensaje "ver partida jugada" y retorna true; retorna false en caso contrario.
+        /// Procesa el mensaje "Buscar partida tiempo limitado" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="message">El mensaje a procesar.</param>
         /// <param name="response">La respuesta al mensaje procesado.</param>
@@ -36,10 +35,9 @@ namespace Battleship
                 }
                 else
                 {
-                    
+                    response = "Aún no se configuro el handler.";
                 }
 
-                response = "";
             }
             catch
             {

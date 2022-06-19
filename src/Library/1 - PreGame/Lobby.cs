@@ -2,7 +2,9 @@ using System.Collections.Generic;
 
 namespace Battleship
 {
-    // Cuando el user crea una partida y esta a la espera de otro user para jugar la batalla, queda en el estado lobby.
+
+    // Sala de espera para encontrar juego
+    
     public static class Lobby
     {
         static List<User> ListOfUser = new List<User>();

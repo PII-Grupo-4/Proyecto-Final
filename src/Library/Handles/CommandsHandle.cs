@@ -30,7 +30,7 @@ namespace Battleship
 
                 if (user.getStatus() == "start")
                 {
-                    response = $"\nComandos en estado '{user.getStatus()}'\n- buscar partida\n- ver partida jugada\n- cambiar turno\n- salir";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- buscar partida\n- ver partidas jugadas\n- cambiar turno\n- salir";
                 }
                 else if(user.getStatus() == "lobby")
                 {

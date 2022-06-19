@@ -86,8 +86,11 @@ namespace Battleship
                         response += "\n\n------Turno cambiado------\n\n";   
                         Logic.ChangeTurn(message);
 
+                        // Elimina el juego de la lista de juegos
+                        GamesRegister.RemoveGame(game);
+                    
                         // Guardando juego
-                        
+                        //GamesRegister.SaveGame(game);
                     }
 
                     // Cambio de turno

@@ -50,9 +50,15 @@ namespace Battleship
             this.UserWinner = user;
         }
 
-        public void GameInString()
+        public string GameInString()
         {
-            
+            string summary = $"User 1 = {User1.GetName()}";
+            summary += $" - Ships alive = {User1.GetPlayer().GetShipsAlive()}\n";
+            summary += $"User 2 = {User2.GetName()}";
+            summary += $" - Ships alive = {User2.GetPlayer().GetShipsAlive()}\n";
+            summary += $"Winner = {UserWinner.GetName()}\n\n";
+
+            return summary;
         }
     }
 }

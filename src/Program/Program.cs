@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Battleship;
 
 namespace Program
@@ -6,6 +7,11 @@ namespace Program
     class Program
     {
         static void Main(string[] args)
+        {
+            ProgramaPrincipal();
+        }
+
+        static void ProgramaPrincipal()
         {
             IPrinter printer = new ConsolePrinter();
             IInputText inputText = new ConsoleInputText();
@@ -77,8 +83,24 @@ namespace Program
             }
         }
 
+
         static void Pruebas()
         {
+            IPrinter printer = new ConsolePrinter();
+            IInputText inputText = new ConsoleInputText();
+
+            User user1 = new User("a");
+            User user2 = new User("b");
+
+            UserRegister.AddUser(user1);
+            UserRegister.AddUser(user2);
+
+            Game game = new Game(user1, user2);
+            GamesRegister.AddGame(game);
+            game.AddUserWinner(user1);
+
+            GamesRegister.SaveGame(game);
+            printer.Print(File.ReadAllText("./GameSummaries.txt"));
 
         }
 

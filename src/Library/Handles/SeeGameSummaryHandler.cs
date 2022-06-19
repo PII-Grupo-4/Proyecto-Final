@@ -38,6 +38,8 @@ namespace Battleship
                 {
                     
                 }
+
+                response = "";
             }
             catch
             {

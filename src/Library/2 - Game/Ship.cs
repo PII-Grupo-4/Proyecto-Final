@@ -6,11 +6,11 @@ namespace Battleship
     {
         private int Size{get; set;}
 
-        private int Health{get; set;}
+        private int Health{get; set;}  // Contiene la cantiadad de casillas sin disparar del barco
 
-        private List<List<int>> Coordinates{get; set;}
+        private List<List<int>> Coordinates{get; set;} // Coordenadas sin disparar del barco
 
-        private string Character{get; set;}
+        private string Character{get; set;} //Character correspondiente al barco
 
         public Ship(int size)
         {
@@ -18,6 +18,7 @@ namespace Battleship
 
             this.Health = size;
 
+            // En base al tamaño, le asigna un caracter al barco
             if (size == 2)
             {
                 this.Character = "D";

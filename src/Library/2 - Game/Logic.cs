@@ -8,7 +8,8 @@ namespace Battleship
         static List<string> Row = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
         static List<string> Column = new List<string>{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
-
+        // Recibe dos usuarios y una coordenada.
+        // En caso de que la coordenada sea correcta, realiza el ataque.
         public static string Attack(string coordinate, User user, User userAttacked)
         {
             Board boardWithShips = userAttacked.GetPlayer().GetShipsBoard();
@@ -69,6 +70,7 @@ namespace Battleship
 
 
         // FixCoordinate recibe una coordenada en forma de string (ej "A3") y la transforma en una lista de dos int.
+        // Si son incorrectas, retorna una lista vacia
         public static List<int> FixCoordinate(string coordinate)
         {
             List<int> coordinateList = new List<int>();
@@ -121,6 +123,7 @@ namespace Battleship
             }
         }
 
+        // Cambia el turno de los usuarios
         public static void ChangeTurn(Message message)
         {
             if (message.Turn == 1)

@@ -3,6 +3,7 @@ using System.IO;
 
 namespace Battleship
 {
+    // Crea, contiene y elimina los Games
     public static class GamesRegister
     {
         private static List<Game> GamesInPlay = new List<Game>{};
@@ -23,6 +24,18 @@ namespace Battleship
             }
 
             return null;
+        }
+
+        public static void RemoveGame(Game game)
+        {
+            foreach (Game game1 in GamesInPlay)
+            {
+                if (game1 == game)
+                {
+                    GamesInPlay.Remove(game1);
+                    break;
+                }
+            }  
         }
         
 

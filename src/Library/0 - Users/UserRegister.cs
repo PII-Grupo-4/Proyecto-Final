@@ -8,7 +8,7 @@ namespace Battleship
 {
     static public class UserRegister
     {
-        static List<User> ListOfUsers = new List<User> ();
+        private static List<User> ListOfUsers = new List<User> ();
 
         public static void AddUser(User user)
         {

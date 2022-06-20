@@ -7,8 +7,10 @@ namespace Battleship
     public class AttackHandle : BaseHandler
     {
 
-        private IPrinter Printer;
-        private IInputText InputText;
+        protected IPrinter Printer;
+        protected IInputText InputText;
+
+        protected string gameMode; // Para el modo de juego
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="AttackHandle"/>. Esta clase procesa el mensaje "atacar".
@@ -19,6 +21,8 @@ namespace Battleship
             this.Keywords = new string[] {"Atacar", "atacar", "ATACAR"};
             this.Printer = printer;
             this.InputText = inputText;
+
+            gameMode = "normal";
         }
 
         /// <summary>
@@ -33,7 +37,7 @@ namespace Battleship
             {
                 User user = UserRegister.GetUser(message.id);
 
-                if (user.getStatus() != "in game")
+                if (user.getStatus() != $"in {gameMode} game")
                 {
                     // Estado de user incorrecto
                     response = $"Comando incorrecto. Estado del usuario = {user.getStatus()}";
@@ -51,7 +55,7 @@ namespace Battleship
 
                         userAttacked = game.GetOtherUserById(user.GetID());
 
-                        if (userAttacked.getStatus() != "in game")
+                        if (userAttacked.getStatus() != $"in {gameMode} game")
                         {
                             response = "El contricante no ha posicionado los barcos.";
                             return;
@@ -64,12 +68,7 @@ namespace Battleship
                     }
                     
                     // Ataque
-                    Printer.Print(user.GetPlayer().GetBoardsToPrint());
-
-                    Printer.Print(("\nIngrese las coordenadas de ataque con formato LetraNumero (ejemplo: A1)."));
-                    string stringCoordinate = InputText.Input();
-
-                    response = Logic.Attack(stringCoordinate, user, userAttacked);
+                    response = Attack(user, userAttacked);
 
                     // Juego terminado
                     if (userAttacked.GetPlayer().GetShipsAlive() == 0)
@@ -81,8 +80,8 @@ namespace Battleship
                         game.AddUserWinner(user);
 
                         // Cambio de estado y turno
-                        user.ChangeStatus(1);
-                        userAttacked.ChangeStatus(1); 
+                        user.ChangeStatus("start");
+                        userAttacked.ChangeStatus("start"); 
                         response += "\n\n------Turno cambiado------\n\n";   
                         Logic.ChangeTurn(message);
 
@@ -93,8 +92,8 @@ namespace Battleship
                         //GamesRegister.SaveGame(game);
                     }
 
-                    // Cambio de turno
-                    if(response == "Agua" || response == "Hundido" || response == "Tocado")
+                    // Cambio de turno (Agua casi tocado es para el modo de juego predictivo)
+                    if(response == "Agua" || response == "Hundido" || response == "Tocado" || response == "Agua casi tocado")
                     {
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
                         Logic.ChangeTurn(message);
@@ -106,6 +105,17 @@ namespace Battleship
             {
                 response = "Sucedió un error";
             }
+        }
+
+        // Método para que las clases herederas lo sobrescriban, cambiando el método con el cual se ataca
+        protected virtual string Attack(User user, User userAttacked)
+        {
+            Printer.Print(user.GetPlayer().GetBoardsToPrint());
+
+            Printer.Print(("\nIngrese las coordenadas de ataque con formato LetraNumero (ejemplo: A1)."));
+            string stringCoordinate = InputText.Input();
+
+            return Logic.Attack(stringCoordinate, user, userAttacked);
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Battleship
     /// </summary>
     public class SearchGameHandler : BaseHandler
     {
+        protected string gameMode; // Para el modo de juego
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SearchGameHandler"/>. Esta clase procesa el mensaje "buscar partida".
         /// </summary>
@@ -13,6 +14,7 @@ namespace Battleship
         public SearchGameHandler(BaseHandler next) : base(next)
         {
             this.Keywords = new string[] {"buscar partida", "Buscar partida", "BUSCAR PARTIDA"};
+            gameMode = "normal";
         }
 
         /// <summary>
@@ -35,10 +37,10 @@ namespace Battleship
                 }
                 else
                 {
-                    if (Lobby.NumberUsersLobby() >= 1)
+                    if (Lobby.NumberUsersLobby(gameMode) >= 1)
                     {
                         // Si ya hay otro usuario en el Lobby, se crea la partida
-                        User user2 = Lobby.GetAndRemoveUser();
+                        User user2 = Lobby.GetAndRemoveUser(gameMode);
                         user.RestartPlayer();
                         user2.RestartPlayer();
 
@@ -48,17 +50,20 @@ namespace Battleship
                         user.GetPlayer().AddGameId(game.GetId());
                         user2.GetPlayer().AddGameId(game.GetId());
 
-                        user.ChangeStatus(3);
-                        user2.ChangeStatus(3);
+                        user.ChangeGameMode(gameMode);
+                        user.ChangeStatus("position ships");
+                        user2.ChangeStatus("position ships");
 
                         response = $"Se ha unido a una partida con id {game.GetId()}";
+                        user2.ChangeTextToPrint(response);
                     }
                     else
                     {
                         // Agregando el usuario al Lobby
+                        user.ChangeGameMode(gameMode);
                         Lobby.AddUser(user);
-                        user.ChangeStatus(2);
-                        response = "Entraste a la sala de espera.";
+                        user.ChangeStatus("lobby");
+                        response = $"Entraste a la sala de espera. Modo de juego: {gameMode}";
                     }
                 }
             }

@@ -69,6 +69,12 @@ namespace Battleship
         }
 
 
+        // Para el modo de juego predictivo
+        public static string AttackPredictive(string coordinate, User user, User userAttacked)
+        {
+            return "";
+        }
+
         // FixCoordinate recibe una coordenada en forma de string (ej "A3") y la transforma en una lista de dos int.
         // Si son incorrectas, retorna una lista vacia
         public static List<int> FixCoordinate(string coordinate)

@@ -40,10 +40,14 @@ namespace Battleship
                 {
                     response = $"\nComandos en estado '{user.getStatus()}'\n- posicionar barcos\n- ver tableros\n- cambiar turno\n- salir";
                 } 
-                else if(user.getStatus() == "in game")
+                else if(user.getStatus() == $"in normal game")
                 {
                     response = $"\nComandos en estado '{user.getStatus()}'\n- atacar\n- ver tableros\n- cambiar turno\n- salir";
-                } 
+                }
+                else if(user.getStatus() == $"in predictive game")
+                {
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- atacar p\n- ver tableros\n- cambiar turno\n- salir";
+                }
                 else
                 {
                     throw new Exception();

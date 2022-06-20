@@ -14,11 +14,19 @@ namespace Battleship
             ListOfUser.Add(user);
         }
 
-        static public User GetAndRemoveUser()
+        // Se ingresa el modo de juego, y se retorna al primer usuario que este esperando para jugar
+        static public User GetAndRemoveUser(string gameMode)
         {
-            User user = ListOfUser[0];
-            ListOfUser.Remove(user);
-            return user;
+            foreach (User user in ListOfUser)
+            {
+                if (user.GetGameMode() == gameMode)
+                {
+                    ListOfUser.Remove(user);
+                    return user;
+                }  
+            }
+
+            return null;
         }  
 
         static public void RemoveUser(User user)
@@ -26,9 +34,21 @@ namespace Battleship
             ListOfUser.Remove(user);
         }
 
-        static public int NumberUsersLobby()
+        // Posibles modos de juego:
+        //      normal = Clásico
+        static public int NumberUsersLobby(string gameMode)
         {
-            return ListOfUser.Count;
+            int numberOfUser = 0;
+
+            foreach (User user in ListOfUser)
+            {
+                if (user.GetGameMode() == gameMode)
+                {
+                    numberOfUser ++;
+                }  
+            }
+
+            return numberOfUser;
         }
 
     }

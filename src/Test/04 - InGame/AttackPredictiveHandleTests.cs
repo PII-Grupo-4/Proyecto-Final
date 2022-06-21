@@ -5,9 +5,9 @@ namespace Library.Tests
 {
     // Una vez en el juego, el jugador puede atacar, para ello debe indicar la coordenada
     // de ataque en el mensaje
-    public class AttackHandleTest
+    public class AttackPredictiveHandlerTest
     {
-        AttackHandle handler;
+        AttackPredictiveHandler handler;
         Message message;
         User user1;
         User user2;
@@ -20,9 +20,9 @@ namespace Library.Tests
         [SetUp]
         public void Setup()
         {
-            handler = new AttackHandle(null);
+            handler = new AttackPredictiveHandler(null);
 
-            sgameh = new SearchGameHandler(null);
+            sgameh = new SearchPredictiveGameHandler(null);
 
             pshiph = new PositionShipsHandle(null);
 
@@ -39,12 +39,12 @@ namespace Library.Tests
             IHandler result;
 
             message.id = user1.GetID();
-            message.Text = "buscar partida";
+            message.Text = "buscar partida predictiva";
             
             sgameh.Handle(message, out response);
 
             message.id = user2.GetID();
-            message.Text = "buscar partida";
+            message.Text = "buscar partida predictiva";
 
             sgameh.Handle(message, out response);
 
@@ -66,7 +66,7 @@ namespace Library.Tests
         [Test]
         public void TestAttackHandle()
         {
-            message.Text = "atacar a1";
+            message.Text = "p ataque a1";
             message.id = user1.GetID();
 
             string response;
@@ -83,7 +83,7 @@ namespace Library.Tests
         [TestCase("k4")]
         public void InvalidCoordinates(string coor)
         {
-            message.Text =$"atacar {coor}";
+            message.Text = $"p ataque {coor}";
             message.id = user1.GetID();
 
             string response;

@@ -20,7 +20,7 @@ namespace Battleship
     /// </summary>
     public class Board
     {
-        private string[,] board = new string[10,10]; //Tablero
+        private string[,] board = new string[10,10]; //Tablero, El tamaño del tablero es fijo.
 
         private List<Ship> ShipsList = new List<Ship>{}; // Lista con los barcos
 

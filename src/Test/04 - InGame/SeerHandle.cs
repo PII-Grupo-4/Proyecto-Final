@@ -5,9 +5,9 @@ namespace Library.Tests
 {
     // Una vez en el juego, el jugador puede atacar, para ello debe indicar la coordenada
     // de ataque en el mensaje
-    public class AttackHandleTest
+    public class SeerHandlerTest
     {
-        AttackHandle handler;
+        SeerHandler handler;
         Message message;
         User user1;
         User user2;
@@ -20,9 +20,9 @@ namespace Library.Tests
         [SetUp]
         public void Setup()
         {
-            handler = new AttackHandle(null);
+            handler = new SeerHandler(null);
 
-            sgameh = new SearchGameHandler(null);
+            sgameh = new SearchPredictiveGameHandler(null);
 
             pshiph = new PositionShipsHandle(null);
 
@@ -39,12 +39,12 @@ namespace Library.Tests
             IHandler result;
 
             message.id = user1.GetID();
-            message.Text = "buscar partida";
+            message.Text = "buscar partida predictiva";
             
             sgameh.Handle(message, out response);
 
             message.id = user2.GetID();
-            message.Text = "buscar partida";
+            message.Text = "buscar partida predictiva";
 
             sgameh.Handle(message, out response);
 
@@ -64,9 +64,9 @@ namespace Library.Tests
         }
 
         [Test]
-        public void TestAttackHandle()
+        public void TestSeerHandle()
         {
-            message.Text = "atacar a1";
+            message.Text = "vidente";
             message.id = user1.GetID();
 
             string response;
@@ -74,24 +74,29 @@ namespace Library.Tests
             IHandler result = handler.Handle(message, out response);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo($"Tocado\n\n\n\n------Turno cambiado------\n\n"));
+            Assert.That(response, Is.EqualTo($"La zona superior contiene más puntos de impacto\n\n\n\n------Turno cambiado------\n\n"));
 
         }
 
 
-        [TestCase("a0")]
-        [TestCase("k4")]
-        public void InvalidCoordinates(string coor)
+        // Pruebo usar dos veces la habilidad Seer
+        [Test]
+        public void AnotherTry(string coor)
         {
-            message.Text =$"atacar {coor}";
+            message.Text = "vidente";
             message.id = user1.GetID();
 
             string response;
 
             IHandler result = handler.Handle(message, out response);
+       
+            message.Text = "vidente";
+            message.id = user1.GetID();
+
+            result = handler.Handle(message, out response);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo($"Sucedió un error"));
+            Assert.That(response, Is.EqualTo($"Ya has utilizado la habilidad vidente"));
 
         }
 

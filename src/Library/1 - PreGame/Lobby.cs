@@ -7,21 +7,21 @@ namespace Battleship
     
     public static class Lobby
     {
-        static List<User> ListOfUser = new List<User>();
+        static List<User> UsersInLobby = new List<User>();
 
         static public void AddUser(User user)
         {
-            ListOfUser.Add(user);
+            UsersInLobby.Add(user);
         }
 
         // Se ingresa el modo de juego, y se retorna al primer usuario que este esperando para jugar
         static public User GetAndRemoveUser(string gameMode)
         {
-            foreach (User user in ListOfUser)
+            foreach (User user in UsersInLobby)
             {
                 if (user.GetGameMode() == gameMode)
                 {
-                    ListOfUser.Remove(user);
+                    UsersInLobby.Remove(user);
                     return user;
                 }  
             }
@@ -31,7 +31,7 @@ namespace Battleship
 
         static public void RemoveUser(User user)
         {
-            ListOfUser.Remove(user);
+            UsersInLobby.Remove(user);
         }
 
         // Posibles modos de juego:
@@ -40,7 +40,7 @@ namespace Battleship
         {
             int numberOfUser = 0;
 
-            foreach (User user in ListOfUser)
+            foreach (User user in UsersInLobby)
             {
                 if (user.GetGameMode() == gameMode)
                 {

@@ -3,6 +3,10 @@ using System.Linq;
 
 namespace Battleship
 {
+    /// Cabe destacar que los Handles son una gran muestra del principio de sustitución, ya
+    /// que cualquier subclase handler, puede sustituir un IHandler en el futuro. Podiendo agregar
+    /// todos los que necesitemos, incluso sin modificar el código.
+    /// 
     /// <summary>
     /// Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
     /// cadena de "handlers" que pueden procesar o no el mensaje. Cada "handler" decide si procesa el mensaje, o si se lo

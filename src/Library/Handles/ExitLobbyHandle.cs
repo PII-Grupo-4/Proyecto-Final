@@ -36,7 +36,7 @@ namespace Battleship
                 else
                 {
                     Lobby.RemoveUser(user);
-                    user.ChangeStatus(1);
+                    user.ChangeStatus("start");
                     response = "Has salido de la sala de espera";
                 }
             }

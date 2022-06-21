@@ -71,7 +71,7 @@ namespace Battleship
 
                     // Cambiando el estado del user
                     Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
-                    user.ChangeStatus(4);
+                    user.ChangeStatus($"in {user.GetGameMode()} game");
                     response = "Los barcos estan listos";
                 } 
             }

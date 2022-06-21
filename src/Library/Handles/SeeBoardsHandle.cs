@@ -27,7 +27,7 @@ namespace Battleship
             {
                 User user = UserRegister.GetUser(message.id);
 
-                if (user.getStatus() != "position ships" && user.getStatus() != "in game")
+                if (user.getStatus() != "position ships" && user.getStatus() != $"in {user.GetGameMode()} game")
                 {
                     // Estado de user incorrecto
                     response = $"Comando incorrecto. Estado del usuario = {user.getStatus()}";

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Battleship
 {
-
-    // Sala de espera para encontrar juego
-    
+    /// <summary>
+    /// Sala de espera para concretar un juego
+    /// </summary>
     public static class Lobby
     {
         static List<User> UsersInLobby = new List<User>();
@@ -14,7 +14,10 @@ namespace Battleship
             UsersInLobby.Add(user);
         }
 
-        // Se ingresa el modo de juego, y se retorna al primer usuario que este esperando para jugar
+        /// <summary>
+        /// Se ingresa el modo de juego, y se retorna al primer usuario que este esperando para jugar
+        /// </summary>
+        /// <param name="gameMode">modo de juego</param>
         static public User GetAndRemoveUser(string gameMode)
         {
             foreach (User user in UsersInLobby)

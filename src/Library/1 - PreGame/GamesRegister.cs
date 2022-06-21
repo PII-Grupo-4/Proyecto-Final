@@ -3,7 +3,9 @@ using System.IO;
 
 namespace Battleship
 {
-    // Crea, contiene y elimina los Games
+    /// <summary>
+    /// Cream contiene y elimina los Games
+    /// </summary>
     public static class GamesRegister
     {
         private static List<Game> GamesInPlay = new List<Game>{};
@@ -39,7 +41,9 @@ namespace Battleship
         }
         
 
-        // Recibe un game, lo guarda en el archivo GameSummaries.txt y lo eliminar de GamesInPlay
+        /// <summary>
+        /// Recibe un game, lo guarda en el archivo GameSummaries.txt y lo elimina de GamesInPlay
+        /// </summary>
         public static void SaveGame(Game game)
         {
             string gameToSave = game.GameInString();

@@ -26,7 +26,9 @@ namespace Battleship
             return this.Id;
         }
 
-        // Método para tener una permanencia de la id de los juegos
+        /// <summary>
+        /// Método para tener una permanencia de la id de los juegos
+        /// </summary>
         private int CounterId()
         {
             int counterId;
@@ -48,7 +50,11 @@ namespace Battleship
             return counterId;
         }
 
-        // Se ingresa la id de un usuario, y se retorna el otro usuario
+        /// <summary>
+        /// Se ingresa la id de un usuario, y se retorna el otro usuario
+        /// </summary>
+        /// <param name="id">id del usuario</param>
+        /// <returns>el otro usuario</returns>
         public User GetOtherUserById(int id)
         {
             if (User1.GetID() == id)

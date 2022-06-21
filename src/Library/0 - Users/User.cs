@@ -53,33 +53,46 @@ namespace Battleship
         /// Position ships: Juego creado, posicionando barcos
         /// In game: Jugando
         /// </summary>
-        /// <param name="StatusNumber">int numero correspondiente al nuevo estado</param>
+        /// <param name="StatusNumber">int número correspondiente al nuevo estado</param>
         public void ChangeStatus(string status)
         {
             this.Status = status;
         }
 
-        // Reinicia al Player para un nuevo juego
+        /// <summary>
+        /// Reinicia al Player para un nuevo juego
+        /// </summary>
         public void RestartPlayer()
         {
             this.player = new Player();
         }
 
-
         public string GetTextToPrint()
         {
             return this.TextToPrint;
         }
+        /// <summary>
+        /// Cuando es el turno de un usuario, la response de los handlers la imprime para este, 
+        /// cuando queremos que se imprima para el otro usuario, modificamos 
+        /// TextToPrint, y cuando es el turno de este segundo usuario, se imprime el mismo
+        /// </summary>
+        /// <param name="text"> texto a imprimir</param>
         public void ChangeTextToPrint(string text)
         {
             this.TextToPrint = text;
         }
-
+        /// <summary>
+        /// Obtener el modo de juego
+        /// </summary>
+        /// <returns>Modo de juego</returns>
         public string GetGameMode()
         {
             return this.GameMode;
         }
-
+        /// <summary>
+        /// Cambiar el modo de juego
+        /// </summary>
+        /// <param name="gameMode">Modo de juego al que queremos cambiarnos</param>
         public void ChangeGameMode(string gameMode)
         {
             this.GameMode = gameMode;

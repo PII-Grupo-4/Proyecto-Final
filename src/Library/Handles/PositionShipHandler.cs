@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 
 namespace Battleship
 {
@@ -6,18 +8,13 @@ namespace Battleship
     /// </summary>
     public class PositionShipsHandle : BaseHandler
     {
-        protected IPrinter Printer;
-        protected IInputText InputText;
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PositionShipsHandle"/>. Esta clase procesa el mensaje "posicionar barcos".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public PositionShipsHandle(BaseHandler next, IPrinter printer, IInputText inputText) : base(next)
+        public PositionShipsHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"posicionar barcos", "Posicionar barcos", "POSICIONAR BARCOS"};
-            this.Printer = printer;
-            this.InputText = inputText;
+            this.Keywords = new string[] {"posicionar barco", "posicionar nave"};
         }
 
         /// <summary>
@@ -35,44 +32,28 @@ namespace Battleship
                 if (user.getStatus() != "position ships")
                 {
                     // Estado de user incorrecto
-                    response = $"Comando incorrecto. Estado del usuario = {user.getStatus()}";
+                    response = $"Comando incorrecto Estado del usuario = {user.getStatus()}";
                     return;
                 }
                 else
                 {
-                    string intructions = "";
-                    int sizeShip;
-
                     // Posicionando naves
-                    while (user.GetPlayer().GetShipsBoard().GetShipsAlive() < 4 && intructions != "salir")
+                    try
                     {
-                        sizeShip = 5 - user.GetPlayer().GetShipsBoard().GetShipsAlive();
-                        try
-                        {
-                            Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
+                        string[] coordinates = message.Text.Split(' ');
 
-                            Printer.Print($"\nIngrese las coordenadas y la orientacion separadas por un espacio. Tamaño del barco = {sizeShip}.\n    coordenadas: LetraNumero (ejemplo: A1)\n    orientacion: 'UP', 'DOWN', 'LEFT' o 'RIGHT'.\n Ingrese 'salir' para volver.");
-                            intructions = InputText.Input();
-                            string[] coordinates = intructions.Split(' ');
-
-                            Printer.Print(user.GetPlayer().GetShipsBoard().ControlCoordinates(coordinates[0], coordinates[1]));
-                        }
-                        catch
+                        response = user.GetPlayer().GetShipsBoard().ControlCoordinates(coordinates[2], coordinates[3]);
+                        
+                        if (user.GetPlayer().GetShipsBoard().GetShipsAlive() >= 4)
                         {
-                            Printer.Print("Coordenadas ingresadas incorrectas.");
+                            user.ChangeStatus($"in {user.GetGameMode()} game");
+                            response = "Los barcos estan listos";
                         }
                     }
-                    if (intructions == "salir")
+                    catch
                     {
-                        // Saliendo de posicionar naves
-                        response = "Saliendo de posicionar barcos";
-                        return;
+                        response = ("Coordenadas ingresadas incorrectas.");
                     }
-
-                    // Cambiando el estado del user
-                    Printer.Print(user.GetPlayer().GetShipsBoard().BoardToString());
-                    user.ChangeStatus($"in {user.GetGameMode()} game");
-                    response = "Los barcos estan listos";
                 } 
             }
             catch
@@ -80,5 +61,30 @@ namespace Battleship
                 response = "Sucedió un error";
             }
         }
+
+        
+        protected override bool CanHandle(Message message)
+        {
+            try
+            {
+                string[] words = message.Text.Split(' ');
+
+                if (this.Keywords.Contains(words[0]+" "+words[1]))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            
+
+        }
+        
     }
 }

@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 
 namespace Battleship
 {
@@ -6,21 +8,15 @@ namespace Battleship
     /// </summary>
     public class AttackHandle : BaseHandler
     {
-
-        protected IPrinter Printer;
-        protected IInputText InputText;
-
         protected string gameMode; // Para el modo de juego
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="AttackHandle"/>. Esta clase procesa el mensaje "atacar".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public AttackHandle(BaseHandler next, IPrinter printer, IInputText inputText) : base(next)
+        public AttackHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"Atacar", "atacar", "ATACAR"};
-            this.Printer = printer;
-            this.InputText = inputText;
+            this.Keywords = new string[] {"atacar"};
 
             gameMode = "normal";
         }
@@ -68,7 +64,7 @@ namespace Battleship
                     }
                     
                     // Ataque
-                    response = Attack(user, userAttacked);
+                    response = Attack(user, userAttacked, message);
 
                     // Juego terminado
                     if (userAttacked.GetPlayer().GetShipsAlive() == 0)
@@ -108,14 +104,36 @@ namespace Battleship
         }
 
         // Método para que las clases herederas lo sobrescriban, cambiando el método con el cual se ataca
-        protected virtual string Attack(User user, User userAttacked)
+        protected virtual string Attack(User user, User userAttacked, Message message)
         {
-            Printer.Print(user.GetPlayer().GetBoardsToPrint());
+            string[] coordinates = message.Text.Split(' ');
 
-            Printer.Print(("\nIngrese las coordenadas de ataque con formato LetraNumero (ejemplo: A1)."));
-            string stringCoordinate = InputText.Input();
+            string stringCoordinate = coordinates[1];
 
             return Logic.Attack(stringCoordinate, user, userAttacked);
+        }
+
+        protected override bool CanHandle(Message message)
+        {
+            try
+            {
+                string[] words = message.Text.Split(' ');
+
+
+                if (this.Keywords.Contains(words[0]))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
     }
 }

@@ -1,32 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Battleship
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa los comandos "ataque aereo", "vidente", "satelite".
+    /// Un "handler" del patrón Chain of Responsibility que implementa los comandos "ataque aereo","satelite".
     /// </summary>
     public class SpecialHabilitiesHandler : BaseHandler
     {
-        protected IPrinter Printer;
-        protected IInputText InputText;
-
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="SpecialHabilitiesHandler"/>. Esta clase procesa el mensaje "ataque aereo", "vidente", "satelite".
+        /// Inicializa una nueva instancia de la clase <see cref="SpecialHabilitiesHandler"/>. Esta clase procesa el mensaje "aereo","satelite".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public SpecialHabilitiesHandler(BaseHandler next, IPrinter printer, IInputText inputText) : base(next)
+        public SpecialHabilitiesHandler(BaseHandler next) : base(next)
         {
-            string a = "ataque aereo";
-            string b = "vidente";
-            string c = "satelite";
-            this.Keywords = new string[] {a, a.ToUpper(), "Ataque aereo", b, b.ToUpper(), "Vidente", c, "satelite", c.ToUpper(), };
-            this.Printer = printer;
-            this.InputText = inputText;
+            this.Keywords = new string[] {"aereo", "satelite"};
         }
 
         /// <summary>
-        /// Procesa los mensajes "ataque aereo", "vidente", "satelite" y retorna true; retorna false en caso contrario.
+        /// Procesa los mensajes "aereo", "vidente", "satelite" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="message">El mensaje a procesar.</param>
         /// <param name="response">La respuesta al mensaje procesado.</param>
@@ -69,7 +62,9 @@ namespace Battleship
                     
                     try
                     {
-                        if (message.Text == "ataque aereo" || message.Text == "Ataque aereo" || message.Text == "ATAQUE AEREO")
+                        string[] direction = message.Text.Split(' ');
+
+                        if (message.Text == $"aereo {direction[1]}" || message.Text == $"aereo {direction[1]}" || message.Text == $"AEREO {direction[1]}")
                         {
                             if (!user.GetPlayer().GetSpecialsHabilities().Contains("air attack"))
                             {
@@ -77,10 +72,7 @@ namespace Battleship
                                 return;
                             }
 
-                            Printer.Print(user.GetPlayer().GetBoardsToPrint());
-
-                            Printer.Print(("\nIngrese la fila para realizar el ataque aereo (ejemplo: A)."));
-                            string theRow = InputText.Input();
+                            string theRow = direction[1];
 
                             if (!Logic.GetRow().Contains(theRow.ToUpper()))
                             {
@@ -94,20 +86,7 @@ namespace Battleship
 
                             response = "Fila atacada con exito";
                         }
-                        else if (message.Text == "vidente" || message.Text == "Vidente" || message.Text == "VIDENTE")
-                        {
-                            if (!user.GetPlayer().GetSpecialsHabilities().Contains("seer"))
-                            {
-                                response = "Ya has utilizado la habilidad vidente";
-                                return;
-                            }
-
-                            response = Logic.Seer(userAttacked);
-
-                            user.GetPlayer().UseHability("seer");
-                            
-                        }
-                        else if (message.Text == "satelite" || message.Text == "Satelite" || message.Text == "SATELITE")
+                        else if (message.Text == $"satelite {direction[1]}" || message.Text == $"Satelite {direction[1]}" || message.Text == $"SATELITE {direction[1]}")
                         {
                             if (!user.GetPlayer().GetSpecialsHabilities().Contains("satellite photo"))
                             {
@@ -115,10 +94,7 @@ namespace Battleship
                                 return;
                             }
 
-                            Printer.Print(user.GetPlayer().GetBoardsToPrint());
-
-                            Printer.Print(("\nIngrese la columna de la foto satelital (ejemplo: 1):"));
-                            string theColumn = InputText.Input();
+                            string theColumn = direction[1];
 
                             List<string> validColumns = new List<string>{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
@@ -155,5 +131,29 @@ namespace Battleship
                 response = "Sucedió un error";
             }
         }
+
+        protected override bool CanHandle(Message message)
+        {
+            try
+            {
+                string[] words = message.Text.Split(' ');
+
+
+                if (this.Keywords.Contains(words[0]))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
+        
     }
 }

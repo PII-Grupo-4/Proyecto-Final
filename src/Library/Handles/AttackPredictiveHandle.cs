@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 
 namespace Battleship
 {
@@ -6,21 +8,43 @@ namespace Battleship
     /// </summary>
     public class AttackPredictiveHandler : AttackHandle
     {
-        public AttackPredictiveHandler(BaseHandler next, IPrinter printer, IInputText inputText) : base(next, printer, inputText)
+        public AttackPredictiveHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"atacar predictivo", "atacar p", "Atacar p", "ATACAR p"};
+            this.Keywords = new string[] {"predictivo ataque", "p ataque"};
 
             gameMode = "predictive";
         }
 
-        protected override string Attack(User user, User userAttacked)
+        protected override string Attack(User user, User userAttacked, Message message)
         {
-            Printer.Print(user.GetPlayer().GetBoardsToPrint());
+            string[] coordinates = message.Text.Split(' ');
 
-            Printer.Print(("\nIngrese las coordenadas de ataque con formato LetraNumero (ejemplo: A1)."));
-            string stringCoordinate = InputText.Input();
+            string stringCoordinate = coordinates[2];
 
             return Logic.AttackPredictive(stringCoordinate, user, userAttacked);
+        }
+
+        protected override bool CanHandle(Message message)
+        {
+            try
+            {
+                string[] words = message.Text.Split(' ');
+
+
+                if (this.Keywords.Contains(words[0]+" "+words[1]))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
     }
 }

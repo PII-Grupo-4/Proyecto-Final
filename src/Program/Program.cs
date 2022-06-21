@@ -38,11 +38,9 @@ namespace Program
                 new PositionShipsHandle(
                 new AttackHandle(
                 new AttackPredictiveHandler(
-                new SpecialHabilitiesHandler(null, printer, inputText), 
-                printer, inputText),  
-                printer, inputText), 
-                printer, inputText)
-                )))))));
+                new SpecialHabilitiesHandler(
+                new SeerHandler(null) 
+                )))))))))));
                 
             Message message = new Message();
             string response;
@@ -93,27 +91,7 @@ namespace Program
 
         static void Pruebas()
         {
-            IPrinter printer = new ConsolePrinter();
-            IInputText inputText = new ConsoleInputText();
 
-            User user1 = new User("a");
-            User user2 = new User("b");
-
-            UserRegister.AddUser(user1);
-            UserRegister.AddUser(user2);
-
-            Game game = new Game(user1, user2);
-            GamesRegister.AddGame(game);
-            game.AddUserWinner(user1);
-
-            //GamesRegister.SaveGame(game);
-
-            StreamWriter writetext = new StreamWriter("GameSummaries.txt");
-            writetext.WriteLine("hola\n");
-            writetext.Close();
-            printer.Print(File.ReadAllText("GameSummaries.txt"));
-
-        }
-
+        }   
     }
 }

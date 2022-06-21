@@ -13,7 +13,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public CommandsHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"comandos", "Comandos", "COMANDOS", "comando", "Comando", "COMANDO"};
+            this.Keywords = new string[] {"comandos", "comando"};
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Battleship
             try
             {
                 User user = UserRegister.GetUser(message.id);
-                string forInGame = "\n- ver tableros\n- ataque aereo\n- vidente\n- satelite\n- cambiar turno\n- salir";
+                string forInGame = "\n- ver tableros\n- aereo <fila> (ejemplo:aereo A)\n- vidente\n- satelite <columna (ejemplo: satelite 1)>\n- cambiar turno\n- salir";
 
                 if (user.getStatus() == "start")
                 {
@@ -39,15 +39,15 @@ namespace Battleship
                 } 
                 else if(user.getStatus() == "position ships")
                 {
-                    response = $"\nComandos en estado '{user.getStatus()}'\n- posicionar barcos\n- ver tableros\n- cambiar turno\n- salir";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- posicionar barcos <coordenada> <orientación> (ejemplo: 'posicionar barco a1 down')>\n- ver tableros\n- cambiar turno\n- salir";
                 } 
                 else if(user.getStatus() == $"in normal game")
                 {
-                    response = $"\nComandos en estado '{user.getStatus()}'\n- atacar{forInGame}";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- atacar <coordenada> (ejemplo: 'atacar A1'){forInGame}";
                 }
                 else if(user.getStatus() == $"in predictive game")
                 {
-                    response = $"\nComandos en estado '{user.getStatus()}'\n- atacar p{forInGame}";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- p ataque <coordenada> (ejemplo: 'p ataque A1'){forInGame}";
                 }
                 else
                 {

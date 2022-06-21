@@ -13,7 +13,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public SearchGameHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"buscar partida", "Buscar partida", "BUSCAR PARTIDA"};
+            this.Keywords = new string[] {"buscar partida"};
             gameMode = "normal";
         }
 

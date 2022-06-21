@@ -12,7 +12,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public ChangeTurnHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"cambiar turno", "Cambiar turno", "CAMBIAR TURNO", "CAMBIO", "cambio", "Cambio"};
+            this.Keywords = new string[] {"cambiar turno", "cambio"};
         }
 
         /// <summary>

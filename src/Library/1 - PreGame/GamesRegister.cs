@@ -44,7 +44,7 @@ namespace Battleship
         {
             string gameToSave = game.GameInString();
             
-            StreamWriter writetext = new StreamWriter("GameSummaries.txt");
+            StreamWriter writetext = new StreamWriter("GameSummaries.txt", true);
             writetext.WriteLine(gameToSave);
             writetext.Close();
 

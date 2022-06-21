@@ -13,7 +13,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public SeeGameSummariesHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"Ver partidas jugadas", "ver partidas jugadas", "VER PARTIDAS JUGADAS", "ver partidas"};
+            this.Keywords = new string[] {"ver partidas jugadas", "ver partidas"};
         }
 
         /// <summary>

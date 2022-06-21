@@ -8,7 +8,7 @@ namespace Battleship
     {
         public SearchPredictiveGameHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"buscar partida predictiva", "Buscar partida predictiva", "BUSCAR PARTIDA PREDICTIVA"};
+            this.Keywords = new string[] {"buscar partida predictiva"};
             gameMode = "predictive";
         }
     }

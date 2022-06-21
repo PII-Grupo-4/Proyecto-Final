@@ -39,7 +39,7 @@ namespace Battleship
                 } 
                 else if(user.getStatus() == "position ships")
                 {
-                    response = $"\nComandos en estado '{user.getStatus()}'\n- posicionar barcos <coordenada> <orientación> (ejemplo: 'posicionar barco a1 down')>\n- ver tableros\n- cambiar turno\n- salir";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- posicionar barcos <coordenada> <orientación> (ejemplo: 'posicionar barco a1 down')\n      Orientaciones = up, down, left, right\n- ver tableros\n- cambiar turno\n- salir";
                 } 
                 else if(user.getStatus() == $"in normal game")
                 {

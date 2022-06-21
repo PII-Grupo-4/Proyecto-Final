@@ -40,7 +40,9 @@ namespace Battleship
             }
         }
 
-        // Retorna el número de barcos que hay en el tablero
+        /// <summary>
+        /// Retorna el número de barcos que hay en el tablero
+        /// </summary>
         public int GetShipsAlive()
         {
             return this.ShipsList.Count;
@@ -62,8 +64,12 @@ namespace Battleship
             this.ShipsList.Remove(ship);
         }
 
-        // Controla si los datos de coordenada y orientación ingresados son correctos
-        //  De ser así los envía a PositionShip.
+
+        /// <summary>
+        /// Controla si los datos de coordenada y orientación ingresados son correctos, de ser asi los envia a PositionShip
+        /// </summary>
+        /// <param name="coordinate">coordenada</param>
+        /// <param name="direction">orientacion (Izquierda, derecha, arriba, abajo)</param>
         public string ControlCoordinates(string coordinate, string direction)
         {
             string response = "";
@@ -112,7 +118,12 @@ namespace Battleship
             
         }
 
-        // Posiciona los barcos en la coordenada y orientación indicada
+        /// <summary>
+        /// Posiciona los barcos en la coordenada y orientación indicada
+        /// </summary>
+        /// <param name="size">tamaño del barco</param>
+        /// <param name="coordinateList">Lista de coordenadas</param>
+        /// <param name="direction">orientacion del barco</param>
         private bool Position_Ship(int size, List<int> coordinateList, string direction)
         {
             int c1 = coordinateList[0];
@@ -221,7 +232,9 @@ namespace Battleship
         }
 
 
-        // Devuelve el Board como una string, para que pueda imprimirse más tarde
+        /// <summary>
+        /// Devuelve el tablero (board) como una string, para que luego se pueda imprimir
+        /// </summary>
         public string BoardToString()
         {
             List<string> Lyrics = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};

@@ -22,7 +22,9 @@ namespace Battleship
             return this.RegisterBoard;
         }
 
-        // Retorna ambos barcos, prontos para
+        /// <summary>
+        /// Retorna ambos tableros como string, prontos para imprimir
+        /// </summary>
         public string GetBoardsToPrint()
         {
             string stringBoard = "Tablero con tus naves:\n";

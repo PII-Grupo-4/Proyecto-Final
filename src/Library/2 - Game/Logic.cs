@@ -36,7 +36,74 @@ namespace Battleship
             }
             else
             {
-                foreach (Ship ship in boardWithShips.GetShipsList())
+                response = TocadoHundido(boardWithShips, registerBoard, coordinateList);
+                return response;
+            }
+        }
+
+
+        // Para el modo de juego predictivo
+        public static string AttackPredictive(string coordinate, User user, User userAttacked)
+        {
+            Board boardWithShips = userAttacked.GetPlayer().GetShipsBoard();
+            Board registerBoard = user.GetPlayer().GetRegisterBoard();
+            string response = "";
+
+            List<int> coordinateList = FixCoordinate(coordinate);
+            if (coordinateList == new List<int>{})
+            {
+                return "Las coordenadas ingresadas son incorrectas";
+            }
+
+            string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1];
+            if (coordinateInBoard == "x" || coordinateInBoard == "#" || coordinateInBoard == "o")
+            {
+                return "Ya se atacó en dicha coordenada";
+            }
+            else if(coordinateInBoard == "-")
+            {
+                response = "Agua";
+                boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "o";
+                registerBoard.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "o";
+
+                // Coloco los números de las coordenadas en la siguiente lista para verificar que no salen del tablero
+                List<List<int>> listBoardCoordinate = new List<List<int>>{};
+                listBoardCoordinate.Add(new List<int>{coordinateList[0], coordinateList[1]-1});
+                listBoardCoordinate.Add(new List<int>{coordinateList[0]-2, coordinateList[1]-1});
+                listBoardCoordinate.Add(new List<int>{coordinateList[0]-1, coordinateList[1]});
+                listBoardCoordinate.Add(new List<int>{coordinateList[0]-1, coordinateList[1]-2});
+
+                List<string> charactersShips = new List<string>{"D", "S", "B", "C"};
+
+                foreach (List<int> coor in listBoardCoordinate)
+                {
+                    try
+                    {
+                        if (charactersShips.Contains(boardWithShips.GetBoard()[coor[0], coor[1]]))
+                        {
+                            response = "Agua casi tocado";
+                        }
+                    }
+                    catch{}
+                }
+                
+
+                return response;
+            }
+            else
+            {
+                response = TocadoHundido(boardWithShips, registerBoard, coordinateList);
+                return response;
+            }
+        }
+
+
+        private static string TocadoHundido(Board boardWithShips, Board registerBoard, List<int> coordinateList)
+        {
+            string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1];
+            string response = "";
+            
+            foreach (Ship ship in boardWithShips.GetShipsList())
                 {
                     if (ship.GetCharacter() == coordinateInBoard)
                     {
@@ -62,18 +129,10 @@ namespace Battleship
                         }
                     }
                 }
-                
 
-                return response;
-            }
+            return response;
         }
 
-
-        // Para el modo de juego predictivo
-        public static string AttackPredictive(string coordinate, User user, User userAttacked)
-        {
-            return "";
-        }
 
         // FixCoordinate recibe una coordenada en forma de string (ej "A3") y la transforma en una lista de dos int.
         // Si son incorrectas, retorna una lista vacia

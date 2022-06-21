@@ -37,10 +37,8 @@ namespace Battleship
                 else
                 {
                     // Se leen los juegos jugados
-                    response = File.ReadAllText("../GameSummaries.txt");
+                    response = File.ReadAllText("GameSummaries.txt");
                 }
-
-                response = "";
             }
             catch
             {

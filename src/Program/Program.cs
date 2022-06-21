@@ -9,6 +9,7 @@ namespace Program
         static void Main(string[] args)
         {
             ProgramaPrincipal();
+            //Pruebas();
         }
 
         static void ProgramaPrincipal()
@@ -29,13 +30,17 @@ namespace Program
 
             IHandler handler = new CommandsHandle(
                 new ChangeTurnHandle(
+                new SeeGameSummariesHandler(
                 new SearchGameHandler(
+                new SearchPredictiveGameHandler(
                 new ExitLobbyHandle(
                 new SeeBoardsHandle(
                 new PositionShipsHandle(
-                new AttackHandle(null,  printer, inputText), 
+                new AttackHandle(
+                new AttackPredictiveHandler(null, printer, inputText),  
+                printer, inputText), 
                 printer, inputText)
-                )))));
+                )))))));
                 
             Message message = new Message();
             string response;
@@ -99,8 +104,12 @@ namespace Program
             GamesRegister.AddGame(game);
             game.AddUserWinner(user1);
 
-            GamesRegister.SaveGame(game);
-            printer.Print(File.ReadAllText("./GameSummaries.txt"));
+            //GamesRegister.SaveGame(game);
+
+            StreamWriter writetext = new StreamWriter("GameSummaries.txt");
+            writetext.WriteLine("hola\n");
+            writetext.Close();
+            printer.Print(File.ReadAllText("GameSummaries.txt"));
 
         }
 

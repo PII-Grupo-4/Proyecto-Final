@@ -1,11 +1,10 @@
-using System.Collections.Generic;
+using System.IO;
 
 namespace Battleship
 {
-    // La clase Games es una clase que contiene, brinda acceso y crea a los Games.
+    // La clase Games es una clase que contiene, brinda acceso y crea los Games.
     public class Game
     {
-        private static int CounterId = 0;
         private int Id {get; set;}
 
         private User User1 {get; set;}
@@ -15,8 +14,7 @@ namespace Battleship
 
         public Game(User user1, User user2)
         {
-            this.Id = CounterId;
-            CounterId ++;
+            this.Id = CounterId();
 
             this.User1 = user1;
 
@@ -26,6 +24,28 @@ namespace Battleship
         public int GetId()
         {
             return this.Id;
+        }
+
+        // Método para tener una permanencia de la id de los juegos
+        private int CounterId()
+        {
+            int counterId;
+            try
+            {
+                counterId = int.Parse(File.ReadAllText("CounterIdGame.txt"));
+            }
+            catch
+            {
+                counterId = 0;
+            }
+
+            int newCounterId = counterId + 1;
+
+            StreamWriter writetext = new StreamWriter("CounterIdGame.txt", false);
+            writetext.WriteLine($"{newCounterId}");
+            writetext.Close();
+
+            return counterId;
         }
 
         // Se ingresa la id de un usuario, y se retorna el otro usuario
@@ -52,11 +72,12 @@ namespace Battleship
 
         public string GameInString()
         {
-            string summary = $"User 1 = {User1.GetName()}";
+            string summary = $"Game id = {this.Id}\n";
+            summary += $"User 1 = {User1.GetName()}";
             summary += $" - Ships alive = {User1.GetPlayer().GetShipsAlive()}\n";
             summary += $"User 2 = {User2.GetName()}";
             summary += $" - Ships alive = {User2.GetPlayer().GetShipsAlive()}\n";
-            summary += $"Winner = {UserWinner.GetName()}\n\n";
+            summary += $"Winner = {UserWinner.GetName()}\n";
 
             return summary;
         }

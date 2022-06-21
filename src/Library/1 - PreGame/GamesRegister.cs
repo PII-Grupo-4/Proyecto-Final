@@ -40,13 +40,13 @@ namespace Battleship
         
 
         // Recibe un game, lo guarda en el archivo GameSummaries.txt y lo eliminar de GamesInPlay
-        // Aún no funciona
         public static void SaveGame(Game game)
         {
             string gameToSave = game.GameInString();
             
-            StreamWriter writetext = new StreamWriter("./GameSummaries.txt");
+            StreamWriter writetext = new StreamWriter("GameSummaries.txt");
             writetext.WriteLine(gameToSave);
+            writetext.Close();
 
             foreach (Game game1 in GamesInPlay)
             {

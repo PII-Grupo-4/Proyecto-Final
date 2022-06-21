@@ -4,11 +4,11 @@ namespace Battleship
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "atacar p".
     /// </summary>
-    public class AttackPredictiveGameHandler : AttackHandle
+    public class AttackPredictiveHandler : AttackHandle
     {
-        public AttackPredictiveGameHandler(BaseHandler next, IPrinter printer, IInputText inputText) : base(next, printer, inputText)
+        public AttackPredictiveHandler(BaseHandler next, IPrinter printer, IInputText inputText) : base(next, printer, inputText)
         {
-            this.Keywords = new string[] {"atacar predictiva", "atacar p", "Atacar p", "ATACAR p"};
+            this.Keywords = new string[] {"atacar predictivo", "atacar p", "Atacar p", "ATACAR p"};
 
             gameMode = "predictive";
         }

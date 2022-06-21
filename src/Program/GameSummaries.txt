@@ -1,0 +1,5 @@
+Game id = 2
+User 1 = ale - Ships alive = 0
+User 2 = ivan - Ships alive = 2
+Winner = ivan
+

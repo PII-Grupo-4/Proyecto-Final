@@ -89,7 +89,7 @@ namespace Battleship
                         GamesRegister.RemoveGame(game);
                     
                         // Guardando juego
-                        //GamesRegister.SaveGame(game);
+                        GamesRegister.SaveGame(game);
                     }
 
                     // Cambio de turno (Agua casi tocado es para el modo de juego predictivo)

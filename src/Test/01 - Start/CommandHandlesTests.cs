@@ -40,12 +40,14 @@ namespace Library.Tests
 
             user1.ChangeGameMode("normal");
             user1.ChangeStatus($"in {user1.GetGameMode()} game");
-            string forInGame = "\n- ver tableros\n- ataque aereo\n- vidente\n- satelite\n- cambiar turno\n- salir";
+            string forInGame = "\n- ver tableros\n- aereo <fila> (ejemplo:aereo A)\n- vidente\n- satelite <columna (ejemplo: satelite 1)>\n- cambiar turno\n- salir";
 
             result = handler.Handle(message, out response);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo($"\nComandos en estado '{user1.getStatus()}'\n- atacar{forInGame}"));
+
+
+            Assert.That(response, Is.EqualTo($"\nComandos en estado '{user1.getStatus()}'\n- atacar <coordenada> (ejemplo: 'atacar A1'){forInGame}"));
         }
     }
 }

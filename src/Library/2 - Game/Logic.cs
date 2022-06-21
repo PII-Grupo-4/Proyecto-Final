@@ -143,8 +143,9 @@ namespace Battleship
         }
 
 
-        // Se utiliza para la habilidad especial vidente.
-        // retorna una string donde se expresa en cual zona hay mas posibilidades de impacto
+        /// <summary>
+        /// Se utilizar para la habilidad especial vidente "seer", que retorna una string donde se expresa en cual zona hay mas posibilidades de impacto
+        /// </summary>
         public static string Seer(User userAttacked)
         {
             string[,] board = userAttacked.GetPlayer().GetShipsBoard().GetBoard();
@@ -202,8 +203,11 @@ namespace Battleship
         }
 
 
-        // FixCoordinate recibe una coordenada en forma de string (ej "A3") y la transforma en una lista de dos int.
-        // Si son incorrectas, retorna una lista vacia
+
+        /// <summary>
+        /// FixCoordinate recibe una coordenada en forma de string (ej "A3") y la transforma en una lista de dos int.
+        /// si son incorrectas, retorna una lista vacia
+        /// </summary>
         public static List<int> FixCoordinate(string coordinate)
         {
             List<int> coordinateList = new List<int>();
@@ -256,7 +260,9 @@ namespace Battleship
             }
         }
 
-        // Cambia el turno de los usuarios
+        /// <summary>
+        /// Cambia el turno de los usuarios
+        /// </summary>
         public static void ChangeTurn(Message message)
         {
             if (message.Turn == 1)

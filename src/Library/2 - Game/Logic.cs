@@ -5,8 +5,8 @@ namespace Battleship
 {
     public static class Logic
     {
-        static List<string> Row = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
-        static List<string> Column = new List<string>{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        static private List<string> Row = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+        static private List<string> Column = new List<string>{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
         // Recibe dos usuarios y una coordenada.
         // En caso de que la coordenada sea correcta, realiza el ataque.

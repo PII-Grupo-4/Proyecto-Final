@@ -13,6 +13,11 @@ namespace Battleship
     // B = Battleship (Size: 4)
     // S = Submarine (Size: 3)
     // D = Destroyer (Size: 2)
+
+    /// <summary>
+    /// Board es el experto en la información de la ubicación de los barcos en el tablero,
+    /// por lo tanto es el ideal para posicionar los barcos
+    /// </summary>
     public class Board
     {
         private string[,] board = new string[10,10]; //Tablero

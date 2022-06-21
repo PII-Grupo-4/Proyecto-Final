@@ -134,6 +134,74 @@ namespace Battleship
         }
 
 
+        public static void AirAttack(string row, User user, User userAttacked)
+        {
+            for (int i = 1; i < 11; i++)
+            {
+                Attack($"{row}{i}", user, userAttacked);
+            }
+        }
+
+
+        // Se utiliza para la habilidad especial vidente.
+        // retorna una string donde se expresa en cual zona hay mas posibilidades de impacto
+        public static string Seer(User userAttacked)
+        {
+            string[,] board = userAttacked.GetPlayer().GetShipsBoard().GetBoard();
+            List<string> charactersShips = new List<string>{"D", "S", "B", "C"};
+
+            int HighPart = 0;
+            int LowPart = 0;
+                
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (charactersShips.Contains(board[i, j]))
+                    {
+                        HighPart++;
+                    }
+                }
+            }
+
+            for (int i = 5; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (charactersShips.Contains(board[i, j]))
+                    {
+                        LowPart++;
+                    }
+                }
+            }        
+
+            if (HighPart > LowPart)
+            {
+                return "La zona superior contiene más puntos de impacto";
+            }    
+            else if (HighPart < LowPart)
+            {
+                return "La zona inferior tiene más puntos de impacto";
+            }
+            else
+            {
+                return "Ambas zonas tienen la misma cantidad de puntos de impacto";
+            }
+        }
+
+
+        public static string Satelitte(int column, string[,] board)
+        {
+            string photo = $"  |{column}|\n";
+            for (int i = 0; i < 10; i++)
+            {
+                photo += $"{Row[i]} |{board[i,column]}|\n";
+            } 
+
+            return photo;
+        }
+
+
         // FixCoordinate recibe una coordenada en forma de string (ej "A3") y la transforma en una lista de dos int.
         // Si son incorrectas, retorna una lista vacia
         public static List<int> FixCoordinate(string coordinate)
@@ -199,6 +267,11 @@ namespace Battleship
             {
                 message.Turn = 1;
             }
+        }
+
+        public static List<string> GetRow()
+        {
+            return Row;
         }
     }
 }

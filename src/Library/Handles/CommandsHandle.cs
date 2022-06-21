@@ -27,6 +27,7 @@ namespace Battleship
             try
             {
                 User user = UserRegister.GetUser(message.id);
+                string forInGame = "\n- ver tableros\n- ataque aereo\n- vidente\n- satelite\n- cambiar turno\n- salir";
 
                 if (user.getStatus() == "start")
                 {
@@ -42,11 +43,11 @@ namespace Battleship
                 } 
                 else if(user.getStatus() == $"in normal game")
                 {
-                    response = $"\nComandos en estado '{user.getStatus()}'\n- atacar\n- ver tableros\n- cambiar turno\n- salir";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- atacar{forInGame}";
                 }
                 else if(user.getStatus() == $"in predictive game")
                 {
-                    response = $"\nComandos en estado '{user.getStatus()}'\n- atacar p\n- ver tableros\n- cambiar turno\n- salir";
+                    response = $"\nComandos en estado '{user.getStatus()}'\n- atacar p{forInGame}";
                 }
                 else
                 {

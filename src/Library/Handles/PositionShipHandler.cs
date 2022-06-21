@@ -6,8 +6,8 @@ namespace Battleship
     /// </summary>
     public class PositionShipsHandle : BaseHandler
     {
-        private IPrinter Printer;
-        private IInputText InputText;
+        protected IPrinter Printer;
+        protected IInputText InputText;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PositionShipsHandle"/>. Esta clase procesa el mensaje "posicionar barcos".

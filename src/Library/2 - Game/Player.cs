@@ -9,6 +9,9 @@ namespace Battleship
 
         private Board ShipsBoard = new Board();
 
+        // Habilidades del player, solo se pueden usar una vez.
+        private List<string> specialHabilities = new List<string>{"air attack", "seer", "satellite photo"};
+
         public Board GetShipsBoard()
         {
             return this.ShipsBoard;
@@ -43,6 +46,27 @@ namespace Battleship
         public int GetShipsAlive()
         {
             return ShipsBoard.GetShipsAlive();
+        }
+
+        /// <summary>
+        /// "air attack", "seer", "satellite photo"
+        /// </summary>
+        /// <param name="hability"></param>
+        public void UseHability(string hability)
+        {
+            foreach (string habili in this.specialHabilities)
+            {
+                if (habili == hability)
+                {
+                    this.specialHabilities.Remove(habili);
+                    break;
+                }  
+            }
+        }
+
+        public List<string> GetSpecialsHabilities()
+        {
+           return specialHabilities;
         }
     }
 }

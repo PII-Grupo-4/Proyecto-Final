@@ -37,7 +37,9 @@ namespace Program
                 new SeeBoardsHandle(
                 new PositionShipsHandle(
                 new AttackHandle(
-                new AttackPredictiveHandler(null, printer, inputText),  
+                new AttackPredictiveHandler(
+                new SpecialHabilitiesHandler(null, printer, inputText), 
+                printer, inputText),  
                 printer, inputText), 
                 printer, inputText)
                 )))))));

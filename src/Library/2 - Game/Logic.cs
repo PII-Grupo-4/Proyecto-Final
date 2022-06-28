@@ -194,6 +194,7 @@ namespace Battleship
         public static string Satelitte(int column, string[,] board)
         {
             string photo = $"  |{column}|\n";
+            column--;
             for (int i = 0; i < 10; i++)
             {
                 photo += $"{Row[i]} |{board[i,column]}|\n";

@@ -16,7 +16,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public SpecialHabilitiesHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"aereo", "satelite"};
+            this.Keywords = new string[] {"aereo", "aéreo", "satelite", "satélite"};
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Battleship
                     {
                         string[] direction = message.Text.Split(' ');
 
-                        if (message.Text == $"aereo {direction[1]}" || message.Text == $"aereo {direction[1]}" || message.Text == $"AEREO {direction[1]}")
+                        if (message.Text == $"aereo {direction[1]}" || message.Text == $"Aereo {direction[1]}" || message.Text == $"aéreo {direction[1]}" || message.Text == $"Aéreo {direction[1]}")
                         {
                             if (!user.GetPlayer().GetSpecialsHabilities().Contains("air attack"))
                             {
@@ -93,7 +93,7 @@ namespace Battleship
 
                             response = "Fila atacada con exito";
                         }
-                        else if (message.Text == $"satelite {direction[1]}" || message.Text == $"Satelite {direction[1]}" || message.Text == $"SATELITE {direction[1]}")
+                        else if (message.Text == $"satelite {direction[1]}" || message.Text == $"Satelite {direction[1]}" || message.Text == $"satélite {direction[1]}" || message.Text == $"Satélite {direction[1]}")
                         {
                             if (!user.GetPlayer().GetSpecialsHabilities().Contains("satellite photo"))
                             {

@@ -193,11 +193,20 @@ namespace Battleship
 
         public static string Satelitte(int column, string[,] board)
         {
-            string photo = $"  |{column}|\n";
+            List<string> Row2 = new List<string>{"A ", "B ", "C ", "D ", "E ", "F ", "G ", "H ", "I  ", "J "};
+
+            string photo = $"     | {column} |\n";
             column--;
             for (int i = 0; i < 10; i++)
             {
-                photo += $"{Row[i]} |{board[i,column]}|\n";
+                if (board[i,column] == "-")
+                {
+                    photo += $"{Row2[i]} | -- |\n";
+                }
+                else
+                {
+                    photo += $"{Row2[i]} | {board[i,column]} |\n";
+                }
             } 
 
             return photo;

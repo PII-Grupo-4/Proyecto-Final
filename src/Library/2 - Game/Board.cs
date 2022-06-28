@@ -20,7 +20,7 @@ namespace Battleship
     /// </summary>
     public class Board
     {
-        private string[,] board = new string[10,10]; //Tablero
+        private string[,] board = new string[10,10]; //Tablero, El tamaño del tablero es fijo.
 
         private List<Ship> ShipsList = new List<Ship>{}; // Lista con los barcos
 
@@ -237,22 +237,29 @@ namespace Battleship
         /// </summary>
         public string BoardToString()
         {
-            List<string> Lyrics = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+            List<string> Lyrics = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I  ", "J "};
             
             string stringBoard = "";
 
-            stringBoard += "   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10|\n";
-            stringBoard += "--------------------------------------------\n";
+            stringBoard += "     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10 |\n";
+            stringBoard += "-------------------------------------------------------------------\n";
 
             for (int i = 0; i < 10; i++)
             {   
                 stringBoard += $"{Lyrics[i]}  |";
                 for (int j = 0; j < 10; j++)
                 {
-                    stringBoard += $" {this.board[i,j]} |";
+                    if (this.board[i,j] == "-")
+                    {
+                        stringBoard += $"  --  |";
+                    }
+                    else
+                    {
+                        stringBoard += $"  {this.board[i,j]}  |";
+                    }
                 }
                 stringBoard += "\n";
-                stringBoard += "--------------------------------------------";
+                stringBoard += "-------------------------------------------------------------------";
                 stringBoard += "\n";
             }
 

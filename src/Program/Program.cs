@@ -1,4 +1,7 @@
-﻿using System.Linq;
+using Battleship;
+using System;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -9,14 +12,14 @@ using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
-using System;
-using System.IO;
-using Battleship;
-// using MessageTelgram = Telegram.Bot.Types.Message;
 
-namespace Program
+
+namespace Ucu.Poo.TelegramBot
 {
-    class Program
+    /// <summary>
+    /// Un programa que implementa un bot de Telegram.
+    /// </summary>
+    public class Program
     {
         // La instancia del bot.
         private static TelegramBotClient Bot;
@@ -91,29 +94,14 @@ namespace Program
         /// <summary>
         /// Punto de entrada al programa.
         /// </summary>
-        static void Main(string[] args)
+        public static void Main()
         {
             Start();
 
             Bot = new TelegramBotClient(token);
 
-
-            IPrinter printer = new ConsolePrinter();
-            IInputText inputText = new ConsoleInputText();
-
-            printer.Print("Ingrese el nombre del primer usuario");
-            string userName1 = inputText.Input();
-            printer.Print("Ingrese el nombre del segundo usuario");
-            string userName2 = inputText.Input();
-
-            User user1 = new User(userName1);
-            User user2 = new User(userName2);
-
-            UserRegister.AddUser(user1);
-            UserRegister.AddUser(user2);
-
-            IHandler handler = new CommandsHandle(
-                new ChangeTurnHandle(
+            firstHandler = new CommandsHandle(
+                new CreateUserHandle(
                 new SeeGameSummariesHandler(
                 new SearchGameHandler(
                 new SearchPredictiveGameHandler(
@@ -125,51 +113,7 @@ namespace Program
                 new SpecialHabilitiesHandler(
                 new SeerHandler(null) 
                 )))))))))));
-                
-            Message message = new Message();
-            string response;
-            message.Turn = 1;
-            User nextUser;
 
-            while (true)
-            {
-                if (message.Turn == 1)
-                {
-                    nextUser = user1;
-                }
-                else
-                {
-                    nextUser = user2;
-                }
-
-                if (nextUser.GetTextToPrint() != "")
-                {
-                    printer.Print(nextUser.GetTextToPrint());
-                    nextUser.ChangeTextToPrint("");
-                }
-
-                printer.Print($"Usuario {nextUser.GetName()}. Escriba un comando, 'comandos' (para ver comandos y estado) o 'salir':");
-                printer.Print("> ");
-
-                message.id = nextUser.GetID();
-                message.Text = inputText.Input();
-                if (message.Text.Equals("salir", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    printer.Print("Salimos");
-                    return;
-                }
-
-                IHandler result = handler.Handle(message, out response);
-
-                if (result == null)
-                {
-                    printer.Print("No entiendo\n");
-                }
-                else
-                {
-                    printer.Print(response+"\n");
-                }
-            }
             var cts = new CancellationTokenSource();
 
             // Comenzamos a escuchar mensajes. Esto se hace en otro hilo (en background). El primer método
@@ -215,6 +159,7 @@ namespace Program
         }
 
         /// <summary>
+
         /// Maneja los mensajes que se envían al bot a través de handlers de una chain of responsibility.
         /// </summary>
         /// <param name="message">El mensaje recibido</param>
@@ -222,7 +167,6 @@ namespace Program
         private static async Task HandleMessageReceived(ITelegramBotClient botClient, Message message)
         {
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
-
             string response = string.Empty;
 
             firstHandler.Handle(message, out response);
@@ -241,6 +185,6 @@ namespace Program
             Console.WriteLine(exception.Message);
             return Task.CompletedTask;
         }
-        
+
     }
 }

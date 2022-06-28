@@ -9,7 +9,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>PII_TelegramBot_Demo</UserSecretsId>
   </PropertyGroup>
-  <ItemGroup>
+<ItemGroup>
+
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
@@ -31,5 +32,4 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0"/>
     <PackageReference Include="Nito.AsyncEx" Version="5.1.2"/>
   </ItemGroup>
-
 </Project>

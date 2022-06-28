@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using Telegram.Bot.Types;
 
 namespace Battleship
 {
@@ -12,7 +15,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public SeeBoardsHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"ver tableros", "tableros", "tablero"};
+            this.Keywords = new string[] {"ver tableros", "tableros", "tablero", "ver tablero"};
         }
 
         /// <summary>
@@ -25,7 +28,7 @@ namespace Battleship
         {
             try
             {
-                User user = UserRegister.GetUser(message.id);
+                User user = UserRegister.GetUser(message.From.Id);
 
                 if (user.getStatus() != "position ships" && user.getStatus() != $"in {user.GetGameMode()} game")
                 {
@@ -42,7 +45,7 @@ namespace Battleship
             }
             catch
             {
-                response = "Sucedió un error";
+                response = "Sucedió un error, vuelve a intentar";
             }
         }
     }

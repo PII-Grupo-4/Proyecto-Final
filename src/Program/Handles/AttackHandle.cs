@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Telegram.Bot.Types;
 
 namespace Battleship
 {
@@ -31,7 +32,13 @@ namespace Battleship
         {
             try
             {
-                User user = UserRegister.GetUser(message.id);
+                User user = UserRegister.GetUser(message.From.Id);
+
+                if (user.GetTurn() == false)
+                {
+                    response = "Aún no es tu turno";
+                    return;
+                }
 
                 if (user.getStatus() != $"in {gameMode} game")
                 {
@@ -79,7 +86,8 @@ namespace Battleship
                         user.ChangeStatus("start");
                         userAttacked.ChangeStatus("start"); 
                         response += "\n\n------Turno cambiado------\n\n";   
-                        Logic.ChangeTurn(message);
+                        user.ChangeTurn();
+                        userAttacked.ChangeTurn();
 
                         // Elimina el juego de la lista de juegos
                         GamesRegister.RemoveGame(game);
@@ -92,14 +100,15 @@ namespace Battleship
                     if(response == "Agua" || response == "Hundido" || response == "Tocado" || response == "Agua casi tocado")
                     {
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
-                        Logic.ChangeTurn(message);
+                        user.ChangeTurn();
+                        userAttacked.ChangeTurn();
                     }
                 }
                 
             }
             catch
             {
-                response = "Sucedió un error";
+                response = "Sucedió un error, vuelve a intentar";
             }
         }
 
@@ -120,7 +129,7 @@ namespace Battleship
                 string[] words = message.Text.Split(' ');
 
 
-                if (this.Keywords.Contains(words[0]))
+                if (this.Keywords.Contains(words[0].ToLower()))
                 {
                     return true;
                 }

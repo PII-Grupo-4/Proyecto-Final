@@ -1,4 +1,7 @@
 using System.IO;
+using System;
+using System.Linq;
+using Telegram.Bot.Types;
 
 namespace Battleship
 {
@@ -26,7 +29,7 @@ namespace Battleship
         {
             try
             {
-                User user = UserRegister.GetUser(message.id);
+                User user = UserRegister.GetUser(message.From.Id);
 
                 if (user.getStatus() != "start")
                 {
@@ -37,12 +40,12 @@ namespace Battleship
                 else
                 {
                     // Se leen los juegos jugados
-                    response = File.ReadAllText("GameSummaries.txt");
+                    response = System.IO.File.ReadAllText("GameSummaries.txt");
                 }
             }
             catch
             {
-                response = "Sucedió un error.";
+                response = "Sucedió un error, vuelve a intentar";
             }
         }
     }

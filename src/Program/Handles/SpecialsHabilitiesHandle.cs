@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telegram.Bot.Types;
 
 namespace Battleship
 {
@@ -15,7 +16,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public SpecialHabilitiesHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"aereo", "satelite"};
+            this.Keywords = new string[] {"aereo", "aéreo", "satelite", "satélite"};
         }
 
         /// <summary>
@@ -28,7 +29,13 @@ namespace Battleship
         {
             try
             {
-                User user = UserRegister.GetUser(message.id);
+                User user = UserRegister.GetUser(message.From.Id);
+
+                if (user.GetTurn() == false)
+                {
+                    response = "Aún no es tu turno";
+                    return;
+                }
 
                 if (user.getStatus() != $"in {user.GetGameMode()} game")
                 {
@@ -64,7 +71,7 @@ namespace Battleship
                     {
                         string[] direction = message.Text.Split(' ');
 
-                        if (message.Text == $"aereo {direction[1]}" || message.Text == $"aereo {direction[1]}" || message.Text == $"AEREO {direction[1]}")
+                        if (message.Text == $"aereo {direction[1]}" || message.Text == $"Aereo {direction[1]}" || message.Text == $"aéreo {direction[1]}" || message.Text == $"Aéreo {direction[1]}")
                         {
                             if (!user.GetPlayer().GetSpecialsHabilities().Contains("air attack"))
                             {
@@ -86,7 +93,7 @@ namespace Battleship
 
                             response = "Fila atacada con exito";
                         }
-                        else if (message.Text == $"satelite {direction[1]}" || message.Text == $"Satelite {direction[1]}" || message.Text == $"SATELITE {direction[1]}")
+                        else if (message.Text == $"satelite {direction[1]}" || message.Text == $"Satelite {direction[1]}" || message.Text == $"satélite {direction[1]}" || message.Text == $"Satélite {direction[1]}")
                         {
                             if (!user.GetPlayer().GetSpecialsHabilities().Contains("satellite photo"))
                             {
@@ -118,17 +125,18 @@ namespace Battleship
                         }
 
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
-                        Logic.ChangeTurn(message);
+                        user.ChangeTurn();
+                        userAttacked.ChangeTurn();
                     }
                     catch
                     {
-                        response = "Sucedió un error";
+                        response = "Sucedió un error, vuelve a intentar";
                     }
                 } 
             }
             catch
             {
-                response = "Sucedió un error";
+                response = "Sucedió un error, vuelve a intentar";
             }
         }
 
@@ -139,7 +147,7 @@ namespace Battleship
                 string[] words = message.Text.Split(' ');
 
 
-                if (this.Keywords.Contains(words[0]))
+                if (this.Keywords.Contains(words[0].ToLower()))
                 {
                     return true;
                 }

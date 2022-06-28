@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telegram.Bot.Types;
 
 namespace Battleship
 {
@@ -28,7 +29,13 @@ namespace Battleship
         {
             try
             {
-                User user = UserRegister.GetUser(message.id);
+                User user = UserRegister.GetUser(message.From.Id);
+
+                if (user.GetTurn() == false)
+                {
+                    response = "Aún no es tu turno";
+                    return;
+                }
 
                 if (user.getStatus() != $"in {user.GetGameMode()} game")
                 {
@@ -73,7 +80,8 @@ namespace Battleship
                         user.GetPlayer().UseHability("seer");
 
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
-                        Logic.ChangeTurn(message);
+                        user.ChangeTurn();
+                        userAttacked.ChangeTurn();
                     }
                     catch
                     {
@@ -83,7 +91,7 @@ namespace Battleship
             }
             catch
             {
-                response = "Sucedió un error";
+                response = "Sucedió un error, vuelve a intentar";
             }
         }
         

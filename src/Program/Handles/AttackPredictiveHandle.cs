@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Telegram.Bot.Types;
 
 namespace Battleship
 {
@@ -31,7 +32,7 @@ namespace Battleship
                 string[] words = message.Text.Split(' ');
 
 
-                if (this.Keywords.Contains(words[0]+" "+words[1]))
+                if (this.Keywords.Contains(words[0].ToLower()+" "+words[1].ToLower()))
                 {
                     return true;
                 }

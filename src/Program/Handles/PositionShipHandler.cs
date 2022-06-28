@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Telegram.Bot.Types;
 
 namespace Battleship
 {
@@ -27,7 +28,7 @@ namespace Battleship
         {
             try
             {
-                User user = UserRegister.GetUser(message.id);
+                User user = UserRegister.GetUser(message.From.Id);
 
                 if (user.getStatus() != "position ships")
                 {
@@ -58,7 +59,7 @@ namespace Battleship
             }
             catch
             {
-                response = "Sucedió un error";
+                response = "Sucedió un error, vuelve a intentar";
             }
         }
 
@@ -69,7 +70,7 @@ namespace Battleship
             {
                 string[] words = message.Text.Split(' ');
 
-                if (this.Keywords.Contains(words[0]+" "+words[1]))
+                if (this.Keywords.Contains(words[0].ToLower() +" "+words[1].ToLower()))
                 {
                     return true;
                 }

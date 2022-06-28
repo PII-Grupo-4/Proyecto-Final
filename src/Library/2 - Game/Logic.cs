@@ -261,21 +261,6 @@ namespace Battleship
             }
         }
 
-        /// <summary>
-        /// Cambia el turno de los usuarios
-        /// </summary>
-        public static void ChangeTurn(Message message)
-        {
-            if (message.Turn == 1)
-            {
-                message.Turn = 2;
-            }
-            else
-            {
-                message.Turn = 1;
-            }
-        }
-
         public static List<string> GetRow()
         {
             return Row;

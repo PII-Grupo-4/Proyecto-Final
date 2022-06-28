@@ -55,7 +55,7 @@ namespace Battleship
         /// </summary>
         /// <param name="id">id del usuario</param>
         /// <returns>el otro usuario</returns>
-        public User GetOtherUserById(int id)
+        public User GetOtherUserById(long id)
         {
             if (User1.GetID() == id)
             {
@@ -79,12 +79,11 @@ namespace Battleship
         public string GameInString()
         {
             string summary = $"Game id = {this.Id}\n";
-            summary += $"User 1 = {User1.GetName()}";
+            summary += $"User 1 id= {User1.GetID()}";
             summary += $" - Ships alive = {User1.GetPlayer().GetShipsAlive()}\n";
-            summary += $"User 2 = {User2.GetName()}";
+            summary += $"User 2 id= {User1.GetID()}";
             summary += $" - Ships alive = {User2.GetPlayer().GetShipsAlive()}\n";
-            summary += $"Winner = {UserWinner.GetName()}\n";
-
+            summary += $"Winner = {UserWinner.GetID()}\n";
             return summary;
         }
     }

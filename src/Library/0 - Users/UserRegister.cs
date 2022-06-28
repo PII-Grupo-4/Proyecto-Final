@@ -27,7 +27,7 @@ namespace Battleship
         /// </summary>
         /// <param name="UserId">identificacion del usuario</param>
         /// <returns>lista de usuarios "registrados"</returns>
-        public static User GetUser(int UserId)
+        public static User GetUser(long UserId)
         {
             foreach (User user in ListOfUsers)
                 {

@@ -1,35 +1,106 @@
-﻿using System;
+﻿using Battleship;
+using System;
 using System.IO;
-using Battleship;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Telegram.Bot;
+using Telegram.Bot.Extensions.Polling;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InputFiles;
 
-namespace Program
+namespace Ucu.Poo.TelegramBot
 {
-    class Program
+    /// <summary>
+    /// Un programa que implementa un bot de Telegram.
+    /// </summary>
+    public class Program
     {
-        static void Main(string[] args)
+        // La instancia del bot.
+        private static TelegramBotClient Bot;
+
+        // El token provisto por Telegram al crear el bot. Mira el archivo README.md en la raíz de este repo para
+        // obtener indicaciones sobre cómo configurarlo.
+        private static string token;
+
+        // Esta clase es un POCO -vean https://en.wikipedia.org/wiki/Plain_old_CLR_object- para representar el token
+        // secreto del bot.
+        private class BotSecret
         {
-            ProgramaPrincipal();
-            //Pruebas();
+            public string Token { get; set; }
         }
 
-        static void ProgramaPrincipal()
+        // Una interfaz requerida para configurar el servicio que lee el token secreto del bot.
+        private interface ISecretService
         {
-            IPrinter printer = new ConsolePrinter();
-            IInputText inputText = new ConsoleInputText();
+            string Token { get; }
+        }
 
-            printer.Print("Ingrese el nombre del primer usuario");
-            string userName1 = inputText.Input();
-            printer.Print("Ingrese el nombre del segundo usuario");
-            string userName2 = inputText.Input();
+        // Una clase que provee el servicio de leer el token secreto del bot.
+        private class SecretService : ISecretService
+        {
+            private readonly BotSecret _secrets;
 
-            User user1 = new User(userName1);
-            User user2 = new User(userName2);
+            public SecretService(IOptions<BotSecret> secrets)
+            {
+                _secrets = secrets.Value ?? throw new ArgumentNullException(nameof(secrets));
+            }
 
-            UserRegister.AddUser(user1);
-            UserRegister.AddUser(user2);
+            public string Token { get { return _secrets.Token; } }
+        }
 
-            IHandler handler = new CommandsHandle(
-                new ChangeTurnHandle(
+        // Configura la aplicación.
+        private static void Start()
+        {
+            // Lee una variable de entorno NETCORE_ENVIRONMENT que si no existe o tiene el valor 'development' indica
+            // que estamos en un ambiente de desarrollo.
+            var developmentEnvironment = Environment.GetEnvironmentVariable("NETCORE_ENVIRONMENT");
+            var isDevelopment =
+                string.IsNullOrEmpty(developmentEnvironment) ||
+                developmentEnvironment.ToLower() == "development";
+
+            var builder = new ConfigurationBuilder();
+            builder
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            // En el ambiente de desarrollo el token secreto del bot se toma de la configuración secreta
+            if (isDevelopment)
+            {
+                builder.AddUserSecrets<Program>();
+            }
+
+            var configuration = builder.Build();
+
+            IServiceCollection services = new ServiceCollection();
+
+            // Mapeamos la implementación de las clases para  inyección de dependencias
+            services
+                .Configure<BotSecret>(configuration.GetSection(nameof(BotSecret)))
+                .AddSingleton<ISecretService, SecretService>();
+
+            var serviceProvider = services.BuildServiceProvider();
+            var revealer = serviceProvider.GetService<ISecretService>();
+            token = revealer.Token;
+        }
+
+        private static IHandler firstHandler;
+
+        /// <summary>
+        /// Punto de entrada al programa.
+        /// </summary>
+        public static void Main()
+        {
+            Start();
+
+            Bot = new TelegramBotClient(token);
+
+            firstHandler = new CommandsHandle(
+                new CreateUserHandle(
                 new SeeGameSummariesHandler(
                 new SearchGameHandler(
                 new SearchPredictiveGameHandler(
@@ -41,57 +112,77 @@ namespace Program
                 new SpecialHabilitiesHandler(
                 new SeerHandler(null) 
                 )))))))))));
-                
-            Message message = new Message();
-            string response;
-            message.Turn = 1;
-            User nextUser;
 
-            while (true)
+            var cts = new CancellationTokenSource();
+
+            // Comenzamos a escuchar mensajes. Esto se hace en otro hilo (en background). El primer método
+            // HandleUpdateAsync es invocado por el bot cuando se recibe un mensaje. El segundo método HandleErrorAsync
+            // es invocado cuando ocurre un error.
+            Bot.StartReceiving(
+                HandleUpdateAsync,
+                HandleErrorAsync,
+                new ReceiverOptions()
+                {
+                    AllowedUpdates = Array.Empty<UpdateType>()
+                },
+                cts.Token
+            );
+
+            Console.WriteLine($"Bot is up!");
+
+            // Esperamos a que el usuario aprete Enter en la consola para terminar el bot.
+            Console.ReadLine();
+
+            // Terminamos el bot.
+            cts.Cancel();
+        }
+
+        /// <summary>
+        /// Maneja las actualizaciones del bot (todo lo que llega), incluyendo mensajes, ediciones de mensajes,
+        /// respuestas a botones, etc. En este ejemplo sólo manejamos mensajes de texto.
+        /// </summary>
+        public static async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+        {
+            try
             {
-                if (message.Turn == 1)
+                // Sólo respondemos a mensajes de texto
+                if (update.Type == UpdateType.Message)
                 {
-                    nextUser = user1;
+                    await HandleMessageReceived(botClient, update.Message);
                 }
-                else
-                {
-                    nextUser = user2;
-                }
-
-                if (nextUser.GetTextToPrint() != "")
-                {
-                    printer.Print(nextUser.GetTextToPrint());
-                    nextUser.ChangeTextToPrint("");
-                }
-
-                printer.Print($"Usuario {nextUser.GetName()}. Escriba un comando, 'comandos' (para ver comandos y estado) o 'salir':");
-                printer.Print("> ");
-
-                message.id = nextUser.GetID();
-                message.Text = inputText.Input();
-                if (message.Text.Equals("salir", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    printer.Print("Salimos");
-                    return;
-                }
-
-                IHandler result = handler.Handle(message, out response);
-
-                if (result == null)
-                {
-                    printer.Print("No entiendo\n");
-                }
-                else
-                {
-                    printer.Print(response+"\n");
-                }
+            }
+            catch(Exception e)
+            {
+                await HandleErrorAsync(botClient, e, cancellationToken);
             }
         }
 
-
-        static void Pruebas()
+        /// <summary>
+        /// Maneja los mensajes que se envían al bot a través de handlers de una chain of responsibility.
+        /// </summary>
+        /// <param name="message">El mensaje recibido</param>
+        /// <returns></returns>
+        private static async Task HandleMessageReceived(ITelegramBotClient botClient, Message message)
         {
+            Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
 
-        }   
+            string response = string.Empty;
+
+            firstHandler.Handle(message, out response);
+
+            if (!string.IsNullOrEmpty(response))
+            {
+                await Bot.SendTextMessageAsync(message.Chat.Id, response);
+            }
+        }
+
+        /// <summary>
+        /// Manejo de excepciones. Por ahora simplemente la imprimimos en la consola.
+        /// </summary>
+        public static Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        {
+            Console.WriteLine(exception.Message);
+            return Task.CompletedTask;
+        }
     }
 }

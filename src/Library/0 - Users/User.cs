@@ -3,9 +3,7 @@ namespace Battleship
 {
     public class User
     {
-        private static int UserID_counter = 0;
-        private string Name {get; set; } 
-        private int Id {get; set; } 
+        private long Id {get; set; } 
         private string Status; // Estado del usuario, se usa para los handles
         private string TextToPrint = "";
         // TextToPrint Se utiliza para cuando se debe imprimir un mensaje pero es el turno del 
@@ -15,23 +13,17 @@ namespace Battleship
 
         private string GameMode; // Modo de juego que el jugador selecciona
 
-        public User(string name)
-        {
-            this.Name = name;
+        private bool Turn = false;
 
-            this.Id = UserID_counter;
-            UserID_counter ++;
+        public User(long id)
+        {
+            this.Id = id;
 
             this.Status = "start";
         }
+       
 
-
-        public string GetName()
-        {
-            return this.Name;
-        }         
-
-        public int GetID()
+        public long GetID()
         {
             return this.Id;
         } 
@@ -44,6 +36,11 @@ namespace Battleship
         public Player GetPlayer()
         {
             return this.player;
+        }
+
+        public bool GetTurn()
+        {
+            return this.Turn;
         }
 
         /// <summary>
@@ -96,6 +93,18 @@ namespace Battleship
         public void ChangeGameMode(string gameMode)
         {
             this.GameMode = gameMode;
+        }
+
+        public void ChangeTurn()
+        {
+            if (this.Turn == false)
+            {
+                this.Turn = true;
+            }
+            else
+            {
+                this.Turn = false;
+            }
         }
     }
 }

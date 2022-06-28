@@ -9,7 +9,7 @@ namespace Battleship
     /// </summary>
     public class AttackPredictiveHandler : AttackHandle
     {
-        public AttackPredictiveHandler(BaseHandler next) : base(next)
+        public AttackPredictiveHandler(BaseHandler next, IPrinter printer) : base(next, printer)
         {
             this.Keywords = new string[] {"predictivo ataque", "p ataque"};
 

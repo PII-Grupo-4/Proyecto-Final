@@ -14,7 +14,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
 
 
-namespace Ucu.Poo.TelegramBot
+namespace Battleship
 {
     /// <summary>
     /// Un programa que implementa un bot de Telegram.
@@ -23,6 +23,7 @@ namespace Ucu.Poo.TelegramBot
     {
         // La instancia del bot.
         private static TelegramBotClient Bot;
+        private static IPrinter TelegramPrint;
 
         // El token provisto por Telegram al crear el bot. Mira el archivo README.md en la raíz de este repo para
         // obtener indicaciones sobre cómo configurarlo.
@@ -99,6 +100,7 @@ namespace Ucu.Poo.TelegramBot
             Start();
 
             Bot = new TelegramBotClient(token);
+            TelegramPrint = new TelegramPrint(Bot);
 
             firstHandler = new CommandsHandle(
                 new CreateUserHandle(
@@ -111,8 +113,15 @@ namespace Ucu.Poo.TelegramBot
                 new AttackHandle(
                 new AttackPredictiveHandler(
                 new SpecialHabilitiesHandler(
-                new SeerHandler(null) 
-                )))))))))));
+                new SeerHandler(null
+                , TelegramPrint) 
+                , TelegramPrint)
+                , TelegramPrint)
+                , TelegramPrint)
+                , TelegramPrint)))
+                , TelegramPrint)
+                , TelegramPrint)
+                )));
 
             var cts = new CancellationTokenSource();
 

@@ -10,13 +10,17 @@ namespace Battleship
     /// </summary>
     public class SpecialHabilitiesHandler : BaseHandler
     {
+        protected IPrinter Printer;
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SpecialHabilitiesHandler"/>. Esta clase procesa el mensaje "aereo","satelite".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public SpecialHabilitiesHandler(BaseHandler next) : base(next)
+        public SpecialHabilitiesHandler(BaseHandler next, IPrinter printer) : base(next)
         {
             this.Keywords = new string[] {"aereo", "aéreo", "satelite", "satélite"};
+
+            this.Printer = printer;
         }
 
         /// <summary>
@@ -92,6 +96,7 @@ namespace Battleship
                             user.GetPlayer().UseHability("air attack");
 
                             response = "Fila atacada con exito";
+                            Printer.Print("El contricante utilizó ataque aéreo", userAttacked.GetID());
                         }
                         else if (message.Text == $"satelite {direction[1]}" || message.Text == $"Satelite {direction[1]}" || message.Text == $"satélite {direction[1]}" || message.Text == $"Satélite {direction[1]}")
                         {
@@ -118,6 +123,8 @@ namespace Battleship
                             response += Logic.Satelitte(columnInt, userAttacked.GetPlayer().GetShipsBoard().GetBoard());
 
                             user.GetPlayer().UseHability("satellite photo");
+
+                            Printer.Print("El contricante utilizó foto satelital", userAttacked.GetID());
                         }
                         else
                         {

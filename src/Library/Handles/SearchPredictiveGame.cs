@@ -12,10 +12,10 @@ namespace Battleship
     /// </summary>
     public class SearchPredictiveGameHandler : SearchGameHandler
     {
-        public SearchPredictiveGameHandler(BaseHandler next) : base(next)
+        public SearchPredictiveGameHandler(BaseHandler next, IPrinter printer) : base(next, printer)
         {
             this.Keywords = new string[] {"buscar partida predictiva"};
-            gameMode = "predictive";
+            this.gameMode = "predictive";
         }
     }
 }

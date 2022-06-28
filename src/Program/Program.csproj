@@ -10,6 +10,7 @@
     <UserSecretsId>PII_TelegramBot_Demo</UserSecretsId>
   </PropertyGroup>
 <ItemGroup>
+
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>

@@ -1,4 +1,4 @@
-﻿using Battleship;
+using Battleship;
 using System;
 using System.IO;
 using System.Linq;
@@ -12,6 +12,7 @@ using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
+
 
 namespace Ucu.Poo.TelegramBot
 {
@@ -158,6 +159,7 @@ namespace Ucu.Poo.TelegramBot
         }
 
         /// <summary>
+
         /// Maneja los mensajes que se envían al bot a través de handlers de una chain of responsibility.
         /// </summary>
         /// <param name="message">El mensaje recibido</param>
@@ -165,7 +167,6 @@ namespace Ucu.Poo.TelegramBot
         private static async Task HandleMessageReceived(ITelegramBotClient botClient, Message message)
         {
             Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
-
             string response = string.Empty;
 
             firstHandler.Handle(message, out response);
@@ -184,5 +185,6 @@ namespace Ucu.Poo.TelegramBot
             Console.WriteLine(exception.Message);
             return Task.CompletedTask;
         }
+
     }
 }

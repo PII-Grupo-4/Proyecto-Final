@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using Telegram.Bot.Types;
+using Telegram.Bot;
+
 
 namespace Battleship
 {
@@ -60,7 +62,10 @@ namespace Battleship
                         user2.ChangeStatus("position ships");
 
                         response = $"Se ha unido a una partida con id {game.GetId()}";
-                        user2.ChangeTextToPrint(response);
+
+
+                        //Telegram.Bot.client.SendTextMessageAsync(user2.GetId(), response);
+
                     }
                     else
                     {

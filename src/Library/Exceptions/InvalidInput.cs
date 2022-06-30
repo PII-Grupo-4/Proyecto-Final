@@ -7,7 +7,7 @@ namespace Battleship
         public InvalidInputException(string message) : base(message) { }
         public InvalidInputException(string message, Exception inner) : base(message, inner) { }
         protected InvalidInputException(
-            Runtime.Serialization.SerializationInfo info,
-            Runtime.Serialization.StreamingContext context) : base(info, context) { }
+            System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

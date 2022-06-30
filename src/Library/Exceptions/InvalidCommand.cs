@@ -5,9 +5,9 @@ namespace Battleship
     {
         public InvalidCommandException() { }
         public InvalidCommandException(string message) : base(message) { }
-        public InvalidCommandException(string message, System.Exception inner) : base(message, inner) { }
+        public InvalidCommandException(string message, Exception inner) : base(message, inner) { }
         protected InvalidCommandException(
-            Runtime.Serialization.SerializationInfo info,
-            Runtime.Serialization.StreamingContext context) : base(info, context) { }
+            System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

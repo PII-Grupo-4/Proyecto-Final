@@ -1,4 +1,5 @@
 using System.IO;
+using System.Collections.Generic;
 
 namespace Battleship
 {
@@ -85,6 +86,14 @@ namespace Battleship
             summary += $" - Ships alive = {User2.GetPlayer().GetShipsAlive()}\n";
             summary += $"Winner = {UserWinner.GetID()}\n";
             return summary;
+        }
+
+        // Retorna una lista con las id de ambos usuarios
+        public List<long> GetUsersId()
+        {
+            List<long> usersId = new List<long>{this.User1.GetID(), this.User2.GetID()};
+
+            return usersId;
         }
     }
 }

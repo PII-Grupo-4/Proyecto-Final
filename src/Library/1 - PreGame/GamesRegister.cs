@@ -64,5 +64,25 @@ namespace Battleship
                 }
             }  
         }
+
+        /// <summary>
+        /// Se ingresa la id de un User, se busca el Game que contiene a dicho
+        /// jugador y se retorna dicho Game.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static Game GetGameByUserId(long id)
+        {
+            foreach (Game game in GamesInPlay)
+            {
+                List<long> listWithUserId= game.GetUsersId();
+                if (listWithUserId[0] == id || listWithUserId[1] == id)
+                {
+                    return game;
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -14,19 +14,23 @@ namespace Library.Tests
         Battleship.User user1;
         Battleship.User user2;
 
+        IPrinter Printer;
+
         [SetUp]
         public void Setup()
         {
+            Printer = new ConsolePrinter();
+            
             handler = new SeeBoardsHandle(null);
             message = new Message();
 
-            user1 = new Battleship.User(1);
-            user2 = new Battleship.User(2);
+            UserRegister.CreateUser(1);
+            UserRegister.CreateUser(2);
+            
+            user1 = UserRegister.GetUser(1);
+            user2 = UserRegister.GetUser(1);
 
             message.MessageId = Convert.ToInt32(user1.GetID());
-
-            UserRegister.AddUser(user1);
-            UserRegister.AddUser(user2);
         }
 
         [Test]
@@ -43,7 +47,7 @@ namespace Library.Tests
             Assert.That(result, Is.Not.Null);
             Assert.That(response, Is.EqualTo($"{user1.GetPlayer().GetBoardsToPrint()}"));
 
-            message.id = user1.GetID();
+            message.MessageId = Convert.ToInt32(user1.GetID());
 
             result = handler.Handle(message, out response);
 

@@ -30,7 +30,7 @@ namespace Battleship
 
         public Board()
         {
-            // lleno el tablero de "o"
+            // lleno el tablero de "-"
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)

@@ -4,7 +4,6 @@ namespace Battleship
 {
     public class Player
     {
-        private int GameId;
         private Board RegisterBoard = new Board();
 
         private Board ShipsBoard = new Board();
@@ -35,15 +34,6 @@ namespace Battleship
             return stringBoard;
         }
 
-        public void AddGameId(int Id)
-        {
-            this.GameId = Id;
-        }
-
-        public int GetGameId()
-        {
-            return this.GameId;
-        }
 
         public int GetShipsAlive()
         {

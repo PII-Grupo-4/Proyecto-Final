@@ -23,14 +23,15 @@ namespace Library.Tests
             handler = new SeeGameSummariesHandler(null);
             message = new Message();
 
-            user1 = new Battleship.User(1);
-            user2 = new Battleship.User(2);
+            UserRegister.CreateUser(1);
+            UserRegister.CreateUser(2);
+            
+            user1 = UserRegister.GetUser(1);
+            user2 = UserRegister.GetUser(1);
 
-            UserRegister.AddUser(user1);
-            UserRegister.AddUser(user2);
+            int idGame = GamesRegister.CreateGame(user1, user2);
+            game = GamesRegister.GetGameInPlay(idGame);
 
-            game = new Battleship.Game(user1, user2);
-            GamesRegister.AddGame(game);
         }
 
         [Test]

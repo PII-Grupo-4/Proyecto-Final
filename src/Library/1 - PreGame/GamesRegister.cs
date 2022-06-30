@@ -10,9 +10,12 @@ namespace Battleship
     {
         private static List<Game> GamesInPlay = new List<Game>{};
 
-        public static void AddGame(Game game)
+        public static int CreateGame(User user1, User user2)
         {
+            Game game = new Game(user1, user2);
             GamesInPlay.Add(game);
+            
+            return game.GetId();
         }
 
         public static Game GetGameInPlay(int gameId)

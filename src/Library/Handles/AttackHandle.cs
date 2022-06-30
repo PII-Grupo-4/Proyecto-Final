@@ -83,7 +83,7 @@ namespace Battleship
                         // Mensajes para los jugadores
                         response = "¡Felicitaciones!. Has hundido todos los barcos ¡Ganaste!.";
                         User loserUser = game.GetOtherUserById(user.GetID());
-                        loserUser.ChangeTextToPrint("El enemigo ha hundido todos tus barcos. Has perdido.");
+                        Printer.Print("El enemigo ha hundido todos tus barcos. Has perdido.", loserUser.GetID());
                         game.AddUserWinner(user);
 
                         // Cambio de estado y turno

@@ -52,11 +52,10 @@ namespace Battleship
                         user.RestartPlayer();
                         user2.RestartPlayer();
 
-                        Game game = new Game(user, user2);
-                        GamesRegister.AddGame(game);
+                        int idGame = GamesRegister.CreateGame(user, user2);
 
-                        user.GetPlayer().AddGameId(game.GetId());
-                        user2.GetPlayer().AddGameId(game.GetId());
+                        user.GetPlayer().AddGameId(idGame);
+                        user2.GetPlayer().AddGameId(idGame);
 
                         user.ChangeTurn();
 
@@ -64,7 +63,7 @@ namespace Battleship
                         user.ChangeStatus("position ships");
                         user2.ChangeStatus("position ships");
 
-                        response = $"Se ha unido a una partida con id {game.GetId()}";
+                        response = $"Se ha unido a una partida con id {idGame}";
 
                         Printer.Print(response, user2.GetID());
 

@@ -9,13 +9,16 @@ namespace Battleship
     /// </summary>
     public class PositionShipsHandle : BaseHandler
     {
+        protected IPrinter Printer;
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PositionShipsHandle"/>. Esta clase procesa el mensaje "posicionar barcos".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public PositionShipsHandle(BaseHandler next) : base(next)
+        public PositionShipsHandle(BaseHandler next, IPrinter printer) : base(next)
         {
             this.Keywords = new string[] {"posicionar barco", "posicionar nave"};
+            this.Printer = printer;
         }
 
         /// <summary>
@@ -38,6 +41,22 @@ namespace Battleship
                 }
                 else
                 {
+                    Game game = null;
+                    User user2 = null;
+                    try
+                    {
+                        // Accediendo al otro usuario(player)
+                        int gameId = user.GetPlayer().GetGameId();
+                        game = GamesRegister.GetGameInPlay(gameId);
+
+                        user2 = game.GetOtherUserById(user.GetID());
+                    }
+                    catch
+                    {
+                        response = "Error - No se encontró al otro usuario.";
+                        return;
+                    }
+
                     // Posicionando naves
                     try
                     {
@@ -50,6 +69,8 @@ namespace Battleship
                             user.ChangeStatus($"in {user.GetGameMode()} game");
                             response = "Los barcos estan listos";
                         }
+
+                        Printer.Print("El contricante ya ha posicionado los barcos", user2.GetID());
                     }
                     catch
                     {

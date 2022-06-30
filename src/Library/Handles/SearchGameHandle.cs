@@ -12,14 +12,17 @@ namespace Battleship
     public class SearchGameHandler : BaseHandler
     {
         protected string gameMode; // Para el modo de juego
+        protected IPrinter Printer;
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SearchGameHandler"/>. Esta clase procesa el mensaje "buscar partida".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public SearchGameHandler(BaseHandler next) : base(next)
+        public SearchGameHandler(BaseHandler next, IPrinter printer) : base(next)
         {
             this.Keywords = new string[] {"buscar partida"};
-            gameMode = "normal";
+            this.gameMode = "normal";
+            this.Printer = printer;
         }
 
         /// <summary>
@@ -49,11 +52,10 @@ namespace Battleship
                         user.RestartPlayer();
                         user2.RestartPlayer();
 
-                        Game game = new Game(user, user2);
-                        GamesRegister.AddGame(game);
+                        int idGame = GamesRegister.CreateGame(user, user2);
 
-                        user.GetPlayer().AddGameId(game.GetId());
-                        user2.GetPlayer().AddGameId(game.GetId());
+                        user.GetPlayer().AddGameId(idGame);
+                        user2.GetPlayer().AddGameId(idGame);
 
                         user.ChangeTurn();
 
@@ -61,10 +63,9 @@ namespace Battleship
                         user.ChangeStatus("position ships");
                         user2.ChangeStatus("position ships");
 
-                        response = $"Se ha unido a una partida con id {game.GetId()}";
+                        response = $"Se ha unido a una partida con id {idGame}";
 
-
-                        //Telegram.Bot.client.SendTextMessageAsync(user2.GetId(), response);
+                        Printer.Print(response, user2.GetID());
 
                     }
                     else

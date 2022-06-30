@@ -35,8 +35,7 @@ namespace Battleship
 
                 if (user == null)
                 {
-                    user = new User(message.From.Id);
-                    UserRegister.AddUser(user);
+                    UserRegister.CreateUser(message.From.Id);
                     response = "El usuario se ha creado correctamente";
                 }
                 else

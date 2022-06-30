@@ -5,9 +5,6 @@ namespace Battleship
     {
         private long Id {get; set; } 
         private string Status; // Estado del usuario, se usa para los handles
-        private string TextToPrint = "";
-        // TextToPrint Se utiliza para cuando se debe imprimir un mensaje pero es el turno del 
-        // contricante. Por lo que cuando llegue su turno, se imprime.
 
         private Player player = new Player();
 
@@ -64,24 +61,6 @@ namespace Battleship
             this.player = new Player();
         }
 
-        public string GetTextToPrint()
-        {
-            return this.TextToPrint;
-        }
-        /// <summary>
-        /// Cuando es el turno de un usuario, la response de los handlers la imprime para este, 
-        /// cuando queremos que se imprima para el otro usuario, modificamos 
-        /// TextToPrint, y cuando es el turno de este segundo usuario, se imprime el mismo
-        /// </summary>
-        /// <param name="text"> texto a imprimir</param>
-        public void ChangeTextToPrint(string text)
-        {
-            this.TextToPrint = text;
-        }
-        /// <summary>
-        /// Obtener el modo de juego
-        /// </summary>
-        /// <returns>Modo de juego</returns>
         public string GetGameMode()
         {
             return this.GameMode;

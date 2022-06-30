@@ -4,7 +4,7 @@ namespace Battleship
 {
     public class ConsolePrinter: IPrinter
     {
-        public void Print(string textToPrint)
+        public void Print(string textToPrint, long id)
         {
             Console.WriteLine(textToPrint);
         }

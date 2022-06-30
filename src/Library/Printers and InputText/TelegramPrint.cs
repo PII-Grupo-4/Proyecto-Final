@@ -3,51 +3,28 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-namespace CAH
+
+namespace Battleship
 {
-    public class Telegram : ICanalMensaje
+    // La clase intancia un IPrinter creado para imprimir en la pantalla de Telegram
+    // de un usuario en específico.
+    public class TelegramPrint : IPrinter
     {
-        ITelegramBotClient client = TelegramBot.Instance.Client;
-        private static Telegram instance;
+        private ITelegramBotClient Client;
+
+        public TelegramPrint(ITelegramBotClient client)
+        {
+            this.Client = client;
+        }
+
         /// <summary>
-        /// Metodo utilizado para crear y enviar un mensaje de texto por telegram.
+        /// Se ingresa una string y una id y se envía el mensaje al usuario con la 
+        /// id correspondiente
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="text"></param>
-        public void ArmarMensaje(string id, string text)
+        public void Print(string textToPrint, long id)
         {
-            Mensaje mensaje = new Mensaje(id, text);
-            Enviar(mensaje);
+            this.Client.SendTextMessageAsync(id, textToPrint);
         }
-        /// <summary>
-        /// Metodo utilizado para mandar un texto por telegram
-        /// </summary>
-        /// <param name="mensaje"></param>
-        public void Enviar(IMensaje mensaje)
-        {
-            client.SendTextMessageAsync(chatId: mensaje.Id,
-                                        text: mensaje.Text);
-        }
-        /// <summary>
-        /// Metodo utilizado para enviar una imagen por telegram.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="stream"></param>
-        public void EnviarImagen(string id, Stream stream)
-        {
-            client.SendPhotoAsync(chatId: id,
-                                  photo: stream);
-        }
-        public static Telegram Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Telegram();
-                }
-                return instance;
-            }
-        }
+
     }
 }

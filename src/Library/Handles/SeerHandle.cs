@@ -10,13 +10,17 @@ namespace Battleship
     /// </summary>
     public class SeerHandler : BaseHandler
     {
+        protected IPrinter Printer;
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="SeerHandler"/>. Esta clase procesa el mensaje "vidente".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public SeerHandler(BaseHandler next) : base(next)
+        public SeerHandler(BaseHandler next, IPrinter printer) : base(next)
         {
             this.Keywords = new string[] {"vidente"};
+
+            this.Printer = printer;
         }
 
         /// <summary>
@@ -82,6 +86,7 @@ namespace Battleship
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
                         user.ChangeTurn();
                         userAttacked.ChangeTurn();
+                        Printer.Print("El contricante utilizó vidente", userAttacked.GetID());
                     }
                     catch
                     {

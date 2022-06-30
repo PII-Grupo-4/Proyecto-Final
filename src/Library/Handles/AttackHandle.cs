@@ -11,15 +11,19 @@ namespace Battleship
     {
         protected string gameMode; // Para el modo de juego
 
+        protected IPrinter Printer;
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="AttackHandle"/>. Esta clase procesa el mensaje "atacar".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public AttackHandle(BaseHandler next) : base(next)
+        public AttackHandle(BaseHandler next, IPrinter printer) : base(next)
         {
             this.Keywords = new string[] {"atacar"};
 
             gameMode = "normal";
+
+            this.Printer = printer;
         }
 
         /// <summary>
@@ -79,7 +83,7 @@ namespace Battleship
                         // Mensajes para los jugadores
                         response = "¡Felicitaciones!. Has hundido todos los barcos ¡Ganaste!.";
                         User loserUser = game.GetOtherUserById(user.GetID());
-                        loserUser.ChangeTextToPrint("El enemigo ha hundido todos tus barcos. Has perdido.");
+                        Printer.Print("El enemigo ha hundido todos tus barcos. Has perdido.", loserUser.GetID());
                         game.AddUserWinner(user);
 
                         // Cambio de estado y turno
@@ -99,6 +103,7 @@ namespace Battleship
                     // Cambio de turno (Agua casi tocado es para el modo de juego predictivo)
                     if(response == "Agua" || response == "Hundido" || response == "Tocado" || response == "Agua casi tocado")
                     {
+                        Printer.Print($"El contricante ha atacado, fue {response}", userAttacked.GetID());
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
                         user.ChangeTurn();
                         userAttacked.ChangeTurn();

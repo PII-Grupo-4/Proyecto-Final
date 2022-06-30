@@ -1,5 +1,7 @@
 using System.IO;
-
+using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace Battleship
 {
     // La clase Games es una clase que contiene, brinda acceso y crea los Games.
@@ -29,12 +31,16 @@ namespace Battleship
         /// <summary>
         /// Método para tener una permanencia de la id de los juegos
         /// </summary>
+        [JsonInclude]
+        private int Cd { get; set; }
         private int CounterId()
         {
             int counterId;
             try
             {
-                counterId = int.Parse(File.ReadAllText("CounterIdGame.txt"));
+                StreamReader r = new StreamReader("CounterIdGame.json");
+                string json = r.ReadToEnd();
+                counterId = int.Parse(json);
             }
             catch
             {
@@ -43,9 +49,7 @@ namespace Battleship
 
             int newCounterId = counterId + 1;
 
-            StreamWriter writetext = new StreamWriter("CounterIdGame.txt", false);
-            writetext.WriteLine($"{newCounterId}");
-            writetext.Close();
+            File.WriteAllText("CounterIdGame.json", newCounterId.ToString());
 
             return counterId;
         }

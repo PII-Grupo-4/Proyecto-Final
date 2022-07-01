@@ -32,7 +32,7 @@ namespace Battleship
 
                 if (user == null)
                 {
-                    response = $"\ncrear usuario\n";
+                    response = $"\nIngrese el siguiente comando para crear su usuario:\ncrear usuario\n";
                     return;
                 }
 

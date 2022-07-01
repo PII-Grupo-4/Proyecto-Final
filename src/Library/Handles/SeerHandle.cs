@@ -54,10 +54,10 @@ namespace Battleship
                     try
                     {
                         // Accediendo al otro usuario(player)
-                        int gameId = user.GetPlayer().GetGameId();
-                        game = GamesRegister.GetGameInPlay(gameId);
+                        long IdUser1 = user.GetID();
+                        game = GamesRegister.GetGameByUserId(IdUser1);
 
-                        userAttacked = game.GetOtherUserById(user.GetID());
+                        userAttacked = game.GetOtherUserById(IdUser1);
 
                         if (userAttacked.getStatus() != $"in {user.GetGameMode()} game")
                         {

@@ -54,9 +54,6 @@ namespace Battleship
 
                         int idGame = GamesRegister.CreateGame(user, user2);
 
-                        user.GetPlayer().AddGameId(idGame);
-                        user2.GetPlayer().AddGameId(idGame);
-
                         user.ChangeTurn();
 
                         user.ChangeGameMode(gameMode);

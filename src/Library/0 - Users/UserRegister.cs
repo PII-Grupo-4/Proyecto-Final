@@ -12,7 +12,7 @@
 
 namespace Battleship
 {
-    static public class UserRegister
+    public static class UserRegister
     {
         private static List<User> ListOfUsers = new List<User> ();
 

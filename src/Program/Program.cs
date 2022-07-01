@@ -113,8 +113,9 @@ namespace Battleship
                 new AttackHandle(
                 new AttackPredictiveHandler(
                 new SpecialHabilitiesHandler(
-                new SeerHandler(null
-                , TelegramPrint) 
+                new SeerHandler(
+                new FinalHandle(null)
+                , TelegramPrint)
                 , TelegramPrint)
                 , TelegramPrint)
                 , TelegramPrint)

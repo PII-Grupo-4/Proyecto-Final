@@ -46,10 +46,10 @@ namespace Battleship
                     try
                     {
                         // Accediendo al otro usuario(player)
-                        int gameId = user.GetPlayer().GetGameId();
-                        game = GamesRegister.GetGameInPlay(gameId);
+                        long IdUser1 = user.GetID();
+                        game = GamesRegister.GetGameByUserId(IdUser1);
 
-                        user2 = game.GetOtherUserById(user.GetID());
+                        user2 = game.GetOtherUserById(IdUser1);
                     }
                     catch
                     {
@@ -68,9 +68,9 @@ namespace Battleship
                         {
                             user.ChangeStatus($"in {user.GetGameMode()} game");
                             response = "Los barcos estan listos";
-                        }
 
-                        Printer.Print("El contricante ya ha posicionado los barcos", user2.GetID());
+                            Printer.Print("El contricante ya ha posicionado los barcos", user2.GetID());
+                        }
                     }
                     catch
                     {

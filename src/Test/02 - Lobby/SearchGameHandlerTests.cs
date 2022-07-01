@@ -16,10 +16,14 @@ namespace Library.Tests
         Battleship.User user1;
         Battleship.User user2;
 
+        IPrinter Printer;
+
         [SetUp]
         public void Setup()
         {
-            handler = new SearchGameHandler(null);
+            Printer = new ConsolePrinter();
+
+            handler = new SearchGameHandler(null, Printer);
             message = new Message();
 
             user1 = new Battleship.User(1);
@@ -27,8 +31,11 @@ namespace Library.Tests
 
             message.MessageId = Convert.ToInt32(user1.GetID());
 
-            UserRegister.AddUser(user1);
-            UserRegister.AddUser(user2);
+            UserRegister.CreateUser(1);
+            UserRegister.CreateUser(2);
+            
+            user1 = UserRegister.GetUser(1);
+            user2 = UserRegister.GetUser(1);
         }
 
         [Test]
@@ -57,8 +64,11 @@ namespace Library.Tests
             message.MessageId = Convert.ToInt32(user2.GetID());
 
             IHandler result = handler.Handle(message, out response);
+
+            int GameId = GamesRegister.GetGameByUserId(user2.GetID()).GetId();
+
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo($"Se ha unido a una partida con id {user2.GetPlayer().GetGameId()}"));
+            Assert.That(response, Is.EqualTo($"Se ha unido a una partida con id {GameId}"));
             Assert.AreEqual("position ships", user1.getStatus());
             Assert.AreEqual("position ships", user2.getStatus());
         }

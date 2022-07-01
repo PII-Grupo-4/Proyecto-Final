@@ -18,24 +18,26 @@ namespace Library.Tests
 
         PositionShipsHandle pshiph;
 
+        IPrinter Printer;
 
         [SetUp]
         public void Setup()
         {
-            handler = new AttackHandle(null);
+            Printer = new ConsolePrinter();
+            
+            handler = new AttackHandle(null, Printer);
 
-            sgameh = new SearchGameHandler(null);
+            sgameh = new SearchGameHandler(null, Printer);
 
-            pshiph = new PositionShipsHandle(null);
+            pshiph = new PositionShipsHandle(null, Printer);
 
             message = new Message();
 
-            user1 = new Battleship.User(1);
-            user2 = new Battleship.User(2);
-
-
-            UserRegister.AddUser(user1);
-            UserRegister.AddUser(user2);
+            UserRegister.CreateUser(1);
+            UserRegister.CreateUser(2);
+            
+            user1 = UserRegister.GetUser(1);
+            user2 = UserRegister.GetUser(1);
 
             string response;
             IHandler result;

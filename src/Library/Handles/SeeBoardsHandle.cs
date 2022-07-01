@@ -40,6 +40,7 @@ namespace Battleship
                 {
                     // Devolviendo los tableros como string
                     response = user.GetPlayer().GetBoardsToPrint();
+                    response += "\n\n En el caso de que los tableros no se vean correctamente, rota el telefono en horizontal.";
                 }
                 
             }

@@ -14,26 +14,30 @@ namespace Library.Tests
         Battleship.User user1;
         Battleship.User user2;
 
+        IPrinter Printer;
+
         [SetUp]
         public void Setup()
         {
+            Printer = new ConsolePrinter();
+            
             handler = new ExitLobbyHandle(null);
             message = new Message();
 
-            user1 = new Battleship.User(1);
-            user2 = new Battleship.User(2);
+            UserRegister.CreateUser(1);
+            UserRegister.CreateUser(2);
+            
+            user1 = UserRegister.GetUser(1);
+            user2 = UserRegister.GetUser(1);
 
             message.MessageId = Convert.ToInt32(user1.GetID());
-
-            UserRegister.AddUser(user1);
-            UserRegister.AddUser(user2);
 
         }
 
         [Test]
         public void TestExitLobbyHandleNormalMode()
         {
-            SearchGameHandler handler1 = new SearchGameHandler(null);
+            SearchGameHandler handler1 = new SearchGameHandler(null, Printer);
 
             message.Text = handler1.Keywords[0];
             string response;
@@ -54,7 +58,7 @@ namespace Library.Tests
         [Test]
         public void TestExitLobbyHandlePredictiveMode()
         {
-            SearchPredictiveGameHandler handler1 = new SearchPredictiveGameHandler(null);
+            SearchPredictiveGameHandler handler1 = new SearchPredictiveGameHandler(null, Printer);
 
             message.Text = handler1.Keywords[0];
             string response;

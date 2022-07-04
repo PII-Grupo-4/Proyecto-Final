@@ -9,10 +9,12 @@ namespace Library.Tests
     // de salir del mismo cunado lo desee. Este handler se encarga de eso.
     public class ExitLobbyHandleTests
     {
-        ExitLobbyHandle handler;
-        Message message;
-        Battleship.User user1;
-        Battleship.User user2;
+        private ExitLobbyHandle handler;
+        private Message message;
+        private Battleship.User user1;
+        private Battleship.User user2;
+        private Telegram.Bot.Types.User userTelegram1;
+        private Telegram.Bot.Types.User userTelegram2;
 
         IPrinter Printer;
 
@@ -28,9 +30,17 @@ namespace Library.Tests
             UserRegister.CreateUser(2);
             
             user1 = UserRegister.GetUser(1);
-            user2 = UserRegister.GetUser(1);
+            user2 = UserRegister.GetUser(2);
 
-            message.MessageId = Convert.ToInt32(user1.GetID());
+            userTelegram1 = new Telegram.Bot.Types.User();
+            userTelegram1.Id = 1;
+
+            userTelegram2 = new Telegram.Bot.Types.User();
+            userTelegram2.Id = 2;
+
+            message.From = userTelegram1;
+
+            int idGame = GamesRegister.CreateGame(user1, user2);
 
         }
 

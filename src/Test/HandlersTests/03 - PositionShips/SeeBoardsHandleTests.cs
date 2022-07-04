@@ -9,12 +9,14 @@ namespace Library.Tests
     // cuando desee
     public class SeeBoardsHandleTest
     {
-        SeeBoardsHandle handler;
-        Message message;
-        Battleship.User user1;
-        Battleship.User user2;
+        private SeeBoardsHandle handler;
+        private Message message;
+        private Battleship.User user1;
+        private Battleship.User user2;
+        private Telegram.Bot.Types.User userTelegram1;
+        private Telegram.Bot.Types.User userTelegram2;
 
-        IPrinter Printer;
+        private IPrinter Printer;
 
         [SetUp]
         public void Setup()
@@ -28,9 +30,15 @@ namespace Library.Tests
             UserRegister.CreateUser(2);
             
             user1 = UserRegister.GetUser(1);
-            user2 = UserRegister.GetUser(1);
+            user2 = UserRegister.GetUser(2);
 
-            message.MessageId = Convert.ToInt32(user1.GetID());
+            userTelegram1 = new Telegram.Bot.Types.User();
+            userTelegram1.Id = 1;
+
+            userTelegram2 = new Telegram.Bot.Types.User();
+            userTelegram2.Id = 2;
+
+            message.From = userTelegram1;
         }
 
         [Test]
@@ -45,14 +53,14 @@ namespace Library.Tests
             IHandler result = handler.Handle(message, out response);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo($"{user1.GetPlayer().GetBoardsToPrint()}"));
+            Assert.That(response, Is.EqualTo($"{user1.GetPlayer().GetBoardsToPrint()}\n\n En el caso de que los tableros no se vean correctamente, rota el telefono en horizontal."));
 
-            message.MessageId = Convert.ToInt32(user1.GetID());
+            message.From = userTelegram2;
 
             result = handler.Handle(message, out response);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo($"{user2.GetPlayer().GetBoardsToPrint()}"));
+            Assert.That(response, Is.EqualTo($"{user2.GetPlayer().GetBoardsToPrint()}\n\n En el caso de que los tableros no se vean correctamente, rota el telefono en horizontal."));
             
         }
 

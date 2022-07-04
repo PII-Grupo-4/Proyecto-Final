@@ -8,6 +8,10 @@ namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "buscar partida".
+    /// SearchGam3eHandle cumple con el principio OCP, ya que está abierto a la extensión pero cerrado 
+    /// a la modificación. Como es el ejemplo de SearchPredictiveGameHandler, es una clase
+    /// heredera de ésta, que se encarga de agregar nuevas funciones, sin necesidad de modificar la 
+    /// clase base SearchGame
     /// </summary>
     public class SearchGameHandler : BaseHandler
     {

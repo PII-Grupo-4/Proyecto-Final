@@ -10,14 +10,16 @@ namespace Library.Tests
     // al mas pequeño. En total hay 4 barcos que varian el tamaño desde 2 a 5 lugares c/u
     public class PositionShipsHandleTest
     {
-        PositionShipsHandle handler;
-        Message message;
-        Battleship.User user1;
-        Battleship.User user2;
+        private PositionShipsHandle handler;
+        private Message message;
+        private Battleship.User user1;
+        private Battleship.User user2;
+        private Telegram.Bot.Types.User userTelegram1;
+        private Telegram.Bot.Types.User userTelegram2;
 
-        Battleship.Game game;
+        private Battleship.Game game;
 
-        IPrinter Printer;
+        private IPrinter Printer;
 
         [SetUp]
         public void Setup()
@@ -27,13 +29,19 @@ namespace Library.Tests
             handler = new PositionShipsHandle(null, Printer);
             message = new Message();
 
-            UserRegister.CreateUser(1);
-            UserRegister.CreateUser(2);
+            UserRegister.CreateUser(5);
+            UserRegister.CreateUser(6);
             
-            user1 = UserRegister.GetUser(1);
-            user2 = UserRegister.GetUser(1);
+            user1 = UserRegister.GetUser(5);
+            user2 = UserRegister.GetUser(6);
 
-            message.MessageId = Convert.ToInt32(user1.GetID());
+            userTelegram1 = new Telegram.Bot.Types.User();
+            userTelegram1.Id = 5;
+
+            userTelegram2 = new Telegram.Bot.Types.User();
+            userTelegram2.Id = 6;
+
+            message.From = userTelegram1;
 
             int idGame = GamesRegister.CreateGame(user1, user2);
             game = GamesRegister.GetGameInPlay(idGame);

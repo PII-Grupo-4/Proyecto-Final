@@ -10,12 +10,13 @@ namespace Library.Tests
     // los juegos finalizados hasta el momento, cada juego tiene una id propia.
     public class SeeGameSummariesHandlerTests
     {
-        SeeGameSummariesHandler handler;
-        Message message;
-        Battleship.User user1;
-        Battleship.User user2;
-
-        Battleship.Game game;
+        private SeeGameSummariesHandler handler;
+        private Message message;
+        private Battleship.User user1;
+        private Battleship.User user2;
+        private Telegram.Bot.Types.User userTelegram1;
+        private Telegram.Bot.Types.User userTelegram2;
+        private Battleship.Game game;
 
         [SetUp]
         public void Setup()
@@ -27,11 +28,18 @@ namespace Library.Tests
             UserRegister.CreateUser(2);
             
             user1 = UserRegister.GetUser(1);
-            user2 = UserRegister.GetUser(1);
+            user2 = UserRegister.GetUser(2);
+
+            userTelegram1 = new Telegram.Bot.Types.User();
+            userTelegram1.Id = 1;
+
+            userTelegram2 = new Telegram.Bot.Types.User();
+            userTelegram2.Id = 2;
+
+            message.From = userTelegram1;
 
             int idGame = GamesRegister.CreateGame(user1, user2);
             game = GamesRegister.GetGameInPlay(idGame);
-
         }
 
         [Test]
@@ -40,7 +48,6 @@ namespace Library.Tests
             game.AddUserWinner(user1);
 
             message.Text = handler.Keywords[0];
-            message.MessageId = Convert.ToInt32(user1.GetID());
             string response;
             user1.ChangeStatus("start");
 

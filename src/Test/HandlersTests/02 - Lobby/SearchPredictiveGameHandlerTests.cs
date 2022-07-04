@@ -11,12 +11,14 @@ namespace Library.Tests
     // entonces se los matchea y se inicia el juego.
     public class SearchPredictiveGameHandlerTests
     {
-        SearchPredictiveGameHandler handler;
-        Message message;
-        Battleship.User user1;
-        Battleship.User user2;
+        private SearchPredictiveGameHandler handler;
+        private Message message;
+        private Battleship.User user1;
+        private Battleship.User user2;
+        private Telegram.Bot.Types.User userTelegram1;
+        private Telegram.Bot.Types.User userTelegram2;
 
-        IPrinter Printer;
+        private IPrinter Printer;
 
         [SetUp]
         public void Setup()
@@ -26,13 +28,19 @@ namespace Library.Tests
             handler = new SearchPredictiveGameHandler(null, Printer);
             message = new Message();
 
-            UserRegister.CreateUser(1);
-            UserRegister.CreateUser(2);
+            UserRegister.CreateUser(3);
+            UserRegister.CreateUser(4);
             
-            user1 = UserRegister.GetUser(1);
-            user2 = UserRegister.GetUser(1);
+            user1 = UserRegister.GetUser(3);
+            user2 = UserRegister.GetUser(4);
 
-            message.MessageId = Convert.ToInt32(user1.GetID());
+            userTelegram1 = new Telegram.Bot.Types.User();
+            userTelegram1.Id = 3;
+
+            userTelegram2 = new Telegram.Bot.Types.User();
+            userTelegram2.Id = 4;
+
+            message.From = userTelegram1;
         }
 
         [Test]
@@ -58,7 +66,7 @@ namespace Library.Tests
             string response;
 
             user2.ChangeStatus("start");
-            message.MessageId = Convert.ToInt32(user2.GetID());
+            message.From = userTelegram2;
 
             IHandler result = handler.Handle(message, out response);
 

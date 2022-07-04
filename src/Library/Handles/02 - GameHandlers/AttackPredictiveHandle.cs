@@ -6,6 +6,9 @@ namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "atacar p".
+    /// Como se puede observar, tanto las clases search como attack del tipo de juego predictivo,
+    /// heredan de search y attack estandar. De esta forma las clases quedan abierta a la extensión
+    /// pero cerradas a la modificación, respetando el OCP.
     /// </summary>
     public class AttackPredictiveHandler : AttackHandle
     {

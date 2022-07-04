@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using Battleship;
 using Telegram.Bot.Types;
-using System;
+using System.IO;
 
 namespace Library.Tests
 {
@@ -11,12 +11,14 @@ namespace Library.Tests
     // entonces se los matchea y se inicia el juego.
     public class SearchGameHandlerTests
     {
-        SearchGameHandler handler;
-        Message message;
-        Battleship.User user1;
-        Battleship.User user2;
+        private SearchGameHandler handler;
+        private Message message;
+        private Battleship.User user1;
+        private Battleship.User user2;
+        private Telegram.Bot.Types.User userTelegram1;
+        private Telegram.Bot.Types.User userTelegram2;
 
-        IPrinter Printer;
+        private IPrinter Printer;
 
         [SetUp]
         public void Setup()
@@ -29,13 +31,19 @@ namespace Library.Tests
             user1 = new Battleship.User(1);
             user2 = new Battleship.User(2);
 
-            message.MessageId = Convert.ToInt32(user1.GetID());
-
             UserRegister.CreateUser(1);
             UserRegister.CreateUser(2);
+
+            userTelegram1 = new Telegram.Bot.Types.User();
+            userTelegram1.Id = 1;
+
+            userTelegram2 = new Telegram.Bot.Types.User();
+            userTelegram2.Id = 2;
+
+            message.From = userTelegram1;
             
             user1 = UserRegister.GetUser(1);
-            user2 = UserRegister.GetUser(1);
+            user2 = UserRegister.GetUser(2);
         }
 
         [Test]
@@ -50,7 +58,6 @@ namespace Library.Tests
             Assert.That(result, Is.Not.Null);
             Assert.That(response, Is.EqualTo($"Entraste a la sala de espera. Modo de juego: normal"));
             Assert.AreEqual("lobby", user1.getStatus());
-
             
         }
 
@@ -61,14 +68,14 @@ namespace Library.Tests
             string response;
 
             user2.ChangeStatus("start");
-            message.MessageId = Convert.ToInt32(user2.GetID());
+            message.From = userTelegram2;
 
             IHandler result = handler.Handle(message, out response);
 
-            int GameId = GamesRegister.GetGameByUserId(user2.GetID()).GetId();
+            int GameId = int.Parse(System.IO.File.ReadAllText("CounterIdGame.txt"));
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo($"Se ha unido a una partida con id {GameId}"));
+            Assert.That(response, Is.EqualTo($"Se ha unido a una partida con id {GameId-1}"));
             Assert.AreEqual("position ships", user1.getStatus());
             Assert.AreEqual("position ships", user2.getStatus());
         }

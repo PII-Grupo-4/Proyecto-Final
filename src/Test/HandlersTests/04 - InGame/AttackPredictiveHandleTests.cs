@@ -9,16 +9,18 @@ namespace Library.Tests
     // de ataque en el mensaje
     public class AttackPredictiveHandlerTest
     {
-        AttackPredictiveHandler handler;
-        Message message;
-        Battleship.User user1;
-        Battleship.User user2;
+        private AttackPredictiveHandler handler;
+        private Message message;
+        private Battleship.User user1;
+        private Battleship.User user2;
+        private Telegram.Bot.Types.User userTelegram1;
+        private Telegram.Bot.Types.User userTelegram2;
 
-        SearchGameHandler sgameh;
+        private SearchGameHandler sgameh;
 
-        PositionShipsHandle pshiph;
+        private PositionShipsHandle pshiph;
 
-        IPrinter Printer;
+        private IPrinter Printer;
 
         [SetUp]
         public void Setup()
@@ -33,21 +35,27 @@ namespace Library.Tests
 
             message = new Message();
 
-            UserRegister.CreateUser(1);
-            UserRegister.CreateUser(2);
+            UserRegister.CreateUser(9);
+            UserRegister.CreateUser(10);
             
-            user1 = UserRegister.GetUser(1);
-            user2 = UserRegister.GetUser(1);
+            user1 = UserRegister.GetUser(9);
+            user2 = UserRegister.GetUser(10);
 
             string response;
             IHandler result;
 
-            message.MessageId = Convert.ToInt32(user1.GetID());
+            userTelegram1 = new Telegram.Bot.Types.User();
+            userTelegram1.Id = 9;
+
+            userTelegram2 = new Telegram.Bot.Types.User();
+            userTelegram2.Id = 10;
+
+            message.From = userTelegram1;
             message.Text = "buscar partida predictiva";
             
             sgameh.Handle(message, out response);
 
-            message.MessageId = Convert.ToInt32(user2.GetID());
+            message.From = userTelegram2;
             message.Text = "buscar partida predictiva";
 
             sgameh.Handle(message, out response);
@@ -58,7 +66,7 @@ namespace Library.Tests
                 result = pshiph.Handle(message, out response);
             }  
 
-            message.MessageId = Convert.ToInt32(user1.GetID());
+            message.From = userTelegram1;
 
             for (int i = 1; i < 6; i++)
             {
@@ -71,7 +79,11 @@ namespace Library.Tests
         public void TestAttackHandle()
         {
             message.Text = "p ataque a1";
-            message.MessageId = Convert.ToInt32(user1.GetID());
+            message.From = userTelegram2;
+            if (user2.GetTurn() == false)
+            {
+                user2.ChangeTurn();
+            }
 
             string response;
 
@@ -88,14 +100,19 @@ namespace Library.Tests
         public void InvalidCoordinates(string coor)
         {
             message.Text = $"p ataque {coor}";
-            message.MessageId = Convert.ToInt32(user1.GetID());
+            message.From = userTelegram2;
+
+            if (user2.GetTurn() == false)
+            {
+                user2.ChangeTurn();
+            }
 
             string response;
 
             IHandler result = handler.Handle(message, out response);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo($"Sucedió un error"));
+            Assert.That(response, Is.EqualTo("Sucedió un error, vuelve a intentar"));
 
         }
 

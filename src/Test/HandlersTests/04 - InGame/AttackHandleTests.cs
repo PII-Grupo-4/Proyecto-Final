@@ -81,9 +81,9 @@ namespace Library.Tests
             message.Text = "atacar a1";
             message.From = userTelegram2;
 
-            if (user2.GetTurn() == false)
+            if (user2.GetPlayer().GetTurn() == false)
             {
-                user2.ChangeTurn();
+                user2.GetPlayer().ChangeTurn();
             }
 
             string response;
@@ -103,9 +103,9 @@ namespace Library.Tests
             message.Text =$"atacar {coor}";
             message.From = userTelegram2;
 
-            if (user2.GetTurn() == false)
+            if (user2.GetPlayer().GetTurn() == false)
             {
-                user2.ChangeTurn();
+                user2.GetPlayer().ChangeTurn();
             }
 
             string response;

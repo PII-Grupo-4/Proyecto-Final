@@ -6,6 +6,7 @@ namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "posicionar barco".
+    /// Se encarga de posicionar los barcos en el tablero con naves
     /// </summary>
     public class PositionShipsHandle : BaseHandler
     {

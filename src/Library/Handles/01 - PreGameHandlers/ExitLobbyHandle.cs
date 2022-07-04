@@ -6,6 +6,7 @@ namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "buscar partida".
+    /// Se encarga de sacar a un usuario de la sala de espera
     /// </summary>
     public class ExitLobbyHandle : BaseHandler
     {

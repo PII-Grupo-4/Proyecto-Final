@@ -6,6 +6,7 @@ namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "ver tableros".
+    /// Se encarga de imprimir los tableros del usuarios para que este puede verlos
     /// </summary>
     public class SeeBoardsHandle : BaseHandler
     {

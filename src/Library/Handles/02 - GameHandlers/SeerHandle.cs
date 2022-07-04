@@ -7,6 +7,7 @@ namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa los comandos "vidente".
+    /// Utiliza la habilidad Vidente
     /// </summary>
     public class SeerHandler : BaseHandler
     {
@@ -35,7 +36,7 @@ namespace Battleship
             {
                 User user = UserRegister.GetUser(message.From.Id);
 
-                if (user.GetTurn() == false)
+                if (user.GetPlayer().GetTurn() == false)
                 {
                     response = "Aún no es tu turno";
                     return;
@@ -84,8 +85,8 @@ namespace Battleship
                         user.GetPlayer().UseHability("seer");
 
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
-                        user.ChangeTurn();
-                        userAttacked.ChangeTurn();
+                        user.GetPlayer().ChangeTurn();
+                        userAttacked.GetPlayer().ChangeTurn();
                         Printer.Print("El contricante utilizó vidente", userAttacked.GetID());
                     }
                     catch

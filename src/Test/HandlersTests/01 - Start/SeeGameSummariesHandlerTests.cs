@@ -39,7 +39,7 @@ namespace Library.Tests
             message.From = userTelegram1;
 
             int idGame = GamesRegister.CreateGame(user1, user2);
-            game = GamesRegister.GetGameInPlay(idGame);
+            game = GamesRegister.GetGameByUserId(1);
         }
 
         [Test]

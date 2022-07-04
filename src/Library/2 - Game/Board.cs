@@ -15,16 +15,18 @@ namespace Battleship
     // D = Destroyer (Size: 2)
 
     /// <summary>
-    /// Board es el experto en la información de la ubicación de los barcos en el tablero,
-    /// por lo tanto es el ideal para posicionar los barcos
+    /// Board es el experto de información de la ubicación de los barcos en el tablero,
+    /// por lo tanto es el ideal para conocer, crear y posicionar los barcos.
+    /// También por lo tanto, es el encargado de retornarse a el mismo representado
+    /// como una string para poder ser impreso por un IPrinter
     /// </summary>
     public class Board
     {
-        private string[,] board = new string[10,10]; //Tablero, El tamaño del tablero es fijo.
+        private string[,] board = new string[10,10]; //Tablero, El tamaño del tablero es fijo, de 10x10.
 
-        private List<Ship> ShipsList = new List<Ship>{}; // Lista con los barcos
+        private List<Ship> ShipsList = new List<Ship>{}; // Lista con los barcos colocados
 
-        static List<string> Orientations = new List<string>{"UP", "DOWN", "LEFT", "RIGHT"}; //Orientaciones de colocación posibles
+        static List<string> Orientations = new List<string>{"UP", "DOWN", "LEFT", "RIGHT"}; //Orientaciones de colocación disponibles
 
         private List<int> ShipsSize = new List<int>{5,4,3,2}; // Los tamaños de los barcos
 
@@ -48,16 +50,28 @@ namespace Battleship
             return this.ShipsList.Count;
         }
 
+        /// <summary>
+        /// Retorna el tablero
+        /// </summary>
+        /// <returns>tablero</returns>
         public string[,] GetBoard()
         {
             return this.board;
         }
 
+        /// <summary>
+        /// Retorna una lista con los barcos colocados
+        /// </summary>
+        /// <returns>Listas con los barcos colocados</returns>
         public List<Ship> GetShipsList()
         {
             return this.ShipsList;
         }
 
+        /// <summary>
+        /// Se ingresa un barco y se elimina al mismo de la lista que contiene a los barcos
+        /// </summary>
+        /// <param name="ship">Barco a eliminar</param>
         public void RemoveShip(Ship ship)
         {
             ship.DecreaseHealth();
@@ -233,7 +247,7 @@ namespace Battleship
 
 
         /// <summary>
-        /// Devuelve el tablero (board) como una string, para que luego se pueda imprimir
+        /// Devuelve el tablero (board) como una string, para que luego se pueda imprimir a travez de un IPrinter
         /// </summary>
         public string BoardToString()
         {

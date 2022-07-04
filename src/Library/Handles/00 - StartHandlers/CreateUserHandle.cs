@@ -5,7 +5,8 @@ using Telegram.Bot.Types;
 namespace Battleship
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "crear usuario".
+    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "crear usuario".}
+    /// Se encarga de crear un usuario
     /// </summary>
     public class CreateUserHandle : BaseHandler
     {

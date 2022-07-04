@@ -5,11 +5,21 @@ namespace Battleship
 {
     public static class Logic
     {
+        // Lista con las filas posibles
         static private List<string> Row = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+        
+        // Lista con las columnas posibles
         static private List<string> Column = new List<string>{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
-        // Recibe dos usuarios y una coordenada.
-        // En caso de que la coordenada sea correcta, realiza el ataque.
+        /// <summary>
+        /// Recibe dos usuarios y una coordenada.
+        /// En caso de que la coordenada sea correcta, realiza el ataque.
+        /// En caso de que sea incorrecta, retorna el mensaje correspondiente
+        /// </summary>
+        /// <param name="coordinate">string con la coordenada</param>
+        /// <param name="user">Usuario que ataca</param>
+        /// <param name="userAttacked">Usuario atacado</param>
+        /// <returns>Mensaje</returns>
         public static string Attack(string coordinate, User user, User userAttacked)
         {
             Board boardWithShips = userAttacked.GetPlayer().GetShipsBoard();
@@ -42,7 +52,15 @@ namespace Battleship
         }
 
 
-        // Para el modo de juego predictivo
+        /// <summary>
+        /// La misma función que el método Attack, pero con la diferencia que cuando se ataca,
+        /// si el disparo dió al lado de un barco, el mensaje a retornar es "agua casi tocado" en lugar
+        /// de solamente "agua"
+        /// </summary>
+        /// <param name="coordinate">string con la coordenada/param>
+        /// <param name="user">Usuario que ataca</param>
+        /// <param name="userAttacked">Usuario Atacado</param>
+        /// <returns></returns>
         public static string AttackPredictive(string coordinate, User user, User userAttacked)
         {
             Board boardWithShips = userAttacked.GetPlayer().GetShipsBoard();
@@ -98,6 +116,15 @@ namespace Battleship
         }
 
 
+        /// <summary>
+        /// Es utilizado en el Método Attack y AttackPredictive.
+        /// Se encarga de diferenciar a cuando un disparo toca o hunde un barco.
+        /// Según haya sido tocado o hundido, realiza las correspondientes acciones.
+        /// </summary>
+        /// <param name="boardWithShips">Tablero con el barco (del usuario atacado)</param>
+        /// <param name="registerBoard">Tablero con registros (del usuario atacante)</param>
+        /// <param name="coordinateList">Coordinada</param>
+        /// <returns></returns>
         private static string TocadoHundido(Board boardWithShips, Board registerBoard, List<int> coordinateList)
         {
             string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1];
@@ -134,6 +161,13 @@ namespace Battleship
         }
 
 
+        /// <summary>
+        /// Se utiliza para la habilidad especial AirAttack (Ataque Aereo)
+        /// Donde se ataca una fila completa en un turno
+        /// </summary>
+        /// <param name="row">Fila</param>
+        /// <param name="user">Usuario que usa la habilidad</param>
+        /// <param name="userAttacked">Usuario perjudicado</param>
         public static void AirAttack(string row, User user, User userAttacked)
         {
             for (int i = 1; i < 11; i++)
@@ -144,8 +178,12 @@ namespace Battleship
 
 
         /// <summary>
-        /// Se utilizar para la habilidad especial vidente "seer", que retorna una string donde se expresa en cual zona hay mas posibilidades de impacto
+        /// Se utilizar para la habilidad especial "seer" (Vidente).
+        /// Donde se retorna una string donde se expresa en cual zona hay mas posibilidades de impacto.
+        /// Las zonas son superior (mitad superior) e inferior (mitad inferior)
         /// </summary>
+        /// <param name="userAttacked">Usuario perjudicado</param>
+        /// <returns>Mensaje con información</returns>
         public static string Seer(User userAttacked)
         {
             string[,] board = userAttacked.GetPlayer().GetShipsBoard().GetBoard();
@@ -190,7 +228,14 @@ namespace Battleship
             }
         }
 
-
+        /// <summary>
+        /// Se utilizar para la habilidad especial "Satelitte" (Vista satelital).
+        /// Donde un usuario ingresa una columna, y puede obtener una foto satelital de la dicha columna
+        /// del tablero del enemigo
+        /// </summary>
+        /// <param name="column">columna</param>
+        /// <param name="board">tablero del usuario perjudicado</param>
+        /// <returns></returns>
         public static string Satelitte(int column, string[,] board)
         {
             List<string> Row2 = new List<string>{"A ", "B ", "C ", "D ", "E ", "F ", "G ", "H ", "I  ", "J "};
@@ -216,8 +261,10 @@ namespace Battleship
 
         /// <summary>
         /// FixCoordinate recibe una coordenada en forma de string (ej "A3") y la transforma en una lista de dos int.
-        /// si son incorrectas, retorna una lista vacia
+        /// En caso de ser incorrectas, retorna una lista vacia
         /// </summary>
+        /// <param name="coordinate">Coordinada</param>
+        /// <returns>Lista con las coordenadas</returns>
         public static List<int> FixCoordinate(string coordinate)
         {
             List<int> coordinateList = new List<int>();

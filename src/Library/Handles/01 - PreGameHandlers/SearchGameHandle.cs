@@ -58,7 +58,7 @@ namespace Battleship
 
                         int idGame = GamesRegister.CreateGame(user, user2);
 
-                        user.ChangeTurn();
+                        user.GetPlayer().ChangeTurn();
 
                         user.ChangeGameMode(gameMode);
                         user.ChangeStatus("position ships");

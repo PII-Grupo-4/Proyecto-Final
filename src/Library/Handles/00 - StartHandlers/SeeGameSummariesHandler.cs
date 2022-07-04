@@ -7,6 +7,7 @@ namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "ver partida jugada".
+    /// Se encarga de devolver el resúmen de los juegos jugados hasta el momento en forma de string
     /// </summary>
     public class SeeGameSummariesHandler : BaseHandler
     {

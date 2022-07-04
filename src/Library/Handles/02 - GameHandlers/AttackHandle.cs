@@ -42,7 +42,7 @@ namespace Battleship
             {
                 User user = UserRegister.GetUser(message.From.Id);
 
-                if (user.GetTurn() == false)
+                if (user.GetPlayer().GetTurn() == false)
                 {
                     response = "Aún no es tu turno";
                     return;
@@ -94,8 +94,8 @@ namespace Battleship
                         user.ChangeStatus("start");
                         userAttacked.ChangeStatus("start"); 
                         response += "\n\n------Turno cambiado------\n\n";   
-                        user.ChangeTurn();
-                        userAttacked.ChangeTurn();
+                        user.GetPlayer().ChangeTurn();
+                        userAttacked.GetPlayer().ChangeTurn();
 
                         // Elimina el juego de la lista de juegos
                         GamesRegister.RemoveGame(game);
@@ -109,8 +109,8 @@ namespace Battleship
                     {
                         Printer.Print($"El contricante ha atacado, fue {response}", userAttacked.GetID());
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
-                        user.ChangeTurn();
-                        userAttacked.ChangeTurn();
+                        user.GetPlayer().ChangeTurn();
+                        userAttacked.GetPlayer().ChangeTurn();
                     }
                 }
                 

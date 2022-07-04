@@ -7,6 +7,7 @@ namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa los comandos "ataque aereo","satelite".
+    /// Utiliza las habilidades Ataque Aereo y Foto Satelital
     /// </summary>
     public class SpecialHabilitiesHandler : BaseHandler
     {
@@ -35,7 +36,7 @@ namespace Battleship
             {
                 User user = UserRegister.GetUser(message.From.Id);
 
-                if (user.GetTurn() == false)
+                if (user.GetPlayer().GetTurn() == false)
                 {
                     response = "Aún no es tu turno";
                     return;
@@ -132,8 +133,8 @@ namespace Battleship
                         }
 
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
-                        user.ChangeTurn();
-                        userAttacked.ChangeTurn();
+                        user.GetPlayer().ChangeTurn();
+                        userAttacked.GetPlayer().ChangeTurn();
                     }
                     catch
                     {

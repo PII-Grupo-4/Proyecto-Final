@@ -6,6 +6,8 @@ namespace Battleship
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "comandos".
+    /// Dependiendo del estado en que se encuentre el usuario, se encarga de imprimir los comandos
+    /// disponibles para el mismo
     /// </summary>
     public class CommandsHandle : BaseHandler
     {

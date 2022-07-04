@@ -97,6 +97,8 @@ namespace Battleship
         /// </summary>
         public static void Main()
         {
+            // prueba(); //Este método solo es para realizar algunas pruebas, ignorarlo por favor
+
             Start();
 
             Bot = new TelegramBotClient(token);
@@ -194,6 +196,12 @@ namespace Battleship
         {
             Console.WriteLine(exception.Message);
             return Task.CompletedTask;
+        }
+
+        // Método para realizar ciertas pruebas, ignorar por favor
+        static void prueba()
+        {
+            // Vacío actualmente
         }
 
     }

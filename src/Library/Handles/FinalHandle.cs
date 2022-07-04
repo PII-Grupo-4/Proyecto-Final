@@ -5,9 +5,9 @@ using Telegram.Bot.Types;
 namespace Battleship
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que se encarga de recibir
-    /// cualquier mensaje, en caso que ningún handle anterior lo haya aceptado
-    /// y devuelve el mensaje aclarando que no entiende el mensaje recibido.
+    /// Un "handler" del patrón Chain of Responsibility que se encarga de aceptar
+    /// cualquier mensaje, en caso que ningún handle anterior lo haya aceptado,
+    /// y devuelve el mensaje aclarando que no se entiende el mensaje recibido.
     /// </summary>
     public class FinalHandle : BaseHandler
     {

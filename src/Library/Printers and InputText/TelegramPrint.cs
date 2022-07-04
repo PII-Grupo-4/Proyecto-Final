@@ -6,8 +6,10 @@ using Telegram.Bot.Types.Enums;
 
 namespace Battleship
 {
-    // La clase intancia un IPrinter creado para imprimir en la pantalla de Telegram
-    // de un usuario en específico.
+    /// <summary>
+    /// Implementa la interfaz IPrinter, en esta ocación para imprimir en la pantalla de Telegram de un usuario
+    /// en específico, al cual se accede a travez de su id
+    /// </summary>
     public class TelegramPrint : IPrinter
     {
         private ITelegramBotClient Client;

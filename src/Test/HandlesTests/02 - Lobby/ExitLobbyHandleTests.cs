@@ -7,6 +7,7 @@ namespace Library.Tests
 {
     // Si un jugador esta en el lobby, y aún no ha conseguido pareja, tiene la posibilidad
     // de salir del mismo cunado lo desee. Este handler se encarga de eso.
+    [TestFixture]
     public class ExitLobbyHandleTests
     {
         private ExitLobbyHandle handler;

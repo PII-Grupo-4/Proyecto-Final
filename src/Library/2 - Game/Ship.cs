@@ -6,7 +6,7 @@ namespace Battleship
     {
         private int Size{get; set;} // El tamaño del barco
 
-        private int Health{get; set;}  // Contiene la cantiadad de casillas sin disparar del barco
+        private int Health{get; set;}  // Contiene la cantidad de casillas sin disparar del barco
 
         private List<List<int>> Coordinates{get; set;} // Coordenadas sin disparar del barco
 

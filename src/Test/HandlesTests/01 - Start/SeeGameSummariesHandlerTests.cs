@@ -8,6 +8,7 @@ namespace Library.Tests
 {
     // El handler para ver resumenes del juego, se encarga de mostrar en pantalla todos 
     // los juegos finalizados hasta el momento, cada juego tiene una id propia.
+    [TestFixture]
     public class SeeGameSummariesHandlerTests
     {
         private SeeGameSummariesHandler handler;

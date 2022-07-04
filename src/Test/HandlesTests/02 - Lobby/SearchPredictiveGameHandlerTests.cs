@@ -9,6 +9,7 @@ namespace Library.Tests
     // El primer usuario que busca, se manda al lobby (sala de espera).
     // Si ya hay un usuario en el lobby, y este busca el mismo modo de juego, 
     // entonces se los matchea y se inicia el juego.
+    [TestFixture]
     public class SearchPredictiveGameHandlerTests
     {
         private SearchPredictiveGameHandler handler;
@@ -41,6 +42,9 @@ namespace Library.Tests
             userTelegram2.Id = 4;
 
             message.From = userTelegram1;
+
+            user1.ChangeGameMode("predictive");
+            user2.ChangeGameMode("predictive");
         }
 
         [Test]
@@ -55,15 +59,17 @@ namespace Library.Tests
             Assert.That(result, Is.Not.Null);
             Assert.That(response, Is.EqualTo($"Entraste a la sala de espera. Modo de juego: predictive"));
             Assert.AreEqual("lobby", user1.getStatus());
-
-            
+   
         }
 
         [Test]
         public void AddOtherUser()
         {
-            TestSearchPredictiveGameHandler();
+            message.Text = handler.Keywords[0];
             string response;
+            user1.ChangeStatus("start");
+
+            handler.Handle(message, out response);
 
             user2.ChangeStatus("start");
             message.From = userTelegram2;

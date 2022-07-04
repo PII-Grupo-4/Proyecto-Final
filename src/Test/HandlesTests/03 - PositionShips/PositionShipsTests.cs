@@ -8,6 +8,7 @@ namespace Library.Tests
     // El siguiente Handler es el encargado de posicionar los barcos, se le indica la 
     // coordenada y la orientación del mismo. Por convensión se coloca del mas grande
     // al mas pequeño. En total hay 4 barcos que varian el tamaño desde 2 a 5 lugares c/u
+    [TestFixture]
     public class PositionShipsHandleTest
     {
         private PositionShipsHandle handler;

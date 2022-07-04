@@ -7,6 +7,7 @@ namespace Library.Tests
 {
     // Una vez en el juego, el jugador puede atacar, para ello debe indicar la coordenada
     // de ataque en el mensaje
+    [TestFixture]
     public class AttackHandleTest
     {
         private AttackHandle handler;

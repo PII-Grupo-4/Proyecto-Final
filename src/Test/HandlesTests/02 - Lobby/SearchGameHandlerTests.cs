@@ -9,6 +9,7 @@ namespace Library.Tests
     // El primer usuario que busca, se manda al lobby (sala de espera).
     // Si ya hay un usuario en el lobby, y este busca el mismo modo de juego, 
     // entonces se los matchea y se inicia el juego.
+    [TestFixture]
     public class SearchGameHandlerTests
     {
         private SearchGameHandler handler;
@@ -44,6 +45,9 @@ namespace Library.Tests
             
             user1 = UserRegister.GetUser(1);
             user2 = UserRegister.GetUser(2);
+
+            user1.ChangeGameMode("normal");
+            user2.ChangeGameMode("normal");
         }
 
         [Test]

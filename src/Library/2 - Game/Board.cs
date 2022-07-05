@@ -228,6 +228,7 @@ namespace Battleship
         /// <summary>
         /// Devuelve el tablero (board) como una string, para que luego se pueda imprimir a travez de un IPrinter
         /// </summary>
+        /// <returns>string con la representación del tablero</returns>
         public string BoardToString()
         {
             List<string> Lyrics = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I  ", "J "};

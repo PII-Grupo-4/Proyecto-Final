@@ -3,7 +3,13 @@ using System.Collections.Generic;
 namespace Battleship
 {
 /// <summary>
-/// SpecialHabilities es la clase que contiene las habilidades especiales del jugador
+/// SpecialHabilities es la clase que contiene las habilidades especiales del jugador.
+/// Las contiene en una lista representadas como string.
+/// Anteriormente, el Player contenia dicha lista, pero creamos una nueva clase por si en un futuro
+/// se quieren agregar nuevas habilidades, y así evitamos que Player tenga otra causa de modificación.
+/// La logica de las habilidades se encuentran en Logic, esta clase solamente es utilizada como control
+/// de que habilidades todavia no ha utilizado el Player, ya que solamente se pueden utilizar una vez 
+/// en el juego.
 /// </summary>
     public class SpecialHabilities
     {

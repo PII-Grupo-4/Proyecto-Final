@@ -11,6 +11,7 @@ namespace Library.Tests
     ///     - Board
     ///     - Ship
     ///     - Logic
+    ///     - 
     /// </summary>
     [TestFixture]
     public class ClassesInGameTest
@@ -35,17 +36,26 @@ namespace Library.Tests
         [TestCase("a10", "left")]
         public void ValidCoordinates(string coordinate, string orientation)
         {
-            string response = shipBoard.ControlCoordinates(coordinate, orientation);
-            Assert.AreEqual("El barco se creó correctamente", response);
+            shipBoard.ControlCoordinates(coordinate, orientation);
+            // Si la coordenada es incorrecta, devuelve una excepción
         }
 
         [TestCase]
         public void RepeatCoordinate()
         {
+            bool exception = false;
             shipBoard.ControlCoordinates("a1", "down");
-            string response = shipBoard.ControlCoordinates("a1", "down");
 
-            Assert.AreEqual("Datos incorrectos, el barco no se creó.", response);
+            try
+            {
+                shipBoard.ControlCoordinates("a1", "down");
+            }
+            catch
+            {
+                exception = true;
+            }
+
+            Assert.AreEqual(exception, true);
         }
 
         [TestCase("a1", "up")]
@@ -54,8 +64,18 @@ namespace Library.Tests
         [TestCase("a10", "right")]
         public void InvalidCoordinates1(string coordinate, string orientation)
         {
-            string response = shipBoard.ControlCoordinates(coordinate, orientation);
-            Assert.AreEqual("Datos incorrectos, el barco no se creó.", response);
+            bool exception = false;
+
+            try
+            {
+                shipBoard.ControlCoordinates(coordinate, orientation);
+            }
+            catch
+            {
+                exception = true;
+            }
+
+            Assert.AreEqual(exception, true);
         }
 
         [TestCase("aa", "up")]
@@ -64,15 +84,35 @@ namespace Library.Tests
         [TestCase("{", "right")]
         public void InvalidCoordinates2(string coordinate, string orientation)
         {
-            string response = shipBoard.ControlCoordinates(coordinate, orientation);
-            Assert.AreEqual("Datos incorrectos, el barco no se creó.", response);
+            bool exception = false;
+
+            try
+            {
+                shipBoard.ControlCoordinates(coordinate, orientation);
+            }
+            catch
+            {
+                exception = true;
+            }
+
+            Assert.AreEqual(exception, true);
         }
 
         [TestCase("a1", "sds")]
         public void InvalidCoordinates3(string coordinate, string orientation)
         {
-            string response = shipBoard.ControlCoordinates(coordinate, orientation);
-            Assert.AreEqual("Dirección incorrecta, ingrese una de las siguientes: \nUp\nDown\nLeft\nRight", response);
+            bool exception = false;
+
+            try
+            {
+                shipBoard.ControlCoordinates(coordinate, orientation);
+            }
+            catch
+            {
+                exception = true;
+            }
+
+            Assert.AreEqual(exception, true);
         }
 
         [TestCase]

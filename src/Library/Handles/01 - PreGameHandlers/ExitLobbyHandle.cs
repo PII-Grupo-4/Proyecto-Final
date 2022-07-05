@@ -16,7 +16,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public ExitLobbyHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"salir lobby"};
+            this.Keywords = new string[] {"salir lobby", "/salir_lobby"};
         }
 
         /// <summary>

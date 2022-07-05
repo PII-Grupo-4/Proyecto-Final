@@ -17,7 +17,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public CommandsHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"comandos", "comando"};
+            this.Keywords = new string[] {"comandos", "comando", "/comandos"};
         }
 
         /// <summary>

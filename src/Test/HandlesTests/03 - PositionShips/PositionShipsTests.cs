@@ -83,7 +83,7 @@ namespace Library.Tests
             IHandler result = handler.Handle(message, out response);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo("Datos incorrectos, el barco no se creó."));
+            Assert.That(response, Is.EqualTo("La Coordenada ingresada es incorrecta."));
             
         }
 

@@ -107,7 +107,7 @@ namespace Battleship
                     // Cambio de turno (Agua casi tocado es para el modo de juego predictivo)
                     if(response == "Agua" || response == "Hundido" || response == "Tocado" || response == "Agua casi tocado")
                     {
-                        Printer.Print($"El contricante ha atacado, fue {response}", userAttacked.GetID());
+                        Printer.Print($"El contricante ha atacado, {response}", userAttacked.GetID());
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
                         user.GetPlayer().ChangeTurn();
                         userAttacked.GetPlayer().ChangeTurn();
@@ -128,7 +128,21 @@ namespace Battleship
 
             string stringCoordinate = coordinates[1];
 
-            return Logic.Attack(stringCoordinate, user, userAttacked);
+            string response = "";
+            try
+            {
+                response = Logic.Attack(stringCoordinate, user, userAttacked);
+            }
+            catch(InvalidProgramException)
+            {
+                response = "Las coordenadas ingresadas son incorrectas";
+            }
+            catch(CoordinateAttackedTwiceException)
+            {
+                response = "Ya se atacó en dicha coordenada";
+            }
+
+            return response;
         }
 
         protected override bool CanHandle(Message message)

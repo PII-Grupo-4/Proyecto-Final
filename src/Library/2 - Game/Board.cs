@@ -84,52 +84,31 @@ namespace Battleship
         /// </summary>
         /// <param name="coordinate">coordenada</param>
         /// <param name="direction">orientacion (Izquierda, derecha, arriba, abajo)</param>
-        public string ControlCoordinates(string coordinate, string direction)
+        public void ControlCoordinates(string coordinate, string direction)
         {
-            string response = "";
-            
-
-            try
+            if (this.ShipsList.Count >= 4)
             {
-                if (this.ShipsList.Count >= 4)
-                {
-                    return "No se puede agregar más barcos (El tablero ya esta lleno).";
-                    throw new Exception();
-                }
-                
-                List<int> coordinateList = Logic.FixCoordinate(coordinate);
-                if (coordinateList == (new List<int>{}))
-                {
-                    return "La coordenada indicada no es correcta. Por favor ingrese una coordenda del tipo 'LetraNumero' (ej: A1).";
-                    throw new Exception();
-                }
-
-                direction = direction.ToUpper();
-                if (!Orientations.Contains(direction))
-                {
-                    return "Dirección incorrecta, ingrese una de las siguientes: \nUp\nDown\nLeft\nRight";
-                    throw new Exception();
-                }                
-
-                int size = ShipsSize[0];
-                bool ShipBool = Position_Ship(size, coordinateList, direction);
-
-                if (ShipBool == false)
-                {
-                    throw new Exception();
-                }
-                else
-                {
-                    ShipsSize.RemoveAt(0);
-                    return "El barco se creó correctamente";
-                }
-
-            }
-            catch
-            {
-                return response + "Datos incorrectos, el barco no se creó.";
+                throw new FullBoardException();
             }
             
+            List<int> coordinateList = Logic.FixCoordinate(coordinate);
+            if (coordinateList == (new List<int>{}))
+            {
+                throw new IncorrectFormatException();
+            }
+
+            direction = direction.ToUpper();
+            if (!Orientations.Contains(direction))
+            {
+                throw new IncorrectOrientationException();
+            }                
+
+            int size = ShipsSize[0];
+
+            if (Position_Ship(size, coordinateList, direction) == false)
+            {
+                throw new Exception();
+            }     
         }
 
         /// <summary>

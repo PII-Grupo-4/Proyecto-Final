@@ -38,7 +38,7 @@ namespace Battleship
                     }
                 }
             
-            return null;
+            throw new UserNotCreatedException();
         }
     }
 }

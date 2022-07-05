@@ -25,7 +25,21 @@ namespace Battleship
 
             string stringCoordinate = coordinates[2];
 
-            return Logic.AttackPredictive(stringCoordinate, user, userAttacked);
+            string response = "";
+            try
+            {
+                response = Logic.AttackPredictive(stringCoordinate, user, userAttacked);
+            }
+            catch(IncorrectCoordinateFormatException)
+            {
+                response = "Las coordenadas ingresadas son incorrectas";
+            }
+            catch(CoordinateAttackedTwiceException)
+            {
+                response = "Ya se atacó en dicha coordenada";
+            }
+            
+            return response;
         }
 
         protected override bool CanHandle(Message message)

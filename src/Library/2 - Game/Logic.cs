@@ -24,18 +24,19 @@ namespace Battleship
         {
             Board boardWithShips = userAttacked.GetPlayer().GetShipsBoard();
             Board registerBoard = user.GetPlayer().GetRegisterBoard();
+
             string response = "";
 
             List<int> coordinateList = FixCoordinate(coordinate);
             if (coordinateList == new List<int>{})
             {
-                return "Las coordenadas ingresadas son incorrectas";
+                throw new IncorrectCoordinateFormatException();
             }
 
             string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1];
             if (coordinateInBoard == "x" || coordinateInBoard == "#" || coordinateInBoard == "o")
             {
-                return "Ya se atacó en dicha coordenada";
+                throw new CoordinateAttackedTwiceException();
             }
             else if(coordinateInBoard == "-")
             {
@@ -70,13 +71,13 @@ namespace Battleship
             List<int> coordinateList = FixCoordinate(coordinate);
             if (coordinateList == new List<int>{})
             {
-                return "Las coordenadas ingresadas son incorrectas";
+                throw new IncorrectCoordinateFormatException();
             }
 
             string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1];
             if (coordinateInBoard == "x" || coordinateInBoard == "#" || coordinateInBoard == "o")
             {
-                return "Ya se atacó en dicha coordenada";
+                throw new CoordinateAttackedTwiceException();
             }
             else if(coordinateInBoard == "-")
             {
@@ -229,7 +230,7 @@ namespace Battleship
         }
 
         /// <summary>
-        /// Se utilizar para la habilidad especial "Satelitte" (Vista satelital).
+        /// Se utiliza para la habilidad especial "Satelitte" (Vista satelital).
         /// Donde un usuario ingresa una columna, y puede obtener una foto satelital de la dicha columna
         /// del tablero del enemigo
         /// </summary>
@@ -317,6 +318,11 @@ namespace Battleship
             }
         }
 
+
+        /// <summary>
+        /// El método retorna una lista con las posibles filas del tablero
+        /// </summary>
+        /// <returns>Lista con posibles filas del tablero</returns>
         public static List<string> GetRow()
         {
             return Row;

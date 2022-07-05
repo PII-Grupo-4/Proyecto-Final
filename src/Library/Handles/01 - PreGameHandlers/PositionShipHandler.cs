@@ -63,7 +63,28 @@ namespace Battleship
                     {
                         string[] coordinates = message.Text.Split(' ');
 
-                        response = user.GetPlayer().GetShipsBoard().ControlCoordinates(coordinates[2], coordinates[3]);
+                        try
+                        {
+                            user.GetPlayer().GetShipsBoard().ControlCoordinates(coordinates[2], coordinates[3]);
+                            response = "El barco se creó correctamente";
+                        }
+                        catch (FullBoardException)
+                        {
+                            response = "No se puede agregar más barcos (El tablero ya esta lleno).";
+                        }
+                        catch (IncorrectCoordinateFormatException)
+                        {
+                            response = "La coordenada indicada no es correcta. Por favor ingrese una coordenda del tipo 'LetraNumero' (ej: A1).";
+                        }
+                        catch (IncorrectOrientationException)
+                        {
+                            response = "Dirección incorrecta, ingrese una de las siguientes: \nUp\nDown\nLeft\nRight";
+                        }
+                        catch
+                        {
+                            response = "La Coordenada ingresada es incorrecta.";
+                            return;
+                        }
                         
                         if (user.GetPlayer().GetShipsBoard().GetShipsAlive() >= 4)
                         {
@@ -78,6 +99,10 @@ namespace Battleship
                         response = ("Coordenadas ingresadas incorrectas.");
                     }
                 } 
+            }
+            catch(UserNotCreatedException)
+            {
+                response = "Debe crear un usuario\nIngrese 'Crear Usuario':\n";
             }
             catch
             {

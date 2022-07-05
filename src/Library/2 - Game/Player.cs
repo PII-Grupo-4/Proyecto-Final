@@ -15,7 +15,7 @@ namespace Battleship
 
         private Board ShipsBoard = new Board(); // Tablero con las naves del Player
         
-        private SpecialHabilities specialHabilities = new SpecialHabilities();
+        private SpecialHabilities specialHabilities = new SpecialHabilities();  // Habilidades especiales del jugados
 
         private bool Turn = false; // Representa si es o no el turno del Player
 
@@ -28,10 +28,6 @@ namespace Battleship
             return this.ShipsBoard;
         }
 
-        public SpecialHabilities GetPlayerSpecialHabilities()
-        {
-            return this.specialHabilities;
-        }
 
         /// <summary>
         /// Retorna el tablero con el registro de disparos
@@ -40,6 +36,15 @@ namespace Battleship
         public Board GetRegisterBoard()
         {
             return this.RegisterBoard;
+        }
+
+        /// <summary>
+        /// Retorna las habilidades especiales del jugador
+        /// </summary>
+        /// <returns>SpecialHabilities</returns>
+        public SpecialHabilities GetSpecialHabilities()
+        {
+            return this.specialHabilities;
         }
 
         /// <summary>

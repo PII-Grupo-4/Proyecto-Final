@@ -98,7 +98,7 @@ namespace Battleship
             string summary = $"Game id = {this.Id}\n";
             summary += $"User 1 id= {User1.GetID()}";
             summary += $" - Ships alive = {User1.GetPlayer().GetShipsAlive()}\n";
-            summary += $"User 2 id= {User1.GetID()}";
+            summary += $"User 2 id= {User2.GetID()}";
             summary += $" - Ships alive = {User2.GetPlayer().GetShipsAlive()}\n";
             summary += $"Winner = {UserWinner.GetID()}\n";
             return summary;

@@ -5,7 +5,7 @@ using System;
 
 namespace Library.Tests
 {
-    // Handler que testea la habilidad especial Seer, vidente
+    // Handler que testea las habilidades especiales aereo y satelite
     [TestFixture]
     public class SpecialHabilitiesHandleTest
     {
@@ -91,14 +91,12 @@ namespace Library.Tests
             IHandler result = handler.Handle(message, out response);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo("Fila atacada con exito\n\n\n\n------Turno cambiado------\n\n"));
-
         }
 
         [Test]
         public void TestSatelite()
         {
-            message.Text = "aereo a";
+            message.Text = "satelite 1";
             message.From = userTelegram2;
 
             if (user2.GetPlayer().GetTurn() == false)

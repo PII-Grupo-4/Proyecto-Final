@@ -16,7 +16,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public SeeBoardsHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"ver tableros", "tableros", "tablero", "ver tablero"};
+            this.Keywords = new string[] {"ver tableros", "tableros", "tablero", "ver tablero", "/ver_tablero"};
         }
 
         /// <summary>

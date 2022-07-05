@@ -17,7 +17,7 @@ namespace Battleship
         /// <param name="next">El próximo "handler".</param>
         public CreateUserHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"crear usuario"};
+            this.Keywords = new string[] {"crear usuario", "/crear_usuario"};
         }
 
         /// <summary>

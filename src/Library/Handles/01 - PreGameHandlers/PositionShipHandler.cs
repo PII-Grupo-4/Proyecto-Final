@@ -72,7 +72,7 @@ namespace Battleship
                         {
                             response = "No se puede agregar más barcos (El tablero ya esta lleno).";
                         }
-                        catch (IncorrectFormatException)
+                        catch (IncorrectCoordinateFormatException)
                         {
                             response = "La coordenada indicada no es correcta. Por favor ingrese una coordenda del tipo 'LetraNumero' (ej: A1).";
                         }
@@ -99,6 +99,10 @@ namespace Battleship
                         response = ("Coordenadas ingresadas incorrectas.");
                     }
                 } 
+            }
+            catch(UserNotCreatedException)
+            {
+                response = "Debe crear un usuario\nIngrese 'Crear Usuario':\n";
             }
             catch
             {

@@ -6,9 +6,9 @@ namespace Battleship
     /// Excepción que se encarga de notificar cuando una coordenada ingresada tiene un formato incorrecto
     /// </summary>
     [Serializable]
-    internal class IncorrectFormatException : Exception
+    internal class IncorrectCoordinateFormatException : Exception
     {
-        public IncorrectFormatException()
+        public IncorrectCoordinateFormatException()
         {
         }
 

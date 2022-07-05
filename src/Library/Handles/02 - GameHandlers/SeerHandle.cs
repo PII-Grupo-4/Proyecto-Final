@@ -74,15 +74,13 @@ namespace Battleship
                     
                     try
                     {
-                        if (!user.GetPlayer().GetPlayerSpecialHabilities().GetSpecialsHabilities().Contains("seer"))
+                        if (!user.GetPlayer().GetSpecialHabilities().GetSpecialsHabilities().Contains("seer"))
                         {
                             response = "Ya has utilizado la habilidad vidente";
                             return;
                         }
 
-                        response = Logic.Seer(userAttacked);
-
-                        user.GetPlayer().GetPlayerSpecialHabilities().UseHability("seer");
+                        response = user.GetPlayer().GetSpecialHabilities().UseSeer(userAttacked);
 
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
                         user.GetPlayer().ChangeTurn();
@@ -94,6 +92,10 @@ namespace Battleship
                         response = "Sucedió un error";
                     }
                 } 
+            }
+            catch(UserNotCreatedException)
+            {
+                response = "Debe crear un usuario\nIngrese 'Crear Usuario':\n";
             }
             catch
             {

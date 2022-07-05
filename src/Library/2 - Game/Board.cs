@@ -94,7 +94,7 @@ namespace Battleship
             List<int> coordinateList = Logic.FixCoordinate(coordinate);
             if (coordinateList == (new List<int>{}))
             {
-                throw new IncorrectFormatException();
+                throw new IncorrectCoordinateFormatException();
             }
 
             direction = direction.ToUpper();
@@ -104,11 +104,18 @@ namespace Battleship
             }                
 
             int size = ShipsSize[0];
+            
 
             if (Position_Ship(size, coordinateList, direction) == false)
             {
+                // no se posicionó el barco
                 throw new Exception();
             }     
+            else
+            {
+                // Se posiciono el barco
+                ShipsSize.RemoveAt(0);
+            }
         }
 
         /// <summary>
@@ -228,6 +235,7 @@ namespace Battleship
         /// <summary>
         /// Devuelve el tablero (board) como una string, para que luego se pueda imprimir a travez de un IPrinter
         /// </summary>
+        /// <returns>string con la representación del tablero</returns>
         public string BoardToString()
         {
             List<string> Lyrics = new List<string>{"A", "B", "C", "D", "E", "F", "G", "H", "I  ", "J "};

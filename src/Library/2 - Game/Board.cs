@@ -94,7 +94,7 @@ namespace Battleship
             List<int> coordinateList = Logic.FixCoordinate(coordinate);
             if (coordinateList == (new List<int>{}))
             {
-                throw new IncorrectFormatException();
+                throw new IncorrectCoordinateFormatException();
             }
 
             direction = direction.ToUpper();
@@ -104,11 +104,18 @@ namespace Battleship
             }                
 
             int size = ShipsSize[0];
+            
 
             if (Position_Ship(size, coordinateList, direction) == false)
             {
+                // no se posicionó el barco
                 throw new Exception();
             }     
+            else
+            {
+                // Se posiciono el barco
+                ShipsSize.RemoveAt(0);
+            }
         }
 
         /// <summary>

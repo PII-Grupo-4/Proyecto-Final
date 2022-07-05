@@ -30,7 +30,7 @@ namespace Battleship
             {
                 response = Logic.AttackPredictive(stringCoordinate, user, userAttacked);
             }
-            catch(InvalidProgramException)
+            catch(IncorrectCoordinateFormatException)
             {
                 response = "Las coordenadas ingresadas son incorrectas";
             }

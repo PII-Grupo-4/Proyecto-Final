@@ -65,6 +65,10 @@ namespace Battleship
                     throw new Exception();
                 }
             }
+            catch(UserNotCreatedException)
+            {
+                response = "Debe crear un usuario\nIngrese 'Crear Usuario':\n";
+            }
             catch
             {
                 response = "Sucedió un error, vuelve a intentar";

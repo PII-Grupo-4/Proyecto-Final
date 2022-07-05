@@ -78,7 +78,7 @@ namespace Battleship
 
                         if (message.Text == $"aereo {direction[1]}" || message.Text == $"Aereo {direction[1]}" || message.Text == $"aéreo {direction[1]}" || message.Text == $"Aéreo {direction[1]}")
                         {
-                            if (!user.GetPlayer().GetPlayerSpecialHabilities().GetSpecialsHabilities().Contains("air attack"))
+                            if (!user.GetPlayer().GetSpecialHabilities().GetSpecialsHabilities().Contains("air attack"))
                             {
                                 response = "Ya has utilizado la habilidad ataque aereo";
                                 return;
@@ -92,16 +92,14 @@ namespace Battleship
                                 return;
                             }
 
-                            Logic.AirAttack(theRow, user, userAttacked);
-                            
-                            user.GetPlayer().GetPlayerSpecialHabilities().UseHability("air attack");
+                            user.GetPlayer().GetSpecialHabilities().UseAirAttack(theRow, user, userAttacked);
 
                             response = "Fila atacada con exito";
                             Printer.Print("El contricante utilizó ataque aéreo", userAttacked.GetID());
                         }
                         else if (message.Text == $"satelite {direction[1]}" || message.Text == $"Satelite {direction[1]}" || message.Text == $"satélite {direction[1]}" || message.Text == $"Satélite {direction[1]}")
                         {
-                            if (!user.GetPlayer().GetPlayerSpecialHabilities().GetSpecialsHabilities().Contains("satellite photo"))
+                            if (!user.GetPlayer().GetSpecialHabilities().GetSpecialsHabilities().Contains("satellite photo"))
                             {
                                 response = "Ya has utilizado la habilidad satelite";
                                 return;
@@ -121,9 +119,7 @@ namespace Battleship
 
                             response = "Foto satelital recibida:\n";
 
-                            response += Logic.Satelitte(columnInt, userAttacked.GetPlayer().GetShipsBoard().GetBoard());
-
-                            user.GetPlayer().GetPlayerSpecialHabilities().UseHability("satellite photo");
+                            response += user.GetPlayer().GetSpecialHabilities().UseSatellite(columnInt, userAttacked.GetPlayer().GetShipsBoard().GetBoard());
 
                             Printer.Print("El contricante utilizó foto satelital", userAttacked.GetID());
                         }
@@ -141,6 +137,10 @@ namespace Battleship
                         response = "Sucedió un error, vuelve a intentar";
                     }
                 } 
+            }
+            catch(UserNotCreatedException)
+            {
+                response = "Debe crear un usuario\nIngrese 'Crear Usuario':\n";
             }
             catch
             {

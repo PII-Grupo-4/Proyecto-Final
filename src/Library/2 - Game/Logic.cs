@@ -30,7 +30,7 @@ namespace Battleship
             List<int> coordinateList = FixCoordinate(coordinate);
             if (coordinateList == new List<int>{})
             {
-                throw new IncorrectFormatException();
+                throw new IncorrectCoordinateFormatException();
             }
 
             string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1];
@@ -71,7 +71,7 @@ namespace Battleship
             List<int> coordinateList = FixCoordinate(coordinate);
             if (coordinateList == new List<int>{})
             {
-                throw new IncorrectFormatException();
+                throw new IncorrectCoordinateFormatException();
             }
 
             string coordinateInBoard = boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1];
@@ -230,7 +230,7 @@ namespace Battleship
         }
 
         /// <summary>
-        /// Se utilizar para la habilidad especial "Satelitte" (Vista satelital).
+        /// Se utiliza para la habilidad especial "Satelitte" (Vista satelital).
         /// Donde un usuario ingresa una columna, y puede obtener una foto satelital de la dicha columna
         /// del tablero del enemigo
         /// </summary>
@@ -318,6 +318,11 @@ namespace Battleship
             }
         }
 
+
+        /// <summary>
+        /// El método retorna una lista con las posibles filas del tablero
+        /// </summary>
+        /// <returns>Lista con posibles filas del tablero</returns>
         public static List<string> GetRow()
         {
             return Row;

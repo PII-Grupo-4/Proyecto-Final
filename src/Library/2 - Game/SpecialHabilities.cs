@@ -19,27 +19,47 @@ namespace Battleship
         /// Cuandos se utiliza una habilidad determinada, la misma se elimina de la lista 
         /// </summary>
         /// <value></value>
-        private List<string> specialHabilitiesList = new List<string>{"air attack", "seer", "satellite photo"};
+        private List<string> SpecialHabilitiesList = new List<string>{"air attack", "seer", "satellite photo"};
         
+
+        /// <summary>
+        /// Utiliza la habilidad especial Seer. Seer puede averiguar cual zona (superior o inferior)
+        /// el usuario contricante posee más puntos de impacto.
+        /// </summary>
+        /// <param name="userAttacked">Usuario contricante</param>
+        /// <returns>string con la información del uso de Seer</returns>
+        public string UseSeer(User userAttacked)
+        {
+            SpecialHabilitiesList.Remove("seer");
+            return Logic.Seer(userAttacked);
+        }
+
+        /// <summary>
+        /// Utiliza la habilidad especial AirAttack. AirAttack realiza disparos en toda una fila en un
+        /// solo turno.
+        /// </summary>
+        /// <param name="row">Fila de ataque</param>
+        /// <param name="user">Usuario que ataca</param>
+        /// <param name="userAttacked">Usuario atacado</param>
+        public void UseAirAttack(string row, User user, User userAttacked)
+        {
+            SpecialHabilitiesList.Remove("air attack");
+            Logic.AirAttack(row, user, userAttacked);
+        }
 
 
         /// <summary>
-        /// Se ingresa una string, correspondiente al nombre de una habilidad,
-        /// y se elimina la misma de la lista de string con las representaciones de 
-        /// las habilidades especiales
-        /// "air attack", "seer", "satellite photo"
+        /// Utiliza la habilidad especial "Satelitte" (Vista satelital).
+        /// Donde un usuario ingresa una columna, y puede obtener una foto satelital de la dicha columna
+        /// del tablero del enemigo
         /// </summary>
-        /// <param name="hability"></param>
-        public void UseHability(string hability)
+        /// <param name="column">Columna para foto satelital</param>
+        /// <param name="board">Tablero al que se sacará la foto</param>
+        /// <returns>string, información brindada por la foto</returns>
+        public string UseSatellite(int column, string[,] board)
         {
-            foreach (string h in this.specialHabilitiesList)
-            {
-                if (h == hability)
-                {
-                    this.specialHabilitiesList.Remove(h);
-                    break;
-                }  
-            }
+            SpecialHabilitiesList.Remove("satellite photo");
+            return Logic.Satelitte(column, board);
         }
 
         /// <summary>
@@ -48,7 +68,7 @@ namespace Battleship
         /// <returns>Lista con string que representan las habilidades especiales</returns>
         public List<string> GetSpecialsHabilities()
         {
-           return specialHabilitiesList;
+           return SpecialHabilitiesList;
         }
     }
 }

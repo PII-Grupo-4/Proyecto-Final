@@ -28,14 +28,6 @@ namespace Battleship
             return this.ShipsBoard;
         }
 
-        /// <summary>
-        /// Retorna las habilidades especiales del jugador
-        /// </summary>
-        /// <returns>SpecialHabilities</returns>
-        public SpecialHabilities GetPlayerSpecialHabilities()
-        {
-            return this.specialHabilities;
-        }
 
         /// <summary>
         /// Retorna el tablero con el registro de disparos
@@ -44,6 +36,15 @@ namespace Battleship
         public Board GetRegisterBoard()
         {
             return this.RegisterBoard;
+        }
+
+        /// <summary>
+        /// Retorna las habilidades especiales del jugador
+        /// </summary>
+        /// <returns>SpecialHabilities</returns>
+        public SpecialHabilities GetSpecialHabilities()
+        {
+            return this.specialHabilities;
         }
 
         /// <summary>

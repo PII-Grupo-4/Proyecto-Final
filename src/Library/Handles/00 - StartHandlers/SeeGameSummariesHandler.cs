@@ -44,6 +44,10 @@ namespace Battleship
                     response = System.IO.File.ReadAllText("GameSummaries.txt");
                 }
             }
+            catch(UserNotCreatedException)
+            {
+                response = "Debe crear un usuario\nIngrese 'Crear Usuario':\n";
+            }
             catch
             {
                 response = "Sucedió un error, vuelve a intentar";

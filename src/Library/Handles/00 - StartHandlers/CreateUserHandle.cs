@@ -31,18 +31,25 @@ namespace Battleship
             try
             {
                 long id = message.From.Id;
+                User user;
+                response = "";
 
-                User user = UserRegister.GetUser(id);
-
-                if (user == null)
+                try
                 {
+                    user = UserRegister.GetUser(id);
+                    if (user != null)
+                    {
+                        response = "Ya has creado un usuario";
+                    }
+                }
+                catch(UserNotCreatedException)
+                {
+                    // En el caso de que salte la excepción de que no se ha creado usuario
+                    // se crea el mismo
                     UserRegister.CreateUser(message.From.Id);
                     response = "El usuario se ha creado correctamente";
                 }
-                else
-                {
-                    response = "Ya has creado un usuario";
-                }
+
             }
             catch
             {

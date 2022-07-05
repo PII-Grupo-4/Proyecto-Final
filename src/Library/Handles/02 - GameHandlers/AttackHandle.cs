@@ -115,6 +115,10 @@ namespace Battleship
                 }
                 
             }
+            catch(UserNotCreatedException)
+            {
+                response = "Debe crear un usuario\nIngrese 'Crear Usuario':\n";
+            }
             catch
             {
                 response = "Sucedió un error, vuelve a intentar";
@@ -133,7 +137,7 @@ namespace Battleship
             {
                 response = Logic.Attack(stringCoordinate, user, userAttacked);
             }
-            catch(InvalidProgramException)
+            catch(IncorrectCoordinateFormatException)
             {
                 response = "Las coordenadas ingresadas son incorrectas";
             }

@@ -151,11 +151,11 @@ namespace Library.Tests
             Logic.AirAttack("a", user1, user1);
             Logic.Satelitte(1, shipBoard.GetBoard());
 
-            user1.GetPlayer().GetPlayerSpecialHabilities().UseHability("air attack");
-            user1.GetPlayer().GetPlayerSpecialHabilities().UseHability("seer");
-            user1.GetPlayer().GetPlayerSpecialHabilities().UseHability("satellite photo");
+            user1.GetPlayer().GetSpecialHabilities().UseAirAttack("b", user1, user1);
+            user1.GetPlayer().GetSpecialHabilities().UseSatellite(1, user1.GetPlayer().GetShipsBoard().GetBoard());
+            user1.GetPlayer().GetSpecialHabilities().UseSeer(user1);
 
-            Assert.AreEqual(0, user1.GetPlayer().GetPlayerSpecialHabilities().GetSpecialsHabilities().Count);
+            Assert.AreEqual(0, user1.GetPlayer().GetSpecialHabilities().GetSpecialsHabilities().Count);
         }
     }
 }

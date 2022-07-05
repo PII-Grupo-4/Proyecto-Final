@@ -14,13 +14,11 @@ namespace Battleship
         private Board RegisterBoard = new Board();  // Tablero con el registro de ataques
 
         private Board ShipsBoard = new Board(); // Tablero con las naves del Player
+        
+        private SpecialHabilities specialHabilities = new SpecialHabilities();
 
         private bool Turn = false; // Representa si es o no el turno del Player
 
-        // Lista con las habilidades del player representadas como string, solo se pueden usar una vez.
-        // Cuandos se utiliza una habilidad determinada, la misma se elimina de la lista
-        private List<string> specialHabilities = new List<string>{"air attack", "seer", "satellite photo"};
-        
         /// <summary>
         /// Retorna el tablero con los barcos
         /// </summary>
@@ -28,6 +26,11 @@ namespace Battleship
         public Board GetShipsBoard()
         {
             return this.ShipsBoard;
+        }
+
+        public SpecialHabilities GetPlayerSpecialHabilities()
+        {
+            return this.specialHabilities;
         }
 
         /// <summary>
@@ -76,35 +79,6 @@ namespace Battleship
         public bool GetTurn()
         {
             return this.Turn;
-        }
-
-
-        /// <summary>
-        /// Se ingresa una string, correspondiente al nombre de una habilidad,
-        /// y se elimina la misma de la lista de string con las representaciones de 
-        /// las habilidades especiales
-        /// "air attack", "seer", "satellite photo"
-        /// </summary>
-        /// <param name="hability"></param>
-        public void UseHability(string hability)
-        {
-            foreach (string habili in this.specialHabilities)
-            {
-                if (habili == hability)
-                {
-                    this.specialHabilities.Remove(habili);
-                    break;
-                }  
-            }
-        }
-
-        /// <summary>
-        /// Retorna la lista con las string que representa las habilidades especiales del usuario
-        /// </summary>
-        /// <returns>Lista con string que representan las habilidades especiales</returns>
-        public List<string> GetSpecialsHabilities()
-        {
-           return specialHabilities;
         }
 
         /// <summary>

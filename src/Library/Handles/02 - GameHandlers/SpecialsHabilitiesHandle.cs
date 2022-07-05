@@ -78,7 +78,7 @@ namespace Battleship
 
                         if (message.Text == $"aereo {direction[1]}" || message.Text == $"Aereo {direction[1]}" || message.Text == $"aéreo {direction[1]}" || message.Text == $"Aéreo {direction[1]}")
                         {
-                            if (!user.GetPlayer().GetSpecialsHabilities().Contains("air attack"))
+                            if (!user.GetPlayer().GetPlayerSpecialHabilities().GetSpecialsHabilities().Contains("air attack"))
                             {
                                 response = "Ya has utilizado la habilidad ataque aereo";
                                 return;
@@ -93,15 +93,15 @@ namespace Battleship
                             }
 
                             Logic.AirAttack(theRow, user, userAttacked);
-
-                            user.GetPlayer().UseHability("air attack");
+                            
+                            user.GetPlayer().GetPlayerSpecialHabilities().UseHability("air attack");
 
                             response = "Fila atacada con exito";
                             Printer.Print("El contricante utilizó ataque aéreo", userAttacked.GetID());
                         }
                         else if (message.Text == $"satelite {direction[1]}" || message.Text == $"Satelite {direction[1]}" || message.Text == $"satélite {direction[1]}" || message.Text == $"Satélite {direction[1]}")
                         {
-                            if (!user.GetPlayer().GetSpecialsHabilities().Contains("satellite photo"))
+                            if (!user.GetPlayer().GetPlayerSpecialHabilities().GetSpecialsHabilities().Contains("satellite photo"))
                             {
                                 response = "Ya has utilizado la habilidad satelite";
                                 return;
@@ -123,7 +123,7 @@ namespace Battleship
 
                             response += Logic.Satelitte(columnInt, userAttacked.GetPlayer().GetShipsBoard().GetBoard());
 
-                            user.GetPlayer().UseHability("satellite photo");
+                            user.GetPlayer().GetPlayerSpecialHabilities().UseHability("satellite photo");
 
                             Printer.Print("El contricante utilizó foto satelital", userAttacked.GetID());
                         }

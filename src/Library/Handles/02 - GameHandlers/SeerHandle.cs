@@ -74,7 +74,7 @@ namespace Battleship
                     
                     try
                     {
-                        if (!user.GetPlayer().GetSpecialsHabilities().Contains("seer"))
+                        if (!user.GetPlayer().GetPlayerSpecialHabilities().GetSpecialsHabilities().Contains("seer"))
                         {
                             response = "Ya has utilizado la habilidad vidente";
                             return;
@@ -82,7 +82,7 @@ namespace Battleship
 
                         response = Logic.Seer(userAttacked);
 
-                        user.GetPlayer().UseHability("seer");
+                        user.GetPlayer().GetPlayerSpecialHabilities().UseHability("seer");
 
                         response += "\n\n\n\n------Turno cambiado------\n\n"; 
                         user.GetPlayer().ChangeTurn();

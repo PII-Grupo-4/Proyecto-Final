@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace Battleship
 {
+    /// <summary>
+    /// Ship representa a los barcos en los tableros
+    /// </summary>
     public class Ship
     {
         private int Size{get; set;} // El tamaño del barco

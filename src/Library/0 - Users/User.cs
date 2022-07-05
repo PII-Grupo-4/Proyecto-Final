@@ -1,8 +1,10 @@
 
 namespace Battleship
 {
+    /// <summary>
     /// Cuando una persona quiere jugar en consola, o desea jugar desde Telegram,
     /// debe crear un usuario, cada usuario tiene una id que lo identifica
+    /// </summary>
     public class User
     {
         private long Id {get; set; } // id del usuario

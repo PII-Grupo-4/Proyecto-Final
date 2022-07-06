@@ -11,7 +11,8 @@ namespace Library.Tests
     ///     - Board
     ///     - Ship
     ///     - Logic
-    ///     - 
+    ///     - También se testean Excepciones propias como IncorrectCoordinateFormatException, 
+    ///         aún que las atrapamos con catch simples.
     /// </summary>
     [TestFixture]
     public class ClassesInGameTest

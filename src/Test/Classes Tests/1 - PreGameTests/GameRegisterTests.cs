@@ -23,15 +23,18 @@ namespace Library.Tests
             Game game1 = GamesRegister.GetGameByUserId(user1.GetID());
 
             Assert.AreEqual(gameId, game1.GetId());
+            
+            game1.AddUserWinner(user2);
+            GamesRegister.SaveGame(game1);
 
-            string summaryAfter = System.IO.File.ReadAllText("GameSummaries.txt");
+            string summary1 = System.IO.File.ReadAllText("GameSummaries.txt");
 
             game1.AddUserWinner(user1);
             GamesRegister.SaveGame(game1);
 
-            string summaryLater = System.IO.File.ReadAllText("GameSummaries.txt");
+            string summary2 = System.IO.File.ReadAllText("GameSummaries.txt");
 
-            Assert.AreNotEqual(summaryAfter, summaryLater);
+            Assert.AreNotEqual(summary1, summary2);
         }
     }
 }

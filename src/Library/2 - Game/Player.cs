@@ -65,16 +65,18 @@ namespace Battleship
 
         public string GetWaterToPrint()
         {
+            int RegisterWater = this.RegisterBoard.water + this.ShipsBoard.water;
             string stringWater = "Cantidad de tiros fallados (Agua):\n";
-            stringWater += $"{this.RegisterBoard.water}";
+            stringWater += $"{RegisterWater}";
             return stringWater;
         }
 
         public string GetHitsToPrint()
         {
-            string stringWater = "Cantidad de tiros acertados (Tocado):\n";
-            stringWater += $"{this.RegisterBoard.hits}";
-            return stringWater;
+            int RegisterHits = this.RegisterBoard.hits + this.ShipsBoard.hits;
+            string stringHits = "Cantidad de tiros acertados (Tocado):\n";
+            stringHits += $"{RegisterHits}";
+            return stringHits;
         }
 
 

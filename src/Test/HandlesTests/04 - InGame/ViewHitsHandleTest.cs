@@ -65,7 +65,7 @@ namespace Library.Tests
         {
             message.Text = handler.Keywords[0];
             string response;
-            user1.ChangeStatus("position ships");
+            user1.ChangeStatus($"in {user1.GetGameMode()} game");
             user2.ChangeGameMode("normal");
             user2.ChangeStatus($"in {user2.GetGameMode()} game");
 

@@ -41,6 +41,9 @@ namespace Battleship
             else if(coordinateInBoard == "-")
             {
                 response = "Agua";
+                //Para sumar en agua
+                boardWithShips.AddWaterCounter();
+                registerBoard.AddWaterCounter();
                 boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "o";
                 registerBoard.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "o";
                 return response;
@@ -139,6 +142,9 @@ namespace Battleship
                         {
                             boardWithShips.RemoveShip(ship);
                             response = "Hundido";
+                            //Para sumar tocados
+                            boardWithShips.AddHitsCounter();
+                            registerBoard.AddHitsCounter();
                             List<List<int>> shipCoordinates = ship.GetCoordinates();
                             for (int i = 0; i < ship.GetSize(); i++)
                             {
@@ -151,6 +157,9 @@ namespace Battleship
                         {
                             ship.DecreaseHealth();
                             response = "Tocado";
+                            //Para sumar tocados
+                            boardWithShips.AddHitsCounter();
+                            registerBoard.AddHitsCounter();
                             boardWithShips.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "x";
                             registerBoard.GetBoard()[coordinateList[0]-1, coordinateList[1]-1] = "x";
                             break;

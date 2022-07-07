@@ -26,6 +26,10 @@ namespace Battleship
 
         private List<Ship> ShipsList = new List<Ship>{}; // Lista con los barcos colocados
 
+        public int water;
+
+        public int hits;
+
         static List<string> Orientations = new List<string>{"UP", "DOWN", "LEFT", "RIGHT"}; //Orientaciones de colocación disponibles
 
         private List<int> ShipsSize = new List<int>{5,4,3,2}; // Los tamaños de los barcos
@@ -78,6 +82,17 @@ namespace Battleship
             this.ShipsList.Remove(ship);
         }
 
+        public void AddWaterCounter()
+        {
+            this.water += 1;
+
+        }
+
+        public void AddHitsCounter()
+        {
+            this.hits += 1;
+
+        }
 
         /// <summary>
         /// Controla si los datos de coordenada y orientación ingresados son correctos, de ser asi los envia a PositionShip

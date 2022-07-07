@@ -63,6 +63,20 @@ namespace Battleship
             return stringBoard;
         }
 
+        public string GetWaterToPrint()
+        {
+            string stringWater = "Cantidad de tiros fallados (Agua):\n";
+            stringWater += $"{this.RegisterBoard.water}";
+            return stringWater;
+        }
+
+        public string GetHitsToPrint()
+        {
+            string stringWater = "Cantidad de tiros acertados (Tocado):\n";
+            stringWater += $"{this.RegisterBoard.hits}";
+            return stringWater;
+        }
+
 
         /// <summary>
         /// El método accede al tablero con las naves a trávez del método GetShipsAlive,

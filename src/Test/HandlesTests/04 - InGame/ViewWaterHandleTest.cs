@@ -57,7 +57,9 @@ namespace Library.Tests
             Assert.That(response, Is.EqualTo($"{user1.GetPlayer().GetWaterToPrint()}"));
 
             
-            Board boardWithShips = user2.GetPlayer().GetRegisterBoard();
+            Board registerBoard = user2.GetPlayer().GetRegisterBoard();
+            registerBoard.AddWaterCounter();
+            Board boardWithShips = user1.GetPlayer().GetShipsBoard();
             boardWithShips.AddWaterCounter();
             message.From = userTelegram2;
             result = handler.Handle(message, out response);

@@ -5,22 +5,22 @@ using Telegram.Bot.Types;
 namespace Battleship
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "ver tableros".
-    /// Se encarga de imprimir los tableros del usuarios para que este puede verlos
+    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "ver tocados".
+    /// Se encarga de imprimir los tiros "Tocados" de los usuarios para que pueda visualizarlos
     /// </summary>
     public class ViewHitsHandle : BaseHandler
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="SeeBoardsHandle"/>. Esta clase procesa el mensaje "ver tableros".
+        /// Inicializa una nueva instancia de la clase <see cref="SeeBoardsHandle"/>. Esta clase procesa el mensaje "ver tocados".
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
         public ViewHitsHandle(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] {"ver tocados", "Ver tocados", "/ver_tablero"};
+            this.Keywords = new string[] {"ver tocados", "Ver tocados", "/ver_tocados"};
         }
 
         /// <summary>
-        /// Procesa el mensaje "ver tableros" y retorna true; retorna false en caso contrario.
+        /// Procesa el mensaje "ver tocados" y retorna true; retorna false en caso contrario.
         /// </summary>
         /// <param name="message">El mensaje a procesar.</param>
         /// <param name="response">La respuesta al mensaje procesado.</param>

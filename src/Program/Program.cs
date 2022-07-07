@@ -111,6 +111,7 @@ namespace Battleship
                 new SearchPredictiveGameHandler(
                 new ExitLobbyHandle(
                 new SeeBoardsHandle(
+                new CountCaracters(
                 new PositionShipsHandle(
                 new AttackHandle(
                 new AttackPredictiveHandler(
@@ -124,7 +125,7 @@ namespace Battleship
                 , TelegramPrint)))
                 , TelegramPrint)
                 , TelegramPrint)
-                )));
+                ))));
 
             var cts = new CancellationTokenSource();
 

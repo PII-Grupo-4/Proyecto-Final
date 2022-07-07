@@ -11,6 +11,7 @@ namespace Battleship
     /// </summary>
     public class Player
     {
+        private CountCaracters cantidadcaracteres = new CountCaracters(); //cantidad de caracteres (agua, tocado, hundido)
         private Board RegisterBoard = new Board();  // Tablero con el registro de ataques
 
         private Board ShipsBoard = new Board(); // Tablero con las naves del Player
@@ -45,6 +46,11 @@ namespace Battleship
         public SpecialHabilities GetSpecialHabilities()
         {
             return this.specialHabilities;
+        }
+
+        public CountCaracters GetCountCaracters()
+        {
+            return this.cantidadcaracteres;
         }
 
         /// <summary>

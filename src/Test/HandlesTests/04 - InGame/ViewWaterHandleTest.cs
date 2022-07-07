@@ -43,7 +43,7 @@ namespace Library.Tests
         }
 
         [Test]
-        public void TestSearchGameHandler()
+        public void TestViewWaterHandlerWithoutValues()
         {
             message.Text = handler.Keywords[0];
             string response;
@@ -55,7 +55,19 @@ namespace Library.Tests
 
             Assert.That(result, Is.Not.Null);
             Assert.That(response, Is.EqualTo($"{user1.GetPlayer().GetWaterToPrint()}"));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(response, Is.EqualTo($"{user2.GetPlayer().GetWaterToPrint()}"));            
+        }
+        [Test]
+        public void TestViewWaterHandlerWithValues()
+        {
+            message.Text = handler.Keywords[0];
+            string response;
+            user1.ChangeStatus("position ships");
+            user2.ChangeGameMode("normal");
+            user2.ChangeStatus($"in {user2.GetGameMode()} game");
 
+            IHandler result = handler.Handle(message, out response);
             
             Board registerBoard = user2.GetPlayer().GetRegisterBoard();
             registerBoard.AddWaterCounter();
@@ -65,8 +77,9 @@ namespace Library.Tests
             result = handler.Handle(message, out response);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(response, Is.EqualTo($"{user2.GetPlayer().GetWaterToPrint()}"));            
+            Assert.That(response, Is.EqualTo($"{user2.GetPlayer().GetWaterToPrint()}"));   
+            Assert.That(result, Is.Not.Null);
+            Assert.That(response, Is.EqualTo($"{user1.GetPlayer().GetWaterToPrint()}"));         
         }
-
     }
 }

@@ -39,7 +39,7 @@ namespace Battleship
                 }
                 else
                 {
-                    // Devolviendo los tableros como string
+                    // Devolviendo los tiros "Agua" como string
                     response = user.GetPlayer().GetWaterToPrint();
                 }
                 
